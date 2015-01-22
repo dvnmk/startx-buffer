@@ -126,8 +126,12 @@
 (defun maxi (pos &optional max-spd)
   (cond ((listp pos) (maxi-lst pos))
         ((zerop pos) (alle maxi max-spd))
-        ((not (null pos))(2startx (each/ pos "max") max-spd))))
+        ((not (null pos))(2startx (each/ pos "max") max-spd))
+        (t 'NO-WUALA)))
 
+;; (maxi '(11 12 nil 14 15 16 17 17 nil 19 0 1 2 3 4 ))
+;; (maxi 0 100)
+;; (maxi 1 99)
 
 (defun maxi-lst (lst)
   "as list, one-shot maxi kontrol"
@@ -136,9 +140,17 @@
       ((null cur) t)
     (maxi i (car cur))))
 
-(defmacro aksel (pos accel-var)
-  (if )
-  (2startx (each/ pos "accel") accel-var))
+(defun aksel (pos &optional accel-var)
+  (cond ((listp pos) (aksel-lst pos))
+        ((zerop pos) (alle aksel accel-var))
+        ((not (null pos))(2startx (each/ pos "accel") accel-var))
+        (t 'NO-WUALA)))
+
+(defun aksel-lst (lst)
+  (do ((cur lst (cdr cur))
+       (i 1 (+ 1 i)))
+      ((null cur) t)
+    (aksel i (car cur))))
 
 (defun stm (pos stm)
   (2startx (each/ pos "stm") stm))
@@ -150,12 +162,6 @@
 
 ;; (MAXI-FOO '(1 2 3 4 5 6 7 8
 ;;             9 10 11 12 13 14 15 16))
-
-(defun aksel-foo (lst)
-  (do ((cur lst (cdr cur))
-       (i 1 (+ 1 i)))
-      ((null cur) t)
-    (aksel i (car cur))))
 
 
 ;; (aksel-foo (make-list 16 :initial-element 4))
