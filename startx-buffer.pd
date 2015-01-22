@@ -1,4 +1,4 @@
-#N canvas 12 23 526 572 10;
+#N canvas 283 108 526 572 10;
 #X declare -lib mrpeach;
 #X obj -732 -1710 cnv 15 95 85 empty empty empty 20 12 0 14 -262130
 -66577 0;
@@ -2098,7 +2098,7 @@ p1;
 #X connect 269 0 141 0;
 #X connect 270 0 142 0;
 #X restore -833 -1660 pd kontrol;
-#N canvas 227 511 763 456 konnekt 0;
+#N canvas 416 255 763 456 konnekt 0;
 #X obj 272 29 s ausCOM;
 #X msg 223 -65 close;
 #X obj 223 -99 select 1 0;
@@ -3335,8 +3335,8 @@ p1;
 #X connect 52 0 18 0;
 #X connect 52 0 23 0;
 #X restore -607 -1288 pd each.park;
-#X obj -500 -1445 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10
--262144 -1 -1 0 1;
+#X obj -516 -1485 vsl 8 50 0 5000 0 0 empty v.max.1 empty 0 -9 0 10
+-262144 -1 -1 1 1;
 #X floatatom -807 -1425 5 0 0 0 - v.accel.1 -;
 #X floatatom -772 -1425 5 0 0 0 - v.accel.2 -;
 #X floatatom -737 -1425 5 0 0 0 - v.accel.3 -;

@@ -6,7 +6,7 @@
 (ql:quickload "osc")
 
 ;;; udp setuo
-(defparameter *startx-ip* "127.0.0.1")
+(defparameter *startx-ip* "192.168.219.14")
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
 
@@ -70,7 +70,7 @@
 ;;   `(udp-client ,*startx-ip* ,*startx-osc-port* 
 ;;                (osc:encode-message ,path ,@value)))
 
-(defun satz (string)
+(defun sag> (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element 32))
         (lst (coerce (toggle-case string) 'list))
@@ -82,43 +82,36 @@
              (nth 8  res) (nth 9 res) (nth 10 res) (nth 11 res)
              (nth 12 res) (nth 13 res) (nth 14 res) (nth 15 res))))
 
-(defun satz-blanko (string)
+(defun sag+ (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element nil))
          (lst (coerce (toggle-case string) 'list))
          (res (sublis '((#\  . NIL)) (replace res lst))))
     (progn
-      (karak 1 (nth 0 res))
-      (karak 2 (nth 1 res))
-      (karak 3 (nth 2 res))
-      (karak 4 (nth 3 res))
-      (karak 5 (nth 4 res))
-      (karak 6 (nth 5 res))
-      (karak 7 (nth 6 res))
-      (karak 8 (nth 7 res))
-      (karak 9 (nth 8 res))
-      (karak 10 (nth 9 res))
-      (karak 11 (nth 10 res))
-      (karak 12 (nth 11 res))
-      (karak 13 (nth 12 res))
-      (karak 14 (nth 13 res))
-      (karak 15 (nth 14 res))
-      (karak 16 (nth 15 res))
+      (sage 1 (nth 0 res)) (sage 2 (nth 1 res)) (sage 3 (nth 2 res)) (sage 4 (nth 3 res))
+      (sage 5 (nth 4 res)) (sage 6 (nth 5 res)) (sage 7 (nth 6 res)) (sage 8 (nth 7 res))
+      (sage 9 (nth 8 res)) (sage 10 (nth 9 res)) (sage 11 (nth 10 res)) (sage 12 (nth 11 res))
+      (sage 13 (nth 12 res)) (sage 14 (nth 13 res)) (sage 15 (nth 14 res)) (sage 16 (nth 15 res))
       )))
 
-(defmacro satz-teil (string)
+(defmacro sag- (string)
   "nur input existing each to change"
   (let* ((lst (coerce (toggle-case string) 'list))
          (asc (mapcar #'char-code lst))
          (forms (mapcar (lambda (x) `,x) asc)))
     `(2startx "/alle/satz" ,@forms)))
 
+;; (sag> "111111        11")
+;; (sag+ "0 3") ;nil->no change machen
+;; (sag- "0 3")
+
 ;;(satz-teil "1 3 5 7 9") => blanko dazu no signal senden
 
 (defmacro each/ (x path)
+  "osc path helper"
   `(concatenate 'string "/each/" (write-to-string ,x) "/" ,path))
 
-(defun karak (pos char)
+(defun sage (pos char)
   (if (not (null char))
       (let ((ascii (char-code char)))
         (2startx (each/ pos "char") ascii))))
@@ -152,48 +145,19 @@
       ((null cur) t)
     (aksel i (car cur))))
 
-(defun stm (pos stm)
-  (2startx (each/ pos "stm") stm))
+(defun stm (pos tgl)
+  (cond ((zerop pos) (alle stm tgl))
+        ((not (null pos))(2startx (each/ pos "stm") tgl))
+        (t 'NO-WUALA)))
+
+(defun nullp (pos tgl)
+  (cond ((zerop pos) (alle null tgl))
+        ((not (null pos))(2startx (each/ pos "null") tgl))
+        (t 'NO-WUALA)))
 
 (defmacro alle (cmd &optional tgl)
   `(let ((path (concatenate 'string "/alle/"
                             (string ',cmd))))
      (2startx path ,tgl)))
-
-;; (MAXI-FOO '(1 2 3 4 5 6 7 8
-;;             9 10 11 12 13 14 15 16))
-
-
-;; (aksel-foo (make-list 16 :initial-element 4))
-;; (maxi-foo (make-list 16 :initial-element 4))
-
-
-;; ;;; z.B. 
-;; (alle nullp)
-;; (alle accel 0)
-;; (alle maxi 9999)
-;; (alle go )
-;; (alle stm 0)
-;; (2startx "/alle/NETZ")
-;; (stm 1 1)
-;; (alle stm 0)
-;; (karak 2 #\K)
-;; (alle netz 0)
-;; (alle stm)
-;; (alle null 1)
-;; (alle stm 0)
-;; (alle blk 1)
-;; (alle parken 1)
-;; (alle null 1)
-;; (alle aksel 1110)
-;; (alle maxi 900)
-;; (satz "abcdef\"\^")
-;; (satz-teil "1            3 5")
-;; (karak 2 #\j)
-;; (maxi 1 1111) 
-;; (aksel 1 2222)
-;; (norm 1 3333)
-
-;; (maxi 1 500)
 
 
