@@ -3,11 +3,11 @@
 
 #include <AccelStepper.h>
 
-int sigU = A0; int stpU = A1; int enU = A2; // A1 > U ; SIG > STP > EN
-int sigV = A3; int stpV = A4; int enV = A5; // B2 > V
-int sigW = A6; int stpW = A7; int enW = A8; // C > W
-int sigX = A9; int stpX = A10; int enX = A14; // D > X
-int sigY = A15; int stpY = 53; int enY = 52; // E > Y
+/* int sigU = A0; int stpU = A1; int enU = A2; // A1 > U ; SIG > STP > EN */
+/* int sigV = A3; int stpV = A4; int enV = A5; // B2 > V */
+/* int sigW = A6; int stpW = A7; int enW = A8; // C > W */
+/* int sigX = A9; int stpX = A10; int enX = A14; // D > X */
+/* int sigY = A15; int stpY = 53; int enY = 52; // E > Y */
 int sigP = 48; int stpP = 49; int enP = 46; // F > P
 int sigQ = 47; int stpQ = 44; int enQ = 45; // G > Q
 int sigR = 42; int stpR = 43; int enR = 40; // H > R
@@ -34,8 +34,8 @@ int dirE = 105; int dirF = 106; int dirG = 107; int dirH = 108;
 int dirI = 109; int dirJ = 110; int dirK = 111; int dirL = 112; 
 int dirM = 113; int dirN = 114; int dirO = 115; int dirP = 116; 
 int dirQ = 117; int dirR = 118; int dirS = 119; int dirT = 120; 
-int dirU = 121; int dirV = 122; int dirW = 123; int dirX = 124; 
-int dirY = 125; // nach andromeda
+/* int dirU = 121; int dirV = 122; int dirW = 123; int dirX = 124;  */
+/* int dirY = 125; // nach andromeda */
 
 int val = 0; // fuer Switch
 int stromPin = 84; // strom Ein/Aus
@@ -48,17 +48,12 @@ AccelStepper stepper7(1, stpG, dirG); AccelStepper stepper8(1, stpH, dirH); Acce
 AccelStepper stepper10(1, stpJ, dirJ); AccelStepper stepper11(1, stpK, dirK); AccelStepper stepper12(1, stpL, dirL); 
 AccelStepper stepper13(1, stpM, dirM); AccelStepper stepper14(1, stpN, dirN); AccelStepper stepper15(1, stpO, dirO); 
 AccelStepper stepper16(1, stpP, dirP); AccelStepper stepper17(1, stpQ, dirQ); AccelStepper stepper18(1, stpR, dirR); 
-AccelStepper stepper19(1, stpS, dirS); AccelStepper stepper20(1, stpT, dirT); AccelStepper stepper21(1, stpU, dirU);
-AccelStepper stepper22(1, stpV, dirV); AccelStepper stepper23(1, stpW, dirW); AccelStepper stepper24(1, stpX, dirX);
-AccelStepper stepper25(1, stpY, dirY);
+AccelStepper stepper19(1, stpS, dirS); AccelStepper stepper20(1, stpT, dirT); 
 
 int maxSpeed = 5000; // Accelstepper intVar
 int accelVar = 2500;
 //int normSpeed = 100;
 int normSpeed = 1500; //BENUTZT??? fur .runSpeed() constant run speed.
-
-//int stpSeco = 32 ; // 32 stps/ 3.6 degree
-//int stpOcto = 16 ; // 16 stps/ 3.6 degree
 
 void setup()
 {  
@@ -77,45 +72,36 @@ void setup()
   pinMode(sigI, INPUT);   pinMode(sigJ, INPUT);   pinMode(sigK, INPUT);   pinMode(sigL, INPUT); 
   pinMode(sigM, INPUT);   pinMode(sigN, INPUT);   pinMode(sigO, INPUT);   pinMode(sigP, INPUT); 
   pinMode(sigQ, INPUT);   pinMode(sigR, INPUT);   pinMode(sigS, INPUT);   pinMode(sigT, INPUT); 
-  pinMode(sigU, INPUT);   pinMode(sigU, INPUT);   pinMode(sigV, INPUT);   pinMode(sigW, INPUT); 
-  pinMode(sigX, INPUT);   pinMode(sigY, INPUT);  
 
-  pinMode(enA, OUTPUT);     digitalWrite(enA, HIGH); // init EN_off(:=HIGH)
-  pinMode(enB, OUTPUT);     digitalWrite(enB, HIGH); 
-  pinMode(enC, OUTPUT);     digitalWrite(enC, HIGH); 
-  pinMode(enD, OUTPUT);     digitalWrite(enD, HIGH); 
-  pinMode(enE, OUTPUT);     digitalWrite(enE, HIGH); 
-  pinMode(enF, OUTPUT);     digitalWrite(enF, HIGH); 
-  pinMode(enG, OUTPUT);     digitalWrite(enG, HIGH); 
-  pinMode(enH, OUTPUT);     digitalWrite(enH, HIGH); 
-  pinMode(enI, OUTPUT);     digitalWrite(enI, HIGH);   
-  pinMode(enJ, OUTPUT);     digitalWrite(enJ, HIGH); 
-  pinMode(enK, OUTPUT);     digitalWrite(enK, HIGH);
-  pinMode(enL, OUTPUT);     digitalWrite(enL, HIGH); 
-  pinMode(enM, OUTPUT);     digitalWrite(enM, HIGH); 
-  pinMode(enN, OUTPUT);     digitalWrite(enN, HIGH); 
-  pinMode(enO, OUTPUT);     digitalWrite(enO, HIGH); 
-  pinMode(enP, OUTPUT);     digitalWrite(enP, HIGH); 
-  pinMode(enQ, OUTPUT);     digitalWrite(enQ, HIGH); 
-  pinMode(enR, OUTPUT);     digitalWrite(enR, HIGH); 
-  pinMode(enS, OUTPUT);     digitalWrite(enS, HIGH);   
-  pinMode(enT, OUTPUT);     digitalWrite(enT, HIGH); 
-  pinMode(enU, OUTPUT);     digitalWrite(enU, HIGH);
-  pinMode(enV, OUTPUT);     digitalWrite(enV, HIGH); 
-  pinMode(enW, OUTPUT);     digitalWrite(enW, HIGH);
-  pinMode(enX, OUTPUT);     digitalWrite(enX, HIGH); 
-  pinMode(enY, OUTPUT);     digitalWrite(enY, HIGH);
+  // init EN_off(:=HIGH)
+  pinMode(enA, OUTPUT);     digitalWrite(enA, HIGH);  pinMode(enB, OUTPUT);     digitalWrite(enB, HIGH); 
+  pinMode(enC, OUTPUT);     digitalWrite(enC, HIGH);   pinMode(enD, OUTPUT);     digitalWrite(enD, HIGH); 
+  pinMode(enE, OUTPUT);     digitalWrite(enE, HIGH);   pinMode(enF, OUTPUT);     digitalWrite(enF, HIGH); 
+  pinMode(enG, OUTPUT);     digitalWrite(enG, HIGH);   pinMode(enH, OUTPUT);     digitalWrite(enH, HIGH); 
+  pinMode(enI, OUTPUT);     digitalWrite(enI, HIGH);     pinMode(enJ, OUTPUT);     digitalWrite(enJ, HIGH); 
+  pinMode(enK, OUTPUT);     digitalWrite(enK, HIGH);  pinMode(enL, OUTPUT);     digitalWrite(enL, HIGH); 
+  pinMode(enM, OUTPUT);     digitalWrite(enM, HIGH);   pinMode(enN, OUTPUT);     digitalWrite(enN, HIGH); 
+  pinMode(enO, OUTPUT);     digitalWrite(enO, HIGH);   pinMode(enP, OUTPUT);     digitalWrite(enP, HIGH); 
+  pinMode(enQ, OUTPUT);     digitalWrite(enQ, HIGH);   pinMode(enR, OUTPUT);     digitalWrite(enR, HIGH); 
+  pinMode(enS, OUTPUT);     digitalWrite(enS, HIGH);     pinMode(enT, OUTPUT);     digitalWrite(enT, HIGH); 
 
-  stepper1.setMaxSpeed(maxSpeed);     stepper1.setSpeed(normSpeed);     stepper1.setAcceleration(accelVar); 
-  //stepper1.setMinPulseWidth(1); 
-  stepper2.setMaxSpeed(maxSpeed);     stepper2.setSpeed(normSpeed);     stepper2.setAcceleration(accelVar);
-  stepper3.setMaxSpeed(maxSpeed);     stepper3.setSpeed(normSpeed);     stepper3.setAcceleration(accelVar);
-  stepper4.setMaxSpeed(maxSpeed);     stepper4.setSpeed(normSpeed);     stepper4.setAcceleration(accelVar);
-  stepper5.setMaxSpeed(maxSpeed);     stepper5.setSpeed(normSpeed);     stepper5.setAcceleration(accelVar);
-  stepper6.setMaxSpeed(maxSpeed);     stepper6.setSpeed(normSpeed);     stepper6.setAcceleration(accelVar);
-  stepper7.setMaxSpeed(maxSpeed);     stepper7.setSpeed(normSpeed);     stepper7.setAcceleration(accelVar);
-  stepper8.setMaxSpeed(maxSpeed);     stepper8.setSpeed(normSpeed);     stepper8.setAcceleration(accelVar);
-  stepper9.setMaxSpeed(maxSpeed);     stepper9.setSpeed(normSpeed);     stepper9.setAcceleration(accelVar);
+  // setSpeed() ; Speeds of more than 1000 steps per second are unreliable. -> runSpeed()
+  // setMaxSpeed() ; Must be > 0. e.g. 200 -> run() accel bis zun hier
+  //
+  // setAccel auch must be > 0 ; The desired acceleration in steps per second per second.
+  // This is an expensive call since it requires a square root to be calculated.
+  // Dont call more ofthen than needed. e.g. 100
+
+  //stepper1.setMinPulseWidth(1);   
+  stepper1.setMaxSpeed(maxSpeed);      stepper1.setSpeed(normSpeed);      stepper1.setAcceleration(accelVar); 
+  stepper2.setMaxSpeed(maxSpeed);      stepper2.setSpeed(normSpeed);      stepper2.setAcceleration(accelVar);
+  stepper3.setMaxSpeed(maxSpeed);      stepper3.setSpeed(normSpeed);      stepper3.setAcceleration(accelVar);
+  stepper4.setMaxSpeed(maxSpeed);      stepper4.setSpeed(normSpeed);      stepper4.setAcceleration(accelVar);
+  stepper5.setMaxSpeed(maxSpeed);      stepper5.setSpeed(normSpeed);      stepper5.setAcceleration(accelVar);
+  stepper6.setMaxSpeed(maxSpeed);      stepper6.setSpeed(normSpeed);      stepper6.setAcceleration(accelVar);
+  stepper7.setMaxSpeed(maxSpeed);      stepper7.setSpeed(normSpeed);      stepper7.setAcceleration(accelVar);
+  stepper8.setMaxSpeed(maxSpeed);      stepper8.setSpeed(normSpeed);      stepper8.setAcceleration(accelVar);
+  stepper9.setMaxSpeed(maxSpeed);      stepper9.setSpeed(normSpeed);      stepper9.setAcceleration(accelVar);
   stepper10.setMaxSpeed(maxSpeed);     stepper10.setSpeed(normSpeed);     stepper10.setAcceleration(accelVar);
   stepper11.setMaxSpeed(maxSpeed);     stepper11.setSpeed(normSpeed);     stepper11.setAcceleration(accelVar); 
   stepper12.setMaxSpeed(maxSpeed);     stepper12.setSpeed(normSpeed);     stepper12.setAcceleration(accelVar);
@@ -124,25 +110,17 @@ void setup()
   stepper15.setMaxSpeed(maxSpeed);     stepper15.setSpeed(normSpeed);     stepper15.setAcceleration(accelVar);
   stepper16.setMaxSpeed(maxSpeed);     stepper16.setSpeed(normSpeed);     stepper16.setAcceleration(accelVar);
   stepper17.setMaxSpeed(maxSpeed);     stepper17.setSpeed(normSpeed);     stepper17.setAcceleration(accelVar);
-  //  stepper18.setCurrentPosition(0);
   stepper18.setMaxSpeed(maxSpeed);     stepper18.setSpeed(normSpeed);     stepper18.setAcceleration(accelVar);
   stepper19.setMaxSpeed(maxSpeed);     stepper19.setSpeed(normSpeed);     stepper19.setAcceleration(accelVar);
   stepper20.setMaxSpeed(maxSpeed);     stepper20.setSpeed(normSpeed);     stepper20.setAcceleration(accelVar);
-  stepper21.setMaxSpeed(maxSpeed);     stepper21.setSpeed(normSpeed);     stepper21.setAcceleration(accelVar);
-  stepper22.setMaxSpeed(maxSpeed);     stepper22.setSpeed(normSpeed);     stepper22.setAcceleration(accelVar);
-  stepper23.setMaxSpeed(maxSpeed);     stepper23.setSpeed(normSpeed);     stepper23.setAcceleration(accelVar);
-  stepper24.setMaxSpeed(maxSpeed);     stepper24.setSpeed(normSpeed);     stepper24.setAcceleration(accelVar);
-  stepper25.setMaxSpeed(maxSpeed);     stepper25.setSpeed(normSpeed);     stepper25.setAcceleration(accelVar);
 }
 
 void loop()
 {
-  //experiment, move stop then etwas println
-  stepper1.run();  stepper2.run();    stepper3.run();    stepper4.run();    stepper5.run();
-  stepper6.run();    stepper7.run();    stepper8.run();    stepper9.run();    stepper10.run();
+  stepper1.run();     stepper2.run();     stepper3.run();     stepper4.run();     stepper5.run();
+  stepper6.run();     stepper7.run();     stepper8.run();     stepper9.run();     stepper10.run();
   stepper11.run();    stepper12.run();    stepper13.run();    stepper14.run();    stepper15.run();
   stepper16.run();    stepper17.run();    stepper18.run();    stepper19.run();    stepper20.run();
-  stepper21.run();    stepper22.run();    stepper23.run();    stepper24.run();    stepper25.run();
 
   //Serial teils
   static int v = 0;
@@ -555,106 +533,6 @@ void loop()
       v = 0;
       break;
 
-    case 'u' : 
-      if (stepper21.distanceToGo() != 0)
-        {
-          x = stepper21.distanceToGo();
-          stepper21.stop();
-          stepper21.setCurrentPosition(0);
-          v = v + x;
-          stepper21.move(v);
-          v = 0;
-          x = 0;
-          break;
-        } else {
-      stepper21.setCurrentPosition(0); 
-      stepper21.move(v); 
-      v = 0;
-      break;
-      }
-      v = 0;
-      break;
-
-    case 'v' : 
-      if (stepper22.distanceToGo() != 0)
-        {
-          x = stepper22.distanceToGo();
-          stepper22.stop();
-          stepper22.setCurrentPosition(0);
-          v = v + x;
-          stepper22.move(v);
-          v = 0;
-          x = 0;
-          break;
-        } else {
-      stepper22.setCurrentPosition(0); 
-      stepper22.move(v); 
-      v = 0;
-      break;
-      }
-      v = 0;
-      break;
-
-    case 'w' : 
-      if (stepper23.distanceToGo() != 0)
-        {
-          x = stepper23.distanceToGo();
-          stepper23.stop();
-          stepper23.setCurrentPosition(0);
-          v = v + x;
-          stepper23.move(v);
-          v = 0;
-          x = 0;
-          break;
-        } else {
-      stepper23.setCurrentPosition(0); 
-      stepper23.move(v); 
-      v = 0;
-      break;
-      }
-      v = 0;
-      break;
-
-    case 'x' : 
-      if (stepper24.distanceToGo() != 0)
-        {
-          x = stepper24.distanceToGo();
-          stepper24.stop();
-          stepper24.setCurrentPosition(0);
-          v = v + x;
-          stepper24.move(v);
-          v = 0;
-          x = 0;
-          break;
-        } else {
-      stepper24.setCurrentPosition(0); 
-      stepper24.move(v); 
-      v = 0;
-      break;
-      }
-      v = 0;
-      break;
-
-    case 'y' : 
-      if (stepper25.distanceToGo() != 0)
-        {
-          x = stepper25.distanceToGo();
-          stepper25.stop();
-          stepper25.setCurrentPosition(0);
-          v = v + x;
-          stepper25.move(v);
-          v = 0;
-          x = 0;
-          break;
-        } else {
-      stepper25.setCurrentPosition(0); 
-      stepper25.move(v); 
-      v = 0;
-      break;
-      }
-      v = 0;
-      break;
-
       //set stepper variation (Experimental)
     case '+' :  //setMaxSpeed
       stepper1.setMaxSpeed(v);         stepper2.setMaxSpeed(v);         stepper3.setMaxSpeed(v);   
@@ -663,9 +541,7 @@ void loop()
       stepper10.setMaxSpeed(v);         stepper11.setMaxSpeed(v);         stepper12.setMaxSpeed(v);   
       stepper13.setMaxSpeed(v);         stepper14.setMaxSpeed(v);         stepper15.setMaxSpeed(v);   
       stepper16.setMaxSpeed(v);         stepper17.setMaxSpeed(v);         stepper18.setMaxSpeed(v);   
-      stepper19.setMaxSpeed(v);         stepper20.setMaxSpeed(v);         stepper21.setMaxSpeed(v);   
-      stepper22.setMaxSpeed(v);         stepper23.setMaxSpeed(v);         stepper24.setMaxSpeed(v);   
-      stepper25.setMaxSpeed(v);   
+      stepper19.setMaxSpeed(v);         stepper20.setMaxSpeed(v);         
       v = 0; 
       break;
 
@@ -676,9 +552,7 @@ void loop()
       stepper10.setSpeed(v);       stepper11.setSpeed(v);       stepper12.setSpeed(v); 
       stepper13.setSpeed(v);       stepper14.setSpeed(v);       stepper15.setSpeed(v); 
       stepper16.setSpeed(v);       stepper17.setSpeed(v);       stepper18.setSpeed(v); 
-      stepper19.setSpeed(v);       stepper20.setSpeed(v);       stepper21.setSpeed(v); 
-      stepper22.setSpeed(v);       stepper23.setSpeed(v);       stepper24.setSpeed(v); 
-      stepper25.setSpeed(v); 
+      stepper19.setSpeed(v);       stepper20.setSpeed(v);       
       v = 0; 
       break;
 
@@ -689,9 +563,7 @@ void loop()
       stepper10.setAcceleration(v);       stepper11.setAcceleration(v);       stepper12.setAcceleration(v); 
       stepper13.setAcceleration(v);       stepper14.setAcceleration(v);       stepper15.setAcceleration(v); 
       stepper16.setAcceleration(v);       stepper17.setAcceleration(v);       stepper18.setAcceleration(v); 
-      stepper19.setAcceleration(v);       stepper20.setAcceleration(v);       stepper21.setAcceleration(v); 
-      stepper22.setAcceleration(v);       stepper23.setAcceleration(v);       stepper24.setAcceleration(v); 
-      stepper25.setAcceleration(v); 
+      stepper19.setAcceleration(v);       stepper20.setAcceleration(v);       
       v = 0; 
       break;
 
@@ -1014,12 +886,12 @@ void loop()
         digitalWrite(enL,LOW); 
         v = 0;
       } // ON
-          else if (v == 2) {
+      else if (v == 2) {
         if (stepper12.distanceToGo() == 0)
           Serial.println("L");
         v = 0;
       } // wartungsFN
-          else if (v == 4) 
+      else if (v == 4) 
       {
         Serial.print("l"); 
         Serial.println(digitalRead(sigL)); 
@@ -1045,7 +917,7 @@ void loop()
           Serial.println("M");
         v = 0;
       } // wartungsFN
-            else if (v == 4) 
+      else if (v == 4) 
       {
         Serial.print("m"); 
         Serial.println(digitalRead(sigM)); 
@@ -1236,135 +1108,6 @@ void loop()
       }
       else { 
         stepper20.setMaxSpeed(v);
-      }
-      v = 0;       break;  
-
-    case 'U' : 
-      if (v == 0) {
-        digitalWrite(enU,HIGH); 
-        v = 0;
-      } // OFF
-      else if (v == 1) {
-        digitalWrite(enU,LOW); 
-        v = 0;
-      } // ON
-      else if (v == 2) {
-        if (stepper1.distanceToGo() == 0)
-          Serial.println("A");
-        v = 0;
-      } // wartungsFN
-      else if (v == 4) 
-      {
-        Serial.print("u"); 
-        Serial.println(digitalRead(sigU)); 
-        v = 0;
-        break;
-      }
-      else { 
-        stepper21.setMaxSpeed(v);
-      }
-      v = 0;       break;  
-
-    case 'V' : 
-      if (v == 0) {
-        digitalWrite(enV,HIGH); 
-        v = 0;
-      } // OFF
-      else if (v == 1) {
-        digitalWrite(enV,LOW); 
-        v = 0;
-      } // ON
-      else if (v == 2) {
-        if (stepper22.distanceToGo() == 0)
-          Serial.println("V");
-        v = 0;
-      } 
-      else if (v == 4) 
-      {
-        Serial.print("v"); 
-        Serial.println(digitalRead(sigV)); 
-        v = 0;
-        break;
-      }
-      else { 
-        stepper22.setMaxSpeed(v);
-      }
-      v = 0;       break;  
-
-    case 'W' : 
-      if (v == 0) {
-        digitalWrite(enW,HIGH); 
-        v = 0;
-      } // OFF
-      else if (v == 1) {
-        digitalWrite(enW,LOW); 
-        v = 0;
-      } // ON
-      else if (v == 2) {
-        if (stepper23.distanceToGo() == 0)
-          Serial.println("W");
-        v = 0;
-      } 
-      else if (v == 4) 
-      {
-        Serial.print("w"); 
-        Serial.println(digitalRead(sigW)); 
-        v = 0;
-        break;
-      }
-      else { 
-        stepper23.setMaxSpeed(v);
-      }
-      v = 0;       break;  
-
-    case 'X' : 
-      if (v == 0) {
-        digitalWrite(enX,HIGH); 
-        v = 0;
-      } // OFF
-      else if (v == 1) {
-        digitalWrite(enX,LOW); 
-        v = 0;
-      } // ON
-      else if (v == 2) {
-        if (stepper24.distanceToGo() == 0)
-          Serial.println("X");
-        v = 0;
-      } 
-      else if (v == 4) 
-      {
-        Serial.print("x"); 
-        Serial.println(digitalRead(sigX)); 
-        v = 0;
-        break;
-      }
-      else { 
-        stepper24.setMaxSpeed(v);
-      }
-      v = 0;       break;  
-
-    case 'Y' : 
-      if (v == 0) {
-        digitalWrite(enY,HIGH); 
-        v = 0;
-      } // OFF
-      else if (v == 1) {
-        digitalWrite(enY,LOW); 
-        v = 0;
-      } // ON
-      else if (v == 2) {
-        if (stepper25.distanceToGo() == 0)
-          Serial.println("Y");
-        v = 0;
-      } 
-      else if (v == 4) 
-      {
-        Serial.print("y"); 
-        Serial.println(digitalRead(sigY)); 
-        v = 0;        break;
-      }
-      else { 
-        stepper25.setMaxSpeed(v);
       }
       v = 0;       break;  
 
