@@ -123,12 +123,23 @@
       (let ((ascii (char-code char)))
         (2startx (each/ pos "char") ascii))))
 
-(defun maxi (pos max-spd)
-  (2startx (each/ pos "max") max-spd))
-(defun aksel (pos accel-var)
+(defun maxi (pos &optional max-spd)
+  (cond ((listp pos) (maxi-lst pos))
+        ((zerop pos) (alle maxi max-spd))
+        ((not (null pos))(2startx (each/ pos "max") max-spd))))
+
+
+(defun maxi-lst (lst)
+  "as list, one-shot maxi kontrol"
+  (do ((cur lst (cdr cur))
+       (i 1 (+ 1 i)))
+      ((null cur) t)
+    (maxi i (car cur))))
+
+(defmacro aksel (pos accel-var)
+  (if )
   (2startx (each/ pos "accel") accel-var))
-(defun norm (pos norm-spd)
-  (2startx (each/ pos "norm") norm-spd))
+
 (defun stm (pos stm)
   (2startx (each/ pos "stm") stm))
 
@@ -136,13 +147,6 @@
   `(let ((path (concatenate 'string "/alle/"
                             (string ',cmd))))
      (2startx path ,tgl)))
-
-(defun maxi-foo (lst)
-  "as list, one-shot maxi kontrol"
-  (do ((cur lst (cdr cur))
-       (i 1 (+ 1 i)))
-      ((null cur) t)
-    (maxi i (car cur))))
 
 ;; (MAXI-FOO '(1 2 3 4 5 6 7 8
 ;;             9 10 11 12 13 14 15 16))
@@ -154,36 +158,36 @@
     (aksel i (car cur))))
 
 
-(aksel-foo (make-list 16 :initial-element 4))
-(maxi-foo (make-list 16 :initial-element 4))
+;; (aksel-foo (make-list 16 :initial-element 4))
+;; (maxi-foo (make-list 16 :initial-element 4))
 
 
-;;; z.B. 
-(alle nullp)
-(alle accel 0)
-(alle maxi 9999)
-(alle go )
-(alle stm 0)
-(2startx "/alle/NETZ")
-(stm 1 1)
-(alle stm 0)
-(karak 2 #\K)
-(alle netz 0)
-(alle stm)
-(alle null 1)
-(alle stm 0)
-(alle blk 1)
-(alle parken 1)
-(alle null 1)
-(alle aksel 1110)
-(alle maxi 900)
-(satz "abcdef\"\^")
-(satz-teil "1            3 5")
-(karak 2 #\j)
-(maxi 1 1111) 
-(aksel 1 2222)
-(norm 1 3333)
+;; ;;; z.B. 
+;; (alle nullp)
+;; (alle accel 0)
+;; (alle maxi 9999)
+;; (alle go )
+;; (alle stm 0)
+;; (2startx "/alle/NETZ")
+;; (stm 1 1)
+;; (alle stm 0)
+;; (karak 2 #\K)
+;; (alle netz 0)
+;; (alle stm)
+;; (alle null 1)
+;; (alle stm 0)
+;; (alle blk 1)
+;; (alle parken 1)
+;; (alle null 1)
+;; (alle aksel 1110)
+;; (alle maxi 900)
+;; (satz "abcdef\"\^")
+;; (satz-teil "1            3 5")
+;; (karak 2 #\j)
+;; (maxi 1 1111) 
+;; (aksel 1 2222)
+;; (norm 1 3333)
 
-(maxi 1 500)
+;; (maxi 1 500)
 
 
