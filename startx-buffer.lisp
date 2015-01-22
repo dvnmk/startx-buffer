@@ -6,7 +6,7 @@
 (ql:quickload "osc")
 
 ;;; udp setuo
-(defparameter *startx-ip* "192.168.219.14")
+(defparameter *startx-ip* "127.0.0.1")
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
 
@@ -132,14 +132,10 @@
 (defun stm (pos stm)
   (2startx (each/ pos "stm") stm))
 
-(defun go? (pos)
-  (2startx (each/ pos "go")))
-
 (defmacro alle (cmd &optional tgl)
   `(let ((path (concatenate 'string "/alle/"
                             (string ',cmd))))
      (2startx path ,tgl)))
-
 
 (defun maxi-foo (lst)
   "as list, one-shot maxi kontrol"
