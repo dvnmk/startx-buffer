@@ -132,7 +132,7 @@ void loop()
     case '0'...'9': 
       v = v * 10 + ch -'0';  
       break;
-      
+
     case 'a' : // Stepper_A
       if ( v  == 8 ) {
       stepper1.setCurrentPosition(0);
