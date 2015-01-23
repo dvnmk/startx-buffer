@@ -50,8 +50,8 @@ AccelStepper stepper13(1, stpM, dirM); AccelStepper stepper14(1, stpN, dirN); Ac
 AccelStepper stepper16(1, stpP, dirP); AccelStepper stepper17(1, stpQ, dirQ); AccelStepper stepper18(1, stpR, dirR); 
 AccelStepper stepper19(1, stpS, dirS); AccelStepper stepper20(1, stpT, dirT); 
 
-int maxSpeed = 5000; // Accelstepper intVar
-int accelVar = 2500;
+int maxSpeed = 1000; // Accelstepper intVar
+int accelVar = 500;
 //int normSpeed = 100;
 int normSpeed = 1500; //BENUTZT??? fur .runSpeed() constant run speed.
 
@@ -132,9 +132,15 @@ void loop()
     case '0'...'9': 
       v = v * 10 + ch -'0';  
       break;
-
+      
     case 'a' : // Stepper_A
-      if (stepper1.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper1.setCurrentPosition(0);
+      stepper1.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper1.distanceToGo() != 0)
         {
           x = stepper1.distanceToGo();
           stepper1.stop();
@@ -144,17 +150,25 @@ void loop()
           v = 0;
           x = 0;
           break;
-        } else {
-      stepper1.setCurrentPosition(0); 
-      stepper1.move(v); 
+        }
+      else {
+      stepper1.setCurrentPosition(0);
+      stepper1.move(v);
       v = 0;
       break;
       }
+      
       v = 0;
       break;
       
     case 'b' : 
-      if (stepper2.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper2.setCurrentPosition(0);
+      stepper2.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper2.distanceToGo() != 0)
         {
           x = stepper2.distanceToGo();
           stepper2.stop();
@@ -174,7 +188,13 @@ void loop()
       break;
 
     case 'c' : 
-      if (stepper3.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper3.setCurrentPosition(0);
+      stepper3.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper3.distanceToGo() != 0)
         {
           x = stepper3.distanceToGo();
           stepper3.stop();
@@ -194,7 +214,13 @@ void loop()
       break;
 
     case 'd' : 
-      if (stepper4.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper4.setCurrentPosition(0);
+      stepper4.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper4.distanceToGo() != 0)
         {
           x = stepper4.distanceToGo();
           stepper4.stop();
@@ -214,7 +240,13 @@ void loop()
       break;
 
     case 'e' : 
-      if (stepper5.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper5.setCurrentPosition(0);
+      stepper5.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper5.distanceToGo() != 0)
         {
           x = stepper5.distanceToGo();
           stepper5.stop();
@@ -234,7 +266,13 @@ void loop()
       break;
 
     case 'f' : 
-      if (stepper6.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper6.setCurrentPosition(0);
+      stepper6.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper6.distanceToGo() != 0)
         {
           x = stepper6.distanceToGo();
           stepper6.stop();
@@ -254,7 +292,13 @@ void loop()
       break;
 
     case 'g' : 
-      if (stepper7.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper7.setCurrentPosition(0);
+      stepper7.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper7.distanceToGo() != 0)
         {
           x = stepper7.distanceToGo();
           stepper7.stop();
@@ -274,7 +318,13 @@ void loop()
       break;
 
     case 'h' : 
-      if (stepper8.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper8.setCurrentPosition(0);
+      stepper8.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper8.distanceToGo() != 0)
         {
           x = stepper8.distanceToGo();
           stepper8.stop();
@@ -294,7 +344,13 @@ void loop()
       break;
 
     case 'i' : 
-      if (stepper9.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper9.setCurrentPosition(0);
+      stepper9.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper9.distanceToGo() != 0)
         {
           x = stepper9.distanceToGo();
           stepper9.stop();
@@ -314,7 +370,13 @@ void loop()
       break;
 
     case 'j' : 
-      if (stepper10.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper10.setCurrentPosition(0);
+      stepper10.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper10.distanceToGo() != 0)
         {
           x = stepper10.distanceToGo();
           stepper10.stop();
@@ -334,7 +396,13 @@ void loop()
       break;
 
     case 'k' : 
-      if (stepper11.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper11.setCurrentPosition(0);
+      stepper11.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper11.distanceToGo() != 0)
         {
           x = stepper11.distanceToGo();
           stepper11.stop();
@@ -354,7 +422,13 @@ void loop()
       break;
 
     case 'l' : 
-      if (stepper12.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper12.setCurrentPosition(0);
+      stepper12.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper12.distanceToGo() != 0)
         {
           x = stepper12.distanceToGo();
           stepper12.stop();
@@ -374,7 +448,13 @@ void loop()
       break;
 
     case 'm' : 
-      if (stepper13.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper13.setCurrentPosition(0);
+      stepper13.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper13.distanceToGo() != 0)
         {
           x = stepper13.distanceToGo();
           stepper13.stop();
@@ -394,7 +474,13 @@ void loop()
       break;
 
     case 'n' : 
-      if (stepper14.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper14.setCurrentPosition(0);
+      stepper14.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper14.distanceToGo() != 0)
         {
           x = stepper14.distanceToGo();
           stepper14.stop();
@@ -414,7 +500,13 @@ void loop()
       break;
 
     case 'o' : 
-      if (stepper15.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper15.setCurrentPosition(0);
+      stepper15.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper15.distanceToGo() != 0)
         {
           x = stepper15.distanceToGo();
           stepper15.stop();
@@ -434,7 +526,13 @@ void loop()
       break;
 
     case 'p' : 
-      if (stepper16.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper16.setCurrentPosition(0);
+      stepper16.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper16.distanceToGo() != 0)
         {
           x = stepper16.distanceToGo();
           stepper16.stop();
@@ -454,7 +552,13 @@ void loop()
       break;
 
     case 'q' : 
-      if (stepper17.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper17.setCurrentPosition(0);
+      stepper17.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper17.distanceToGo() != 0)
         {
           x = stepper17.distanceToGo();
           stepper17.stop();
@@ -474,7 +578,13 @@ void loop()
       break;
 
     case 'r' : 
-      if (stepper18.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper18.setCurrentPosition(0);
+      stepper18.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper18.distanceToGo() != 0)
         {
           x = stepper18.distanceToGo();
           stepper18.stop();
@@ -494,7 +604,13 @@ void loop()
       break;
 
     case 's' : 
-      if (stepper19.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper19.setCurrentPosition(0);
+      stepper19.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper19.distanceToGo() != 0)
         {
           x = stepper19.distanceToGo();
           stepper19.stop();
@@ -514,7 +630,13 @@ void loop()
       break;
 
     case 't' : 
-      if (stepper20.distanceToGo() != 0)
+      if ( v  == 8 ) {
+      stepper20.setCurrentPosition(0);
+      stepper20.move(v);
+      v = 0;
+      break;
+      }  
+      else if (stepper20.distanceToGo() != 0)
         {
           x = stepper20.distanceToGo();
           stepper20.stop();
@@ -598,12 +720,6 @@ void loop()
         digitalWrite(enA,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper1.distanceToGo() == 0)
-          Serial.println("A");
-        v = 0;
-      } // wartungsFN
-      
       else if (v == 4) 
       {
         Serial.print("a"); 
@@ -626,11 +742,6 @@ void loop()
         digitalWrite(enB,LOW); 
         v = 0;
       } // ON
-            else if (v == 2) {
-        if (stepper2.distanceToGo() == 0)
-          Serial.println("B");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("b");
@@ -652,11 +763,6 @@ void loop()
         digitalWrite(enC,LOW); 
         v = 0;
       } // ON
-            else if (v == 2) {
-        if (stepper3.distanceToGo() == 0)
-          Serial.println("C");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("c");
@@ -678,11 +784,6 @@ void loop()
         digitalWrite(enD,LOW); 
         v = 0;
       } // ON
-            else if (v == 2) {
-        if (stepper4.distanceToGo() == 0)
-          Serial.println("D");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("d"); 
@@ -704,11 +805,6 @@ void loop()
         digitalWrite(enE,LOW); 
         v = 0;
       } // ON
-            else if (v == 2) {
-        if (stepper5.distanceToGo() == 0)
-          Serial.println("E");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("e"); 
@@ -730,11 +826,6 @@ void loop()
         digitalWrite(enF,LOW); 
         v = 0;
       } // ON
-            else if (v == 2) {
-        if (stepper6.distanceToGo() == 0)
-          Serial.println("F");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("f"); 
@@ -756,11 +847,6 @@ void loop()
         digitalWrite(enG,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper7.distanceToGo() == 0)
-          Serial.println("G");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("g"); 
@@ -782,11 +868,6 @@ void loop()
         digitalWrite(enH,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper8.distanceToGo() == 0)
-          Serial.println("H");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("h"); 
@@ -808,11 +889,6 @@ void loop()
         digitalWrite(enI,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper9.distanceToGo() == 0)
-          Serial.println("I");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("i"); 
@@ -834,11 +910,6 @@ void loop()
         digitalWrite(enJ,LOW); 
         v = 0;
       }
-            else if (v == 2) {
-        if (stepper10.distanceToGo() == 0)
-          Serial.println("J");
-        v = 0;
-      } // wartungsFN
             else if (v == 4) 
       {
         Serial.print("j"); 
@@ -860,11 +931,6 @@ void loop()
         digitalWrite(enK,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper11.distanceToGo() == 0)
-          Serial.println("K");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("k"); 
@@ -886,11 +952,6 @@ void loop()
         digitalWrite(enL,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper12.distanceToGo() == 0)
-          Serial.println("L");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("l"); 
@@ -912,11 +973,6 @@ void loop()
         digitalWrite(enM,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper13.distanceToGo() == 0)
-          Serial.println("M");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("m"); 
@@ -938,11 +994,6 @@ void loop()
         digitalWrite(enN,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper14.distanceToGo() == 0)
-          Serial.println("N");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("n"); 
@@ -964,11 +1015,6 @@ void loop()
         digitalWrite(enO,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper15.distanceToGo() == 0)
-          Serial.println("O");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("o"); 
@@ -990,11 +1036,6 @@ void loop()
         digitalWrite(enP,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper16.distanceToGo() == 0)
-          Serial.println("P");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("p"); 
@@ -1016,11 +1057,6 @@ void loop()
         digitalWrite(enQ,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper17.distanceToGo() == 0)
-          Serial.println("Q");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("q"); 
@@ -1042,11 +1078,6 @@ void loop()
         digitalWrite(enR,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper18.distanceToGo() == 0)
-          Serial.println("R");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("r"); 
@@ -1068,11 +1099,6 @@ void loop()
         digitalWrite(enS,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper19.distanceToGo() == 0)
-          Serial.println("S");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("s"); 
@@ -1094,11 +1120,6 @@ void loop()
         digitalWrite(enT,LOW); 
         v = 0;
       } // ON
-      else if (v == 2) {
-        if (stepper20.distanceToGo() == 0)
-          Serial.println("T");
-        v = 0;
-      } // wartungsFN
       else if (v == 4) 
       {
         Serial.print("t"); 
