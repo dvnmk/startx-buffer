@@ -6,6 +6,7 @@
 (ql:quickload "osc")
 
 ;;; udp setuo
+;;(defparameter *startx-ip* "192.168.219.14")
 (defparameter *startx-ip* "192.168.219.14")
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
@@ -61,14 +62,34 @@
 ;;       (usocket:socket-close socket))
 ;;     t))
 
-(defmacro 2startx (parh &rest value)
-  `(let* ((buffer (osc:encode-message ,parh ,@value))
+(defmacro 2startx (path &rest value)
+  `(let* ((buffer (osc:encode-message ,path ,@value))
           (length (array-dimension buffer 0)))
      (usocket:socket-send *startx-socket* buffer length)))
                                    
 ;; (defmacro 2startx (path &rest value)
 ;;   `(udp-client ,*startx-ip* ,*startx-osc-port* 
 ;;                (osc:encode-message ,path ,@value)))
+(defmacro each/ (pos path)
+  "osc path helper"
+  `(concatenate 'string "/each/" (write-to-string ,pos) "/" ,path))
+
+(defmacro alle (cmd &optional tgl)
+  `(let ((path (concatenate 'string "/alle/"
+                            (string ',cmd))))
+     (2startx path ,tgl)))
+
+(defun sag (pos &optional x)
+  "pos kann nummer 0~16(0:alle), list sein"
+  (let ((res (cond ((numberp x) x)
+                   ((null x) nil)
+                   (t (char-code x)))))
+    (cond ((listp pos)
+           (dolist (ele pos)
+             (2startx (each/ ele "dec") res)))
+          ((zerop pos) (2startx "/alle/dec" res ))
+          ((numberp pos) (2startx (each/ pos "dec") res))
+          (t 'k.A.))))
 
 (defun sag> (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
@@ -88,10 +109,10 @@
          (lst (coerce (toggle-case string) 'list))
          (res (sublis '((#\  . NIL)) (replace res lst))))
     (progn
-      (sage 1 (nth 0 res)) (sage 2 (nth 1 res)) (sage 3 (nth 2 res)) (sage 4 (nth 3 res))
-      (sage 5 (nth 4 res)) (sage 6 (nth 5 res)) (sage 7 (nth 6 res)) (sage 8 (nth 7 res))
-      (sage 9 (nth 8 res)) (sage 10 (nth 9 res)) (sage 11 (nth 10 res)) (sage 12 (nth 11 res))
-      (sage 13 (nth 12 res)) (sage 14 (nth 13 res)) (sage 15 (nth 14 res)) (sage 16 (nth 15 res))
+      (sag 1 (nth 0 res)) (sag 2 (nth 1 res)) (sag 3 (nth 2 res)) (sag 4 (nth 3 res))
+      (sag 5 (nth 4 res)) (sag 6 (nth 5 res)) (sag 7 (nth 6 res)) (sag 8 (nth 7 res))
+      (sag 9 (nth 8 res)) (sag 10 (nth 9 res)) (sag 11 (nth 10 res)) (sag 12 (nth 11 res))
+      (sag 13 (nth 12 res)) (sag 14 (nth 13 res)) (sag 15 (nth 14 res)) (sag 16 (nth 15 res))
       )))
 
 (defmacro sag- (string)
@@ -107,24 +128,6 @@
 
 ;;(satz-teil "1 3 5 7 9") => blanko dazu no signal senden
 
-(defmacro each/ (x path)
-  "osc path helper"
-  `(concatenate 'string "/each/" (write-to-string ,x) "/" ,path))
-
-(defun sage (pos char)
-  (if (not (null char))
-      (let ((ascii (char-code char)))
-        (2startx (each/ pos "char") ascii))))
-
-(defun maxi (pos &optional max-spd)
-  (cond ((listp pos) (maxi-lst pos))
-        ((zerop pos) (alle maxi max-spd))
-        ((not (null pos))(2startx (each/ pos "max") max-spd))
-        (t 'NO-WUALA)))
-
-;; (maxi '(11 12 nil 14 15 16 17 17 nil 19 0 1 2 3 4 ))
-;; (maxi 0 100)
-;; (maxi 1 99)
 
 (defun maxi-lst (lst)
   "as list, one-shot maxi kontrol"
@@ -133,11 +136,15 @@
       ((null cur) t)
     (maxi i (car cur))))
 
-(defun aksel (pos &optional accel-var)
-  (cond ((listp pos) (aksel-lst pos))
-        ((zerop pos) (alle aksel accel-var))
-        ((not (null pos))(2startx (each/ pos "accel") accel-var))
-        (t 'NO-WUALA)))
+(defun maxi (pos &optional max-spd)
+  (cond ((listp pos) (maxi-lst pos))
+        ((zerop pos) (alle maxi max-spd))
+        ((not (null pos))(2startx (each/ pos "max") max-spd))
+        (t nil)))
+
+;; (maxi '(11 12 nil 14 15 16 17 17 nil 19 0 1 2 3 4 ))
+;; (maxi 0 100)
+;; (maxi 1 99)
 
 (defun aksel-lst (lst)
   (do ((cur lst (cdr cur))
@@ -145,19 +152,24 @@
       ((null cur) t)
     (aksel i (car cur))))
 
+(defun aksel (pos &optional accel-var)
+  (cond ((listp pos) (aksel-lst pos))
+        ((zerop pos) (alle aksel accel-var))
+        ((not (null pos))(2startx (each/ pos "accel") accel-var))
+        (t nil)))
+
 (defun stm (pos tgl)
   (cond ((zerop pos) (alle stm tgl))
         ((not (null pos))(2startx (each/ pos "stm") tgl))
-        (t 'NO-WUALA)))
+        (t nil)))
 
-(defun nullp (pos tgl)
+(defun netz (tgl)
+  (alle netz tgl))
+
+(defun kali (pos tgl)
   (cond ((zerop pos) (alle null tgl))
         ((not (null pos))(2startx (each/ pos "null") tgl))
-        (t 'NO-WUALA)))
+        (t nil)))
 
-(defmacro alle (cmd &optional tgl)
-  `(let ((path (concatenate 'string "/alle/"
-                            (string ',cmd))))
-     (2startx path ,tgl)))
-
-
+(defun abal (pos)
+  (sag pos 128))
