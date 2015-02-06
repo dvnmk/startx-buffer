@@ -1,6 +1,7 @@
 ;;; DVNMK 2015 (c)
 ;;;
 ;;; WIRING >>STARTX<< Y COMMON LISP
+;;; FEB. 2015
 
 (ql:quickload "usocket")
 (ql:quickload "osc")
