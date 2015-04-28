@@ -8,7 +8,7 @@
 
 ;;; udp setuo
 ;;(defparameter *startx-ip* "192.168.219.14")
-(defparameter *startx-ip* "192.168.219.14")
+(defparameter *startx-ip* "192.168.0.4")
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
 
@@ -174,3 +174,19 @@
 
 (defun abal (pos)
   (sag pos 128))
+
+
+;;; BTCUSD
+
+(info "last_price" (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))
+
+(defun btcusd (key)
+  "key as string,  z.B. mid, bid, ask, last_price, low, high, volume, timestamp  "
+  (let ((result (info key (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))))
+    (format nil "~%~A" result)))
+
+(defun foo (time-interval wieviel-mals)
+  (loop for i from 1 to wieviel-mals do
+       (sag+ (btcusd "last_price"))
+       (sleep time-interval))
+  (sag+ "         fertig"))
