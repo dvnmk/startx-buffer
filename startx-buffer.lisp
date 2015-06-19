@@ -8,7 +8,7 @@
 
 ;;; udp setuo
 ;;(defparameter *startx-ip* "192.168.219.14")
-(defparameter *startx-ip* "192.168.0.4")
+(defparameter *startx-ip* "192.168.0.4") 
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
 
@@ -32,20 +32,20 @@
 (defun kill-socket ()
   (usocket:socket-close *startx-socket*))
 
-;; (defun udp-server (port buffer)
-;;   (let* ((socket (usocket:socket-connect nil nil
-;;                                          :protocol :datagram
-;;                                          :element-type '(unsigned-byte 8)
-;;                                          :local-host *startx-ip*
-;;                                          :local-port port)))
-;;     (unwind-protect
-;;          (multiple-value-bind (buffer size client receive-port)
-;;              (usocket:socket-receive socket buffer 8)
-;;            (format t "~A~%" buffer)
-;;            (usocket:socket-send socket (reverse buffer) size
-;;                                 :port receive-port
-;;                                 :host client))
-;;       (usocket:socket-close socket))))
+(defun udp-server (port buffer)
+  (let* ((socket (usocket:socket-connect nil nil
+                                         :protocol :datagram
+                                         :element-type '(unsigned-byte 8)
+                                         :local-host *startx-ip*
+                                         :local-port port)))
+    (unwind-protect
+         (multiple-value-bind (buffer size client receive-port)
+             (usocket:socket-receive socket buffer 8)
+           (format t "~A~%" buffer)
+           (usocket:socket-send socket (reverse buffer) size
+                                :port receive-port
+                                :host client))
+      (usocket:socket-close socket))))
 
 ;; (defun udp-client-oneshot (ip port buffer)
 ;;   (let* ((socket (usocket:socket-connect ip port :protocol :datagram
@@ -80,10 +80,11 @@
                             (string ',cmd))))
      (2startx path ,tgl)))
 
-(defun sag (pos &optional x)
-  "pos kann nummer 0~16(0:alle), list sein"
+(defun s (pos &optional x)
+  "pos kann nummer 0~16(0:alle), list sein, x:string or character"
   (let ((res (cond ((numberp x) x)
                    ((null x) nil)
+                   ((stringp x) (char-code (character x)))
                    (t (char-code x)))))
     (cond ((listp pos)
            (dolist (ele pos)
@@ -92,7 +93,7 @@
           ((numberp pos) (2startx (each/ pos "dec") res))
           (t 'k.A.))))
 
-(defun sag> (string)
+(defun x (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element 32))
         (lst (coerce (toggle-case string) 'list))
@@ -104,26 +105,34 @@
              (nth 8  res) (nth 9 res) (nth 10 res) (nth 11 res)
              (nth 12 res) (nth 13 res) (nth 14 res) (nth 15 res))))
 
-(defun sag+ (string)
+(defun a (x.str-or-char)
+  "x -> 16 alle shot, x : str or char egal"
+  (cond ((characterp x.str-or-char)
+         (s 0 (char-code x.str-or-char)))
+        ((stringp x.str-or-char)
+         (s 0 (character x.str-or-char)))
+        (t 'k.A)))
+
+(defun x+ (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element nil))
          (lst (coerce (toggle-case string) 'list))
          (res (sublis '((#\  . NIL)) (replace res lst))))
     (progn
-      (sag 1 (nth 0 res)) (sag 2 (nth 1 res)) (sag 3 (nth 2 res)) (sag 4 (nth 3 res))
-      (sag 5 (nth 4 res)) (sag 6 (nth 5 res)) (sag 7 (nth 6 res)) (sag 8 (nth 7 res))
-      (sag 9 (nth 8 res)) (sag 10 (nth 9 res)) (sag 11 (nth 10 res)) (sag 12 (nth 11 res))
-      (sag 13 (nth 12 res)) (sag 14 (nth 13 res)) (sag 15 (nth 14 res)) (sag 16 (nth 15 res))
+      (s 1 (nth 0 res)) (s 2 (nth 1 res)) (s 3 (nth 2 res)) (s 4 (nth 3 res))
+      (s 5 (nth 4 res)) (s 6 (nth 5 res)) (s 7 (nth 6 res)) (s 8 (nth 7 res))
+      (s 9 (nth 8 res)) (s 10 (nth 9 res)) (s 11 (nth 10 res)) (s 12 (nth 11 res))
+      (s 13 (nth 12 res)) (s 14 (nth 13 res)) (s 15 (nth 14 res)) (s 16 (nth 15 res))
       )))
 
-(defmacro sag- (string)
+(defmacro x- (string)
   "nur input existing each to change"
   (let* ((lst (coerce (toggle-case string) 'list))
          (asc (mapcar #'char-code lst))
          (forms (mapcar (lambda (x) `,x) asc)))
     `(2startx "/alle/satz" ,@forms)))
 
-;; (sag> "111111        11")
+;; (x- "111111        11")
 ;; (sag+ "0 3") ;nil->no change machen
 ;; (sag- "0 3")
 
@@ -173,20 +182,31 @@
         (t nil)))
 
 (defun abal (pos)
-  (sag pos 128))
+  (s pos 128))
+
+;; ;;; Btcusdsl
+;; (ql:quickload :yason)
+;; (ql:quickload :flexi-streams)
+;; (ql:quickload :drakma)
+;; (info "last_price" (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))
+
+;; (defun btcusd (key)
+;;   "key as string,  z.B. mid, bid, ask, last_price, low, high, volume, timestamp  "
+;;   (let ((result (info key (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))))
+;;     (format nil "~%~A" result)))
+
+;; (defun foo (time-interval wieviel-mals)
+;;   (loop for i from 1 to wieviel-mals do
+;;        (s+ (btcusd "last_price"))
+;;        (sleep time-interval))
+;;   (s+ "         fertig"))
 
 
-;;; BTCUSD
+;; CMD
+(defun startx ()
+  (netz 1)
+  (sleep 1)
+  (stm 0 1)
+  (sleep 1)
+  (kali 0 1))
 
-(info "last_price" (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))
-
-(defun btcusd (key)
-  "key as string,  z.B. mid, bid, ask, last_price, low, high, volume, timestamp  "
-  (let ((result (info key (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))))
-    (format nil "~%~A" result)))
-
-(defun foo (time-interval wieviel-mals)
-  (loop for i from 1 to wieviel-mals do
-       (sag+ (btcusd "last_price"))
-       (sleep time-interval))
-  (sag+ "         fertig"))

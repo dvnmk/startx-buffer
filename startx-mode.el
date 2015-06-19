@@ -67,7 +67,7 @@
   (let* ((pos-res (if (numberp pos)(number-to-string pos)
                     (format "'%s" pos)))
          (cmd-gen (concatenate 'string
-                               "(sag" " "
+                               "(s" " "
                                pos-res " "
                                (number-to-string x)
                                ")")))
@@ -75,17 +75,17 @@
 
 (defun sag+ (string)
   (interactive)
-  (let ((cmd-gen (format "(sag+ \"%s\")" string)))
+  (let ((cmd-gen (format "(x \"%s\")" string)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
 (defun sag> (string)
   (interactive)
-  (let ((cmd-gen (format "(sag> \"%s\")" string)))
+  (let ((cmd-gen (format "(x+ \"%s\")" string)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
 (defun sag- (string)
   (interactive)
-  (let ((cmd-gen (format "(sag- \"%s\")" string)))
+  (let ((cmd-gen (format "(x- \"%s\")" string)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
 ;;; kontrol

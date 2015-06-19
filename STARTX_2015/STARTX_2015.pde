@@ -1,6 +1,6 @@
 // STARTX ChipKit source
 // 2015 dvnmk
-
+//
 #include <AccelStepper.h>
 
 /* int sigU = A0; int stpU = A1; int enU = A2; // A1 > U ; SIG > STP > EN */
@@ -54,6 +54,8 @@ int maxSpeed = 1000; // Accelstepper intVar
 int accelVar = 500;
 //int normSpeed = 100;
 int normSpeed = 1500; //BENUTZT??? fur .runSpeed() constant run speed.
+
+int status1 = 0;
 
 void setup()
 {  
@@ -121,6 +123,30 @@ void loop()
   stepper6.run();     stepper7.run();     stepper8.run();     stepper9.run();     stepper10.run();
   stepper11.run();    stepper12.run();    stepper13.run();    stepper14.run();    stepper15.run();
   stepper16.run();    stepper17.run();    stepper18.run();    stepper19.run();    stepper20.run();
+
+  
+  
+/*   /////// PROBE START */
+/*   void loop() */
+/* { */
+/*     // If at the end of travel go to the other end */
+/*     if (stepper1.distanceToGo() == 0) */
+/*       println("A1"); // FEEDBACK CHAR FOR STEPPER1 */
+/*     stepper1.run(); */
+/* } */
+
+  
+/*   void loop() */
+/* { */
+/*     // If at the end of travel go to the other end */
+/*     if (stepper.distanceToGo() == 0) */
+/*       stepper.moveTo(-stepper.currentPosition()); */
+/*     stepper.run(); */
+/* } */
+/*   // int status-1 = 0 */
+/*   // vari benutzung 0 -> 0 : null , 1 -> 0 : println ("stoped"), 0 -> 1 : println ("moving") */
+
+/*   //// PROBE END */
 
   //Serial teils
   static int v = 0;
@@ -712,7 +738,7 @@ void loop()
       break;
  
     case 'A' : // jede Stepper Kontroll
-      if (v == 0) {
+      if (v == 0) { 
         digitalWrite(enA,HIGH); 
         v = 0; // v = 0 ostio!
       } // OFF
@@ -720,13 +746,18 @@ void loop()
         digitalWrite(enA,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("1 ");
+        Serial.println(stepper1.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("a"); 
         Serial.println(digitalRead(sigA));
         v = 0;
         break;
-      }
+      } // OPTO-CHECK
       else {
         stepper1.setMaxSpeed(v);   
       }
@@ -742,6 +773,11 @@ void loop()
         digitalWrite(enB,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("2 ");
+        Serial.println(stepper2.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("b");
@@ -763,6 +799,11 @@ void loop()
         digitalWrite(enC,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("3 ");
+        Serial.println(stepper3.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("c");
@@ -784,6 +825,11 @@ void loop()
         digitalWrite(enD,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("4 ");
+        Serial.println(stepper4.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("d"); 
@@ -805,6 +851,11 @@ void loop()
         digitalWrite(enE,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("5 ");
+        Serial.println(stepper5.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("e"); 
@@ -826,6 +877,11 @@ void loop()
         digitalWrite(enF,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("6 ");
+        Serial.println(stepper6.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("f"); 
@@ -847,6 +903,11 @@ void loop()
         digitalWrite(enG,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("7 ");
+        Serial.println(stepper7.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("g"); 
@@ -868,6 +929,11 @@ void loop()
         digitalWrite(enH,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("8 ");
+        Serial.println(stepper8.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("h"); 
@@ -889,6 +955,11 @@ void loop()
         digitalWrite(enI,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("9 ");
+        Serial.println(stepper9.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("i"); 
@@ -910,7 +981,12 @@ void loop()
         digitalWrite(enJ,LOW); 
         v = 0;
       }
-            else if (v == 4) 
+      else if (v == 3) {
+        Serial.print("10 ");
+        Serial.println(stepper10.distanceToGo());
+        v = 0 ;
+      }
+      else if (v == 4) 
       {
         Serial.print("j"); 
         Serial.println(digitalRead(sigJ)); 
@@ -931,6 +1007,11 @@ void loop()
         digitalWrite(enK,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("11 ");
+        Serial.println(stepper11.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("k"); 
@@ -952,6 +1033,11 @@ void loop()
         digitalWrite(enL,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("12 ");
+        Serial.println(stepper12.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("l"); 
@@ -973,6 +1059,11 @@ void loop()
         digitalWrite(enM,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("13 ");
+        Serial.println(stepper13.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("m"); 
@@ -994,6 +1085,11 @@ void loop()
         digitalWrite(enN,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("14 ");
+        Serial.println(stepper14.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("n"); 
@@ -1015,6 +1111,11 @@ void loop()
         digitalWrite(enO,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("15 ");
+        Serial.println(stepper15.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("o"); 
@@ -1036,6 +1137,11 @@ void loop()
         digitalWrite(enP,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("16 ");
+        Serial.println(stepper16.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("p"); 
@@ -1057,6 +1163,11 @@ void loop()
         digitalWrite(enQ,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("17 ");
+        Serial.println(stepper17.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("q"); 
@@ -1078,6 +1189,11 @@ void loop()
         digitalWrite(enR,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("18 ");
+        Serial.println(stepper18.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("r"); 
@@ -1099,6 +1215,11 @@ void loop()
         digitalWrite(enS,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("19 ");
+        Serial.println(stepper19.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("s"); 
@@ -1120,6 +1241,11 @@ void loop()
         digitalWrite(enT,LOW); 
         v = 0;
       } // ON
+      else if (v == 3) {
+        Serial.print("20 ");
+        Serial.println(stepper20.distanceToGo());
+        v = 0 ;
+      }
       else if (v == 4) 
       {
         Serial.print("t"); 
