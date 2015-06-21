@@ -147,7 +147,9 @@
     (maxi i (car cur))))
 
 (defun maxi (pos &optional max-spd)
-  (cond ((listp pos) (maxi-lst pos))
+  (cond ((listp pos)
+         (dolist (ele pos)
+           (maxi ele max-spd)))
         ((zerop pos) (alle maxi max-spd))
         ((not (null pos))(2startx (each/ pos "max") max-spd))
         (t nil)))
@@ -163,13 +165,18 @@
     (aksel i (car cur))))
 
 (defun aksel (pos &optional accel-var)
-  (cond ((listp pos) (aksel-lst pos))
+  (cond ((listp pos)
+         (dolist (ele pos)
+           (aksel ele accel-var)))
         ((zerop pos) (alle aksel accel-var))
         ((not (null pos))(2startx (each/ pos "accel") accel-var))
         (t nil)))
 
 (defun stm (pos tgl)
-  (cond ((zerop pos) (alle stm tgl))
+  (cond ((listp pos)
+         (dolist (ele pos)
+           (stm ele tgl)))
+    ((zerop pos) (alle stm tgl))
         ((not (null pos))(2startx (each/ pos "stm") tgl))
         (t nil)))
 
@@ -210,3 +217,9 @@
   (sleep 1)
   (kali 0 1))
 
+(defun bye ()
+  (abal 0)
+  (sleep 6)
+  (stm 0 0)
+  (sleep 1)
+  (netz 0))

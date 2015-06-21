@@ -2845,7 +2845,7 @@ WEI(.u) .e???;
 /AKSEL /MAXI /dec;
 #X obj 203 -69 ascii2pd CR;
 #X obj 221 9 print foo;
-#X msg 202 -186 open 2;
+#X msg 202 -186 open 1;
 #X obj 201 56 s list-ausCOM;
 #X connect 1 0 4 0;
 #X connect 2 0 73 0;
