@@ -184,7 +184,10 @@
   (alle netz tgl))
 
 (defun kali (pos tgl)
-  (cond ((zerop pos) (alle null tgl))
+  (cond ((listp pos)
+         (dolist (ele pos)
+           (kali ele tgl)))
+        ((zerop pos) (alle null tgl))
         ((not (null pos))(2startx (each/ pos "null") tgl))
         (t nil)))
 
@@ -217,9 +220,34 @@
   (sleep 1)
   (kali 0 1))
 
-(defun bye ()
+(defun agur ()
   (abal 0)
   (sleep 6)
   (stm 0 0)
   (sleep 1)
   (netz 0))
+
+(defun foo (stepper-lst abs maxi-x aksel-x)
+  (progn (maxi stepper-lst maxi-x)
+         (aksel stepper-lst aksel-x)
+         (s stepper-lst abs)))
+
+(defvar *oben* '(1 2 3 4 5 6 7 8))
+(defvar *unten '(9 10 11 12 13 14 15 16))
+(defvar *even* '(2 4 6 8 10 12 14 16))
+(defvar *odd* '(1 3 5 7 9 11 13 15))
+(defvar *alle* '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16))
+
+;; (foo '(1 2 3) "c" 500 500)
+;; (foo '(1) "x" 1000 1000)
+;; (s '(1 2) "k")
+;; (s '(1 2) "0")
+;; (x " dddddddddddddddddddddddddd")
+;; (x "abbbbb")
+;; (s '(1 2 3) "c")
+;; (s *oben* "o")
+;; (foo *oben* "o" 100 100)
+;; (loop for i from 1 to 3 do
+;;      (foo *oben* "o" 100 100)
+;;      (sleep 5)
+;;      (foo *oben* "x" 500 500))
