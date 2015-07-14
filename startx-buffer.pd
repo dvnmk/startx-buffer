@@ -1,4 +1,4 @@
-#N canvas 110 88 397 537 10;
+#N canvas 4 51 397 537 10;
 #X declare -lib mrpeach;
 #X obj -841 -1709 cnv 15 95 110 empty empty empty 20 12 0 14 -262130
 -66577 0;
@@ -43,41 +43,41 @@
 #X obj -630 -1669 vradio 11 1 0 2 s.null.9 r.null.9 9 0 28 0 8 -261682
 -1 -1 0;
 #X obj -718 -1704 vradio 11 1 0 2 s.stm.1 r.stm.1 1 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -706 -1704 vradio 11 1 0 2 s.stm.2 r.stm.2 2 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -696 -1704 vradio 11 1 0 2 s.stm.3 r.stm3 3 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -685 -1704 vradio 11 1 0 2 s.stm.4 r.stm.4 4 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -674 -1704 vradio 11 1 0 2 s.stm.5 r.stm.5 5 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -663 -1704 vradio 11 1 0 2 s.stm.6 r.stm.6 6 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -652 -1704 vradio 11 1 0 2 s.stm.7 r.stm.7 7 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -641 -1704 vradio 11 1 0 2 s.stm.8 r.stm.8 8 0 28 0 8 -232576
--1 -1 1;
+-1 -1 0;
 #X obj -630 -1704 vradio 11 1 0 2 s.stm.9 r.stm.9 9 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -619 -1704 vradio 11 1 0 2 s.stm.10 r.stm.10 10 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -608 -1704 vradio 11 1 0 2 s.stm.11 r.stm.11 11 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -597 -1704 vradio 11 1 0 2 s.stm.12 r.stm.12 12 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -586 -1704 vradio 11 1 0 2 s.stm.13 r.stm.13 13 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -575 -1704 vradio 11 1 0 2 s.stm.14 r.stm.14 14 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -564 -1704 vradio 11 1 0 2 s.stm.15 r.stm.15 15 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -553 -1704 vradio 11 1 0 2 s.stm.16 r.stm.16 16 0 28 0 8 -261682
--1 -1 1;
+-1 -1 0;
 #X obj -740 -1669 vradio 11 1 0 2 s.null r.null null 0 28 0 8 -4032
--1 -1 1;
+-1 -1 0;
 #X obj -740 -1704 vradio 11 1 0 2 s.stm r.stm stm 0 28 0 8 -4032 -1
--1 1;
+-1 0;
 #X floatatom -741 -1624 2 0 0 0 - - s.nullindi;
 #N canvas 171 96 672 518 n.del 0;
 #X obj -59 185 outlet;
@@ -806,7 +806,7 @@ WEI(.u) .e???;
 #X connect 47 0 28 0;
 #X connect 48 0 30 0;
 #X restore -843 -1571 pd decimal2symbol;
-#N canvas 187 23 732 671 kontrol 0;
+#N canvas 205 51 933 646 kontrol 1;
 #X msg -86 102 print \$1A;
 #X msg -160 154 print \$1a;
 #X obj -157 71 r 1A;
@@ -1339,6 +1339,19 @@ WEI(.u) .e???;
 #X obj 211 673 r accel.15;
 #X obj 37 680 r accel.14;
 #X obj -130 685 r accel.13;
+#X obj 626 -42 s toCOM;
+#X msg 497 -61 print 1Q;
+#X msg 559 -62 print 0Q;
+#X obj 626 -12 s toCOM;
+#X obj 626 18 s toCOM;
+#X obj 626 48 s toCOM;
+#X msg 497 -31 print 1R;
+#X msg 559 -32 print 0R;
+#X msg 497 -1 print 1S;
+#X msg 559 -2 print 0S;
+#X msg 497 29 print 1T;
+#X msg 559 28 print 0T;
+#X text 493 -86 // 17Q 18R 19S 20T STROM;
 #X connect 0 0 3 0;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
@@ -1603,6 +1616,14 @@ WEI(.u) .e???;
 #X connect 269 0 174 0;
 #X connect 270 0 172 0;
 #X connect 271 0 173 0;
+#X connect 273 0 272 0;
+#X connect 274 0 272 0;
+#X connect 278 0 275 0;
+#X connect 279 0 275 0;
+#X connect 280 0 276 0;
+#X connect 281 0 276 0;
+#X connect 282 0 277 0;
+#X connect 283 0 277 0;
 #X restore -837 -1620 pd kontrol;
 #X obj -838 -1664 bng 15 250 50 0 empty empty upsync 17 7 0 8 -262144
 -1 -1;
@@ -2320,7 +2341,7 @@ WEI(.u) .e???;
 #X text -633 -1330 //ABS \; absolute pos;
 #X restore -843 -1593 pd dec2abd2stp;
 #X obj -843 -1396 vsl 8 40 0 1000 0 0 empty v.max.1 empty 0 -9 0 10
--260097 -1 -1 3900 1;
+-260097 -1 -1 0 1;
 #X floatatom -761 -1273 4 0 0 0 - v.accel.1 -;
 #X floatatom -732 -1273 4 0 0 0 - v.accel.2 -;
 #X floatatom -703 -1273 4 0 0 0 - v.accel.3 -;
@@ -2338,69 +2359,69 @@ WEI(.u) .e???;
 #X floatatom -587 -1253 4 0 0 0 - v.accel.15 -;
 #X floatatom -558 -1253 4 0 0 0 - v.accel.16 -;
 #X obj -833 -1396 vsl 8 40 0 1000 0 0 empty v.max.2 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -823 -1396 vsl 8 40 0 1000 0 0 empty v.max.3 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -813 -1396 vsl 8 40 0 1000 0 0 empty v.max.4 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -803 -1396 vsl 8 40 0 1000 0 0 empty v.max.5 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -793 -1396 vsl 8 40 0 1000 0 0 empty v.max.6 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -783 -1396 vsl 8 40 0 1000 0 0 empty v.max.7 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -773 -1396 vsl 8 40 0 1000 0 0 empty v.max.8 max-1000 14 0 0
-8 -262144 -1 -1 3900 1;
+8 -262144 -1 -1 0 1;
 #X obj -843 -1349 vsl 8 40 0 1000 0 0 empty v.max.9 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -833 -1349 vsl 8 40 0 1000 0 0 empty v.max.10 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -823 -1349 vsl 8 40 0 1000 0 0 empty v.max.11 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -813 -1349 vsl 8 40 0 1000 0 0 empty v.max.12 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -803 -1349 vsl 8 40 0 1000 0 0 empty v.max.13 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -793 -1349 vsl 8 40 0 1000 0 0 empty v.max.14 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -783 -1349 vsl 8 40 0 1000 0 0 empty v.max.15 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X obj -773 -1349 vsl 8 40 0 1000 0 0 empty v.max.16 empty 0 -9 0 10
--262144 -1 -1 3900 1;
+-262144 -1 -1 0 1;
 #X text -694 -1404 //maxi init 1k;
 #X text -702 -1306 //aksel init 500;
 #X obj -843 -1299 vsl 8 40 0 1000 0 0 empty v.accel.1 empty 0 -9 0
-10 -159808 -1 -1 3900 1;
+10 -159808 -1 -1 0 1;
 #X obj -833 -1299 vsl 8 40 0 1000 0 0 empty v.accel.2 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -823 -1299 vsl 8 40 0 1000 0 0 empty v.accel.3 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -813 -1299 vsl 8 40 0 1000 0 0 empty v.accel.4 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -803 -1299 vsl 8 40 0 1000 0 0 empty v.accel.5 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -793 -1299 vsl 8 40 0 1000 0 0 empty v.accel.6 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -783 -1299 vsl 8 40 0 1000 0 0 empty v.accel.7 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -773 -1299 vsl 8 40 0 1000 0 0 empty v.accel.8 aksel-1000 14
-0 0 8 -262144 -1 -1 3900 1;
+0 0 8 -262144 -1 -1 0 1;
 #X obj -843 -1252 vsl 8 40 0 1000 0 0 empty v.accel.9 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -833 -1252 vsl 8 40 0 1000 0 0 empty v.accel.10 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -823 -1252 vsl 8 40 0 1000 0 0 empty v.accel.11 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -813 -1252 vsl 8 40 0 1000 0 0 empty v.accel.12 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -803 -1252 vsl 8 40 0 1000 0 0 empty v.accel.13 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -793 -1252 vsl 8 40 0 1000 0 0 empty v.accel.14 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -783 -1252 vsl 8 40 0 1000 0 0 empty v.accel.15 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #X obj -773 -1252 vsl 8 40 0 1000 0 0 empty v.accel.16 empty 0 -9 0
-10 -262144 -1 -1 3900 1;
+10 -262144 -1 -1 0 1;
 #N canvas 329 140 733 437 OSC 0;
 #X obj 252 -21 s ausCOM;
 #X msg 203 -115 close;
@@ -3601,7 +3622,7 @@ p1;
 #X floatatom -605 -1500 5 0 0 0 - 8-togo -;
 #X floatatom -605 -1460 5 0 0 0 - 16-togo -;
 #X text -561 -1501 // [r x-togo];
-#N canvas -3 51 1152 646 stop-p 0;
+#N canvas 0 51 1152 646 stop-p 0;
 #X obj -405 -1663 select 0;
 #X obj -405 -1680 route 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
 #X obj -349 -1663 select 0;
