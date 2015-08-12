@@ -1,3 +1,10 @@
+;;;; startx-buffer.lisp
+
+;(in-package #:startx-buffer)
+
+;;; "startx-buffer" goes here. Hacks and glory await!
+
+
 ;;; DVNMK 2015 (c)
 ;;;
 ;;; WIRING >>STARTX<< Y COMMON LISP
@@ -8,7 +15,7 @@
 
 ;;; udp setuo
 ;;(defparameter *startx-ip* "192.168.219.14")
-(defparameter *startx-ip* "192.168.0.4") 
+(defparameter *startx-ip* "127.0.0.1") 
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
 
@@ -88,17 +95,20 @@
                    (t (char-code x)))))
     (cond ((listp pos)
            (dolist (ele pos)
-             (2startx (each/ ele "dec") res)))
+            ; (2startx (each/ ele "dec") res)
+            (s ele x) ))
           ((zerop pos) (2startx "/alle/dec" res ))
           ((numberp pos) (2startx (each/ pos "dec") res))
           (t 'k.A.))))
 
-(defun x (string)
+(defun x (string &optional maxi-x aksel-x)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element 32))
         (lst (coerce (toggle-case string) 'list))
         (asc (mapcar #'char-code lst)))
     (replace res asc)
+    (maxi 0 maxi-x)
+    (aksel 0 aksel-x)
     (2startx "/alle/satz"
              (nth 0  res) (nth 1 res) (nth 2 res) (nth 3 res)
              (nth 4  res) (nth 5 res) (nth 6 res) (nth 7 res)
@@ -147,7 +157,8 @@
     (maxi i (car cur))))
 
 (defun maxi (pos &optional max-spd)
-  (cond ((listp pos)
+  (cond ((null max-spd) nil)
+        ((listp pos)
          (dolist (ele pos)
            (maxi ele max-spd)))
         ((zerop pos) (alle maxi max-spd))
@@ -165,7 +176,8 @@
     (aksel i (car cur))))
 
 (defun aksel (pos &optional accel-var)
-  (cond ((listp pos)
+  (cond ((null accel-var) nil)
+        ((listp pos)
          (dolist (ele pos)
            (aksel ele accel-var)))
         ((zerop pos) (alle aksel accel-var))
@@ -227,7 +239,7 @@
   (sleep 1)
   (netz 0))
 
-(defun foo (stepper-lst abs maxi-x aksel-x)
+(defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)
          (aksel stepper-lst aksel-x)
          (s stepper-lst abs)))
@@ -251,3 +263,87 @@
 ;;      (foo *oben* "o" 100 100)
 ;;      (sleep 5)
 ;;      (foo *oben* "x" 500 500))
+
+
+;; (loop for i from 1 to 4 do
+;;      (x "hello-wrld_world" 300 300)
+;;      (sleep 12)
+;;      (x "null-is-null" 1000 1000)
+;;      (sleep 9)
+;; )
+
+;; (defun baz (x-mal)
+;;   (loop for i from 1 to x-mal do
+;;        (x "hello-wrld_world" 300 300)
+;;        (sleep 5)
+;;        (x " mosi " 1000 1000)
+;;        (sleep 4))
+;;   'FER)
+
+;; (loop for i from 1 to 5 do
+;;      (baz 5))
+
+;; (abal 0)
+;; (agur)
+;; (maxi 0 1000)
+;; (aksel 0 1000)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun bla ()
+  (loop for i from 1 to 5 do
+       (sleep 0.5)
+       (2startx "/gjeiotbla" i)))
+
+(defun blabla ()
+  (loop (sleep 1)
+     (2startx "/blabla-222" 1)))
+
+;; (defun bla ())
+;; (loop (bla))
+
+(defun demo ()
+  (2startx "/FF" 5))
+
+(defun spido (x-maxi x-aksel)
+  (maxi 0 x-maxi)
+  (aksel 0 x-aksel))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun katze ()
+  ;(a " ")
+  (s '(5 6 14) "a"))
+
+(defun funzt ()
+  (s '(7 8) "a"))
+
+(defun hammock ()
+  (s '(9 10) "a"))
+
+(defun nest ()
+  (s 11 "a"))
+
+(defun tisch ()
+  (S '12 "a"))
+
+(defun lisp ()
+  (s '(15 16) "a"))
+
+(defun hasen ()
+  (s 13 "a"))
+
+(defun haus ()
+  (s '(1 2) "e"))
+
+(defun baum ()
+  (s '(3 4) "e"))
+
+(defun bush ()
+  (s '(5) "e"))
+
+(defun fenster ()
+  (s '(6) "e"))
+
+(defun schreibmaschine ()
+  (s '(1) "f"))
+
+(defun himmel ()
+  (s '(7) "e"))
