@@ -1,4 +1,4 @@
-#N canvas 201 30 309 545 10;
+#N canvas 4 52 304 558 10;
 #X declare -lib mrpeach;
 #X obj -840 -1699 vradio 11 1 0 2 s.netz r.netz netz 0 28 0 8 -4032
 -1 -1 0;
@@ -4522,6 +4522,7 @@ p1;
 #X restore -901 -1305 pd v.max/accel.*-init;
 #X text -692 -1432 max;
 #X text -693 -1418 aksel;
+#X obj -687 -1595 b;
 #X connect 38 0 10 0;
 #X connect 38 1 9 0;
 #X connect 38 2 8 0;
