@@ -94,8 +94,7 @@
             ; (2startx (each/ ele "dec") res)
             (s ele x) ))
           ((zerop pos) (2startx "/alle/dec" res ))
-          ((numberp pos) (2startx (each/ pos "dec") res))
-          (t 'k.A.))))
+          ((numberp pos) (2startx (each/ pos "dec") res)))))
 
 (defun x (string &optional maxi-x aksel-x)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
@@ -372,9 +371,9 @@
 
 (mach-func-16 "a"
               LEB D-L SPIRAL START-X
-              KATZE KATZE2 FUNC FUNC2
-              HAMMOCK HAMMOCK1 NEST TISCH
-              HASEN KATZE3 LISP LISP2)
+              KATZE1 KATZE2 FUNC1 FUNC2
+              HAMMOCK1 HAMMOCK2 NEST TISCH
+              HASEN KATZE3 LISP1 LISP2)
 (mach-func-wo "a"
               '(5 6 14) KATZE)
 (mach-func-wo "a"
