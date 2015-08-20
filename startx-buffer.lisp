@@ -1,10 +1,6 @@
 ;;;; startx-buffer.lisp
-
 ;(in-package #:startx-buffer)
-
 ;;; "startx-buffer" goes here. Hacks and glory await!
-
-
 ;;; DVNMK 2015 (c)
 ;;;
 ;;; WIRING >>STARTX<< Y COMMON LISP
@@ -15,7 +11,7 @@
 
 ;;; udp setuo
 ;;(defparameter *startx-ip* "192.168.219.14")
-(defparameter *startx-ip* "127.0.0.1") 
+(defparameter *startx-ip* "startx.local") 
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-socket* nil)
 
@@ -308,42 +304,82 @@
   (maxi 0 x-maxi)
   (aksel 0 x-aksel))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun katze ()
-  ;(a " ")
-  (s '(5 6 14) "a"))
 
-(defun funzt ()
-  (s '(7 8) "a"))
+(defun haus ()  (s '(1 2) "e"))
+(defun baum ()  (s '(3 4) "e"))
+(defun bush ()  (s '(5) "e"))
+(defun fenster ()  (s '(6) "e"))
+(defun schreibmaschine ()  (s '(1) "f"))
+(defun himmel ()  (s '(7) "e"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun hammock ()
-  (s '(9 10) "a"))
+;; (mach-funcs-a "leb-um-zu-leben" "d-l" "spiral" "startx" "katze" "katze" "func" "func"
+;;                  "hammock" "hammock" "nest" "tisch" "hasen" "katze" "lisp" "lisp")
 
-(defun nest ()
-  (s 11 "a"))
+;; ;; **TODO
+;; ;; OSC RECEIVE
+;; ;; defparameter
 
-(defun tisch ()
-  (S '12 "a"))
+(defmacro mach-func-16 (was f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15 f16)
+  (let (
+        (f1 (intern (format nil "~a"  f1)))
+        (f2 (intern (format nil "~a"  f2)))
+        (f3 (intern (format nil "~a"  f3)))
+        (f4 (intern (format nil "~a"  f4)))
+        (f5 (intern (format nil "~a"  f5)))
+        (f6 (intern (format nil "~a"  f6)))
+        (f7 (intern (format nil "~a"  f7)))
+        (f8 (intern (format nil "~a"  f8)))
+        (f9 (intern (format nil "~a"  f9)))
+        (f10 (intern (format nil "~a" f10)))
+        (f11 (intern (format nil "~a" f11)))
+        (f12 (intern (format nil "~a" f12)))
+        (f13 (intern (format nil "~a" f13)))
+        (f14 (intern (format nil "~a" f14)))
+        (f15 (intern (format nil "~a" f15)))
+        (f16 (intern (format nil "~a" f16)))
+        )
+    `(progn
+       (defun ,f1 () (s '(1) ,was))
+       (defun ,f2 () (s '(2) ,was))
+       (defun ,f3 () (s '(3) ,was))
+       (defun ,f4 () (s '(4) ,was))
+       (defun ,f5 () (s '(5) ,was))
+       (defun ,f6 () (s '(6) ,was))
+       (defun ,f7 () (s '(7) ,was))
+       (defun ,f8 () (s '(8) ,was))
+       (defun ,f9 () (s '(9) ,was))
+       (defun ,f10 () (s '(10) ,was))
+       (defun ,f11 () (s '(11) ,was))
+       (defun ,f12 () (s '(12) ,was))
+       (defun ,f13 () (s '(13) ,was))
+       (defun ,f14 () (s '(14) ,was))
+       (defun ,f15 () (s '(15) ,was))
+       (defun ,f16 () (s '(16) ,was))
+      )))
 
-(defun lisp ()
-  (s '(15 16) "a"))
+(defmacro mach-func-wo (was wo func-name)
+  "wo ist List z.B. '(1 2 3)"
+  (let ((a1 (intern (format nil "~a" func-name))))
+    `(defun ,a1 ()
+       (s ,wo ,was))))
 
-(defun hasen ()
-  (s 13 "a"))
+;; (defun mach-func-at-was (was fn-list)
+;;   (do ((i 1 (+ 1 i))
+;;        (el (car fn-list) (cdr fn-list)))
+;;       ((null el) 'fertig)
+;;     (mach-func was el i)))
 
-(defun haus ()
-  (s '(1 2) "e"))
-
-(defun baum ()
-  (s '(3 4) "e"))
-
-(defun bush ()
-  (s '(5) "e"))
-
-(defun fenster ()
-  (s '(6) "e"))
-
-(defun schreibmaschine ()
-  (s '(1) "f"))
-
-(defun himmel ()
-  (s '(7) "e"))
+(mach-func-16 "a"
+              LEB D-L SPIRAL START-X
+              KATZE KATZE2 FUNC FUNC2
+              HAMMOCK HAMMOCK1 NEST TISCH
+              HASEN KATZE3 LISP LISP2)
+(mach-func-wo "a"
+              '(5 6 14) KATZE)
+(mach-func-wo "a"
+              '(7 8) FUNC)
+(mach-func-wo "a"
+              '(9 10) HAMMOCK)
+(mach-func-wo "a"
+              '(15 16) LISP)
