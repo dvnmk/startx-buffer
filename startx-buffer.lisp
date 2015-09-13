@@ -9,8 +9,8 @@
 (ql:quickload "usocket")
 (ql:quickload "osc")
 
-;(defparameter *startx-ip* "192.168.0.4")
-(defparameter *startx-ip* "localhost")
+(defparameter *startx-ip* "192.168.0.4")
+;(defparameter *startx-ip* "localhost")
 (defparameter *startx-osc-port* 9000)
 (defparameter *startx-osc-port-r* 9001)
 (defparameter *startx-socket* nil)
