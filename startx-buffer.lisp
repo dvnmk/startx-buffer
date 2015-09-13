@@ -1,10 +1,6 @@
 ;;;; startx-buffer.lisp
-
 ;(in-package #:startx-buffer)
-
 ;;; "startx-buffer" goes here. Hacks and glory await!
-
-
 ;;; DVNMK 2015 (c)
 ;;;
 ;;; WIRING >>STARTX<< Y COMMON LISP
@@ -13,11 +9,12 @@
 (ql:quickload "usocket")
 (ql:quickload "osc")
 
-;;; udp setuo
-;;(defparameter *startx-ip* "192.168.219.14")
-(defparameter *startx-ip* "127.0.0.1") 
+(defparameter *startx-ip* "192.168.0.4")
+;(defparameter *startx-ip* "localhost")
 (defparameter *startx-osc-port* 9000)
+(defparameter *startx-osc-port-r* 9001)
 (defparameter *startx-socket* nil)
+(defparameter *startx-socket-r* nil)
 
 ;;; satz helper
 (defun toggle-case  (string)
@@ -39,44 +36,50 @@
 (defun kill-socket ()
   (usocket:socket-close *startx-socket*))
 
-(defun udp-server (port buffer)
-  (let* ((socket (usocket:socket-connect nil nil
-                                         :protocol :datagram
-                                         :element-type '(unsigned-byte 8)
-                                         :local-host *startx-ip*
-                                         :local-port port)))
-    (unwind-protect
-         (multiple-value-bind (buffer size client receive-port)
-             (usocket:socket-receive socket buffer 8)
-           (format t "~A~%" buffer)
-           (usocket:socket-send socket (reverse buffer) size
-                                :port receive-port
-                                :host client))
-      (usocket:socket-close socket))))
+(defun mach-socket-r ()
+  (defparameter *startx-socket-r* (usocket:socket-connect nil nil
+                                                          :protocol :datagram
+                                                          :element-type '(unsigned-byte 8)
+                                                          :local-host "127.0.0.1"
 
-;; (defun udp-client-oneshot (ip port buffer)
-;;   (let* ((socket (usocket:socket-connect ip port :protocol :datagram
-;;                                         :element-type '(unsigned-byte 8)))
-;;          ;(buffer-0 (make-sequence  '(vector (unsigned-byte 8)) 512))
-;;          (length (array-dimension buffer 0)))
-;;     (unwind-protect
-;;          (progn
-;;            (format t "sending...~%")
-;;            (usocket:socket-send socket buffer length)
-;;            ;;recive spaeter
-;;            ;;(usocket:socket-receive socket buffer ?)
-;;            ;;(format t "~A~%" buffer)
-;;            )
-;;       (usocket:socket-close socket))
-;;     t))
+                                                          :local-port *startx-osc-port-r*)))
+(defun kill-socket-r ()
+  (usocket:socket-close *startx-socket-r*))
+
+(defun 4osc ()
+  (let ((sock (usocket:socket-connect nil nil
+					:protocol :datagram
+					:element-type '(unsigned-byte 8)
+					:local-host "127.0.0.1"
+					:local-port *startx-osc-port-r*)))
+    (unwind-protect
+      (let ((buf (make-array 20 :element-type '(unsigned-byte 8))))
+        (osc:decode-message (usocket:socket-receive sock buf 20)))
+      (usocket:socket-close sock))))
 
 (defmacro 2startx (path &rest value)
   `(let* ((buffer (osc:encode-message ,path ,@value))
-          (length (array-dimension buffer 0)))
-     (usocket:socket-send *startx-socket* buffer length)))
-                                   
+          (length (array-dimension buffer 0))
+;          (buffer-r (make-array 20 :element-type '(unsigned-byte 8)))
+          )
+     (progn
+       (usocket:socket-send *startx-socket* buffer length)
+       (format t "-TX-")
+;       (osc:decode-message (usocket:socket-receive *startx-socket-r* buffer-r 20))
+       )))
+
+(defmacro 4startx ()
+  `(let* ((buffer-r (make-array 20 :element-type '(unsigned-byte 8))))
+     (progn
+       (format t "-RX...-")
+       (osc:decode-message (usocket:socket-receive *startx-socket-r* buffer-r 20)))))
+
+
+(defun check-rx ()
+  )
+
 ;; (defmacro 2startx (path &rest value)
-;;   `(udp-client ,*startx-ip* ,*startx-osc-port* 
+;;   `(udp-client ,*startx-ip* ,*startx-osc-port*
 ;;                (osc:encode-message ,path ,@value)))
 (defmacro each/ (pos path)
   "osc path helper"
@@ -98,8 +101,7 @@
             ; (2startx (each/ ele "dec") res)
             (s ele x) ))
           ((zerop pos) (2startx "/alle/dec" res ))
-          ((numberp pos) (2startx (each/ pos "dec") res))
-          (t 'k.A.))))
+          ((numberp pos) (2startx (each/ pos "dec") res)))))
 
 (defun x (string &optional maxi-x aksel-x)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
@@ -122,7 +124,6 @@
         ((stringp x.str-or-char)
          (s 0 (character x.str-or-char)))
         (t 'k.A)))
-
 (defun x+ (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element nil))
@@ -134,7 +135,6 @@
       (s 9 (nth 8 res)) (s 10 (nth 9 res)) (s 11 (nth 10 res)) (s 12 (nth 11 res))
       (s 13 (nth 12 res)) (s 14 (nth 13 res)) (s 15 (nth 14 res)) (s 16 (nth 15 res))
       )))
-
 (defmacro x- (string)
   "nur input existing each to change"
   (let* ((lst (coerce (toggle-case string) 'list))
@@ -155,7 +155,6 @@
        (i 1 (+ 1 i)))
       ((null cur) t)
     (maxi i (car cur))))
-
 (defun maxi (pos &optional max-spd)
   (cond ((null max-spd) nil)
         ((listp pos)
@@ -174,7 +173,6 @@
        (i 1 (+ 1 i)))
       ((null cur) t)
     (aksel i (car cur))))
-
 (defun aksel (pos &optional accel-var)
   (cond ((null accel-var) nil)
         ((listp pos)
@@ -191,10 +189,8 @@
     ((zerop pos) (alle stm tgl))
         ((not (null pos))(2startx (each/ pos "stm") tgl))
         (t nil)))
-
 (defun netz (tgl)
   (alle netz tgl))
-
 (defun kali (pos tgl)
   (cond ((listp pos)
          (dolist (ele pos)
@@ -202,7 +198,6 @@
         ((zerop pos) (alle null tgl))
         ((not (null pos))(2startx (each/ pos "null") tgl))
         (t nil)))
-
 (defun abal (pos)
   (s pos 128))
 
@@ -234,7 +229,7 @@
 
 (defun agur ()
   (abal 0)
-  (sleep 6)
+  (sleep 7)
   (stm 0 0)
   (sleep 1)
   (netz 0))
@@ -308,42 +303,264 @@
   (maxi 0 x-maxi)
   (aksel 0 x-aksel))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun katze ()
-  ;(a " ")
-  (s '(5 6 14) "a"))
 
-(defun funzt ()
-  (s '(7 8) "a"))
+(defmacro mach-func-16 (was f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15 f16)
+  (let (
+        (f1 (intern (format nil "~a"  f1)))
+        (f2 (intern (format nil "~a"  f2)))
+        (f3 (intern (format nil "~a"  f3)))
+        (f4 (intern (format nil "~a"  f4)))
+        (f5 (intern (format nil "~a"  f5)))
+        (f6 (intern (format nil "~a"  f6)))
+        (f7 (intern (format nil "~a"  f7)))
+        (f8 (intern (format nil "~a"  f8)))
+        (f9 (intern (format nil "~a"  f9)))
+        (f10 (intern (format nil "~a" f10)))
+        (f11 (intern (format nil "~a" f11)))
+        (f12 (intern (format nil "~a" f12)))
+        (f13 (intern (format nil "~a" f13)))
+        (f14 (intern (format nil "~a" f14)))
+        (f15 (intern (format nil "~a" f15)))
+        (f16 (intern (format nil "~a" f16)))
+        )
+    `(progn
+       (defun ,f1 () (s '(1) ,was)
+              (princ "FOO"))
+       (defun ,f2 () (s '(2) ,was))
+       (defun ,f3 () (s '(3) ,was))
+       (defun ,f4 () (s '(4) ,was))
+       (defun ,f5 () (s '(5) ,was))
+       (defun ,f6 () (s '(6) ,was))
+       (defun ,f7 () (s '(7) ,was))
+       (defun ,f8 () (s '(8) ,was))
+       (defun ,f9 () (s '(9) ,was))
+       (defun ,f10 () (s '(10) ,was))
+       (defun ,f11 () (s '(11) ,was))
+       (defun ,f12 () (s '(12) ,was))
+       (defun ,f13 () (s '(13) ,was))
+       (defun ,f14 () (s '(14) ,was))
+       (defun ,f15 () (s '(15) ,was))
+       (defun ,f16 () (s '(16) ,was))
+      )))
 
-(defun hammock ()
-  (s '(9 10) "a"))
+(defmacro mach-func-wo (was wo func-name)
+  "wo ist List z.B. '(1 2 3)"
+  (let ((a1 (intern (format nil "~a" func-name))))
+    `(defun ,a1 ()
+       (s ,wo ,was))))
 
-(defun nest ()
-  (s 11 "a"))
+;; (defun mach-func-at-was (was fn-list)
+;;   (do ((i 1 (+ 1 i))
+;;        (el (car fn-list) (cdr fn-list)))
+;;       ((null el) 'fertig)
+;;     (mach-func was el i)))
 
-(defun tisch ()
-  (S '12 "a"))
+(mach-func-16 "a"
+              LEB DL SPIRAL START-X
+              CAT-1 CAT-2 FUNC-1 FUNC-2
+              HAMMOCK1-1 HAMMOCK1-2 NEST TISCH
+              HASEN CAT-3 LISP-1 LISP-2)
+(mach-func-wo "a"
+              '(5 6 14) CAT)
+(mach-func-wo "a"
+              '(7 8) FUNC)
+(mach-func-wo "a"
+              '(9 10) HAMMOCK1)
+(mach-func-wo "a"
+              '(15 16) LISP)
 
-(defun lisp ()
-  (s '(15 16) "a"))
+(mach-func-16 "b"
+              BAUM1-1 BAUM1-2 BAUM1-3 BAUM1-4
+              BAUM1-5 BAUM1-6 BAUM1-7 BAUM1-8
+              BAUM1-9 BAUM1-10 BAUM1-11 BAUM1-12
+              BAUM1-13 BAUM1-14 BAUM1-15 BAUM1-16 )
+(mach-func-wo "b"
+              '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) BAUM1)
 
-(defun hasen ()
-  (s 13 "a"))
+(mach-func-16 "c"
+              BAUM2-1 BAUM2-2 BAUM2-3 BAUM2-4
+              BAUM2-5 BAUM2-6 BAUM2-7 BAUM2-8
+              BAUM2-9 BAUM2-10 BAUM2-11 BAUM2-12
+              BAUM2-13 BAUM2-14 BAUM2-15 BAUM2-16 )
+(mach-func-wo "c"
+              '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) BAUM2)
 
-(defun haus ()
-  (s '(1 2) "e"))
+(mach-func-16 "d"
+              BAUM3-1 BAUM3-2 BAUM3-3 BAUM3-4
+              BAUM3-5 BAUM3-6 BAUM3-7 BAUM3-8
+              BAUM3-9 BAUM3-10 BAUM3-11 BAUM3-12
+              BAUM3-13 BAUM3-14 BAUM3-15 BAUM3-16 )
+(mach-func-wo "d"
+              '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) BAUM3)
 
-(defun baum ()
-  (s '(3 4) "e"))
+(mach-func-16 "e"
+              GEBAU-JEJU-1 GEBAU-JEJU-2 BAUM-JEJU-1 BAUM-JEJU-2
+              BUSH FENSTER WOLKE STADT-AUS
+              AUTO-FRAME BOGWANG-FLAG BETT-SIGN RACICE-STETI
+              HAMMOCK-VIEW1 PRZYTARNIA-KAMP-SIGN FUCK-REALITY SOFA-LEMIAN)
+(mach-func-wo "e" '(1 2) GEBAU-JEJU)
+(mach-func-wo "e" '(3 4) BAUM-JEJU)
 
-(defun bush ()
-  (s '(5) "e"))
+(mach-func-16 "f"
+              SCHREIBMASCHINE LEER-JEJU GEBAU-HANGANG-1 GEBAU-HANGANG-2
+              WASSERTURM1 WASSERTURM2 GEBAU-JECHON-1 GABAU-JECHON-2
+              GEBAU-KOLN-1 GEBAU-KOLN-2 LAUNDARY-KOCHER WASSERHANN
+              BOILER DRYER CONVER WASSER-PILE1)
+(mach-func-wo "f" '(3 4) gebau-hangang)
+(mach-func-wo "f" '(7 8) gebau-jechon)
+(mach-func-wo "f" '(9 10) gebau-koln)
 
-(defun fenster ()
-  (s '(6) "e"))
+(mach-func-16 "g"
+              VINO WASSER-PILE2 BIER-MAGOLI KAFE-CIGARET
+              SANDORA KOE VIOLIN BALLET
+              GOPDUNGI1-1 GOPDUNGI1-2 GOPDUNGI2 DONKIXOTE
+              XCROSS  WINTER-IST-ES-KALT-ZU-RAUCHEN MUEDIGKEITS-GESELSCHAFT BONK )
+(mach-func-wo "g" '(9 10) GOPDUNGI1)
 
-(defun schreibmaschine ()
-  (s '(1) "f"))
+(mach-func-16 "h"
+              GASI KEEP-CALM-AND GLENDA1 GLENDA2
+              UNFALL1 UNFALL2 HAMMOCK2 HAMMCOK3
+              HAMMOCK-VIEW2 HAMMOCK-VIEW3 HAMMOCK4-1 HAMMOCK4-2
+              DE-DAMAS KLO-1 KLO-2 ESSEN)
+(mach-func-wo "h" '(3 4) GLENDA)
+(mach-func-wo "h" '(5 6) UNFALL)
+(mach-func-wo "h" '(11 12) HAMMCOK4)
+(mach-func-wo "h" '(14 15) KLO)
 
-(defun himmel ()
-  (s '(7) "e"))
+(mach-func-16 "i"
+              BOARD-HOTEL COCINA BOARD-ALBATROS BOARD-ESSEN
+              BECHEROVKA BIONADE KOCH-WURST SONNENBRILLE
+              EN-JOYSTICK-1 EN-JOYSTICK-2 LIEBE-ZU-DRRIT-1 LIEBE-ZU-DRRIT-2
+              ICHAT-IM-BTHEK2-1 ICHAT-IM-BTHEK2-2 ICHAT-IM-BTHEK1 AUFM-KLO)
+(mach-func-wo "i" '(9 10) EN-JOYSTICK)
+(mach-func-wo "i" '(11 12) LIEBE-ZU-DRRIT)
+(mach-func-wo "i" '(13 14) ICHAT-IM-BTHEK2)
+
+(mach-func-16 "j"
+              PPALDDUGI KATE MX-FAHRRAD BETT-IM-PARK-1
+              BETT-IM-PARK-2 FAHRRAD-TENT STUFFE F8
+              F9 F10 F11 F12
+              F13 F14 F15 F16)
+(mach-func-wo "j" '(4 5) BETT-IM-PARK)
+
+
+;;;;;;;;;; dynamik update
+(defparameter *sleep-mal* 1)
+(defun slp (mal)
+     (sleep (* *sleep-mal* mal)))
+
+(defun blk ()
+  (a " "))
+
+(defun foo1 ()
+  (baum2)
+  (sleep 1)
+;  (baum1)
+  (sleep 2)
+;  (baum3)
+  (sleep 3)
+  (baum3)
+;  (sleep 1)
+  'FER)
+
+;; (defun improved-venga ()
+;;   (loop
+;;      (foo1)
+;;      (sb-thread:?? 'fertig-p-of-foo1
+;;                    "waiting for something to happen")))
+
+;; (defun venga-ein()
+;;   (defparameter *thread* (sb-thread:make-thread #'venga)))
+
+;; (defun aus()
+;;   (sb-thread:terminate-thread *thread*))
+
+;(defun foo-go ())
+
+;=> '(1 3 5 7) ; 1, 3, 5, 6 bewegung gestartet
+;; (defun gestoppt-p (wo)
+;;   "check ob wo gestoppt od. nicht"
+;;   ;;irgendwie send check befehl zu puredata via osc
+;;   ;;y, warte aus osc-receive
+;;   )
+
+;; (defun venga-a ()
+;;   (loop
+;;        (x "a") ; => '(1) bewegung zur "a"
+;;        (print "-bewegung-")
+;;      (warte-for-gestopp (bewegung-p 1))))
+
+
+;; SWANK vs VPN
+;; ELISP PROBLEM
+
+;; open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264
+
+;; UDP over SSH
+;; STARTX      WAN        MB
+;;  9000 <----10000-     9000
+;;  9001     -10001----> 9001
+
+;; ssh -L 10000:localhost:10000 pi@mut.dlinkddns.com 'socat tcp4-listen:10000,reuseaddr,fork udp:127.0.0.1:9000'
+;; socat -T15 udp4-recvfrom:9000,reuseaddr,fork tcp:127.0.0.1:10000
+
+;; ssh -fN -R 10001:localhost:10001 pi@mut.dlinkddns.com
+;; TCP > (UDP) / oscdump / server
+;; socat tcp4-listen:10001,reuseaddr,fork udp:127.0.0.1:9001
+;; UDP > (TCP) / sendOSC / client
+;; socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001
+
+
+(defun vue ()
+  (defparameter *vue*
+    (run-program "/bin/sh" (list "-c" "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264")
+                :wait nil :output *standard-output*)))
+
+(defun vncserver-editmode ()
+  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'vncserver -geometry 650x800 -depth 8 -rfbport 5910'") :wait nil :output *standard-output*))
+
+(defun vncserver-ein ()
+  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com './vnc.sh'") :wait nil :output *standard-output*))
+
+(defun vncserver-kill ()
+  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'vncserver -kill :1'") :wait nil :output *standard-output*))
+
+(defun vnc-viewer ()
+  (defparameter *vnc-viewer*
+    (run-program "/bin/sh" (list "-c" "open vnc://mut.dlinkddns.com:5910") :wait nil :output *standard-output*)))
+
+(defun outgoing-tunneling ()
+  (run-program "/bin/sh" (list "-c" "ssh -fN -L 10000:localhost:10000 pi@mut.dlinkddns.com") :wait nil :output *standard-output*))
+
+(defun reverse-tunneling ()
+  (run-program "/bin/sh" (list "-c" "ssh -fN -R 10001:localhost:10001 pi@mut.dlinkddns.com") :wait nil :output *standard-output*))
+
+(defun da-socat-tcp2udp ()
+  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat tcp4-listen:10000,reuseaddr,fork udp:127.0.0.1:9000'") :wait nil :output *standard-output*))
+
+(defun udp2tcp () ;outgoing udp 9000 -> tcp 10000
+  (run-program "/bin/sh" (list "-c" "socat -T15 udp4-recvfrom:9000,reuseaddr,fork tcp:127.0.0.1:10000") :wait nil :output *standard-output*))
+
+(defun tcp2udp () ;incomming tcp 10000 -> udp 9001
+  (run-program "/bin/sh" (list "-c" "socat tcp4-listen:10001,reuseaddr,fork udp:127.0.0.1:9001") :wait nil :output *standard-output*))
+
+(defun da-socat-udp2tcp ()
+  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001'") :wait nil :output *standard-output*))
+
+(defun osc-select (addr-x value-x)
+  (do* ((kommt-osc (4osc) (4osc))
+       (addr (car kommt-osc) (car kommt-osc))
+       (value (cadr kommt-osc) (cadr kommt-osc)))
+      ((and (equal addr addr-x) (equal value value-x))
+       (progn
+         (format t "FER:~S ~S~%" addr value)
+         'T)
+       ) 
+   ; (format t "~S ~S~%" addr value)
+    ))
+
+;; CL-USER> (progn
+;;            (2startx "/delay" 5000)
+;;            (osc-select "/delay/fbk" 1))
+;; -TX-
+;; T
