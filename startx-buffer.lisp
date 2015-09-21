@@ -529,7 +529,7 @@
 
 ;; ;; emacs defun
 ;; (defun vue ()
-;;   (async-shell-command   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 *"))
+;;   (async-shell-command   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 &"))
 ;; (defun vnc-editmode ()
 ;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -geometry 650x800 -depth 8 -rfbport 5910' &" ))
 ;; (defun vnc-editmode-2 ()
@@ -554,7 +554,8 @@
 ;#run.0
 (defparameter *status* '((1 . 0)(2 . 0)(3 . 0)(4 . 0)(5 . 0)(6 . 0)(7 . 0)(8 . 0)
                          (9 . 0)(10 . 0)(11 . 0)(12 . 0)(13 . 0)(14 . 0)(15. 0)(16 . 0)
-                         ("kali" . 0) ("stm" . 0) ("NULL" . 0) ("netz" . 0)))
+                         ("kali" . 0) ("stm" . 0) ("NULL" . 0) ("netz" . 0)
+                         ("each" . 0)))
 ;(assoc "kali" *status* :test #'equalp)
 ;(assoc 0 *status* :test #'equalp)
 
@@ -569,8 +570,10 @@
                       address-0
                       address-zu-int))
          (gefunden (assoc address *status* :test #'equalp))) 
-    (rplacd gefunden  value)
-    (format t "~%=> ~S" gefunden)
+    (if (null gefunden)
+        (format t "~%OSC routing not gefunden")
+        (progn (rplacd gefunden  value)
+               (format t "~%=> ~S" gefunden)))
     gefunden))
 (defun osc-router-loop ()
   (loop (osc-router)))
@@ -578,13 +581,13 @@
 (defun status-reset ()
   (defparameter *status* (make-list 16 :initial-element "xx")))
 
-;; clozure warte-bis
+;; clozure warte
 (defun check-mal (address value)
            (equal (cdr (assoc address *status* :test #'equalp)) value))
 ;(check-mal "kali" 16)
 ;(check-mal 1 "TOGO")
-(defun warte-bis (address value)
-  (process-wait "WARTE-BIS" #'check-mal address value)
+(defun warte (address value)
+  (process-wait "WARTE" #'check-mal address value)
   't)
 
 ;;(setf (nth (- 16 1) *status*) "VEN")
@@ -602,4 +605,4 @@
   (2startx "/alle/FBK" 0))
 
 ;; ** TODO SYNTAX-HIGHLIGHT
-;; ** (WARTE-BIS-<= n)
+;; ** (WARTE-<= n)
