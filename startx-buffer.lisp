@@ -606,3 +606,12 @@
 
 ;; ** TODO SYNTAX-HIGHLIGHT
 ;; ** (WARTE-<= n)
+
+(defun vor (n)
+  (2startx (format nil "/~A" n) 0))
+(defun foo(x)
+  (progn
+    (vor 1)
+    (s 1 x)
+    (warte 1 "stp")
+    ))
