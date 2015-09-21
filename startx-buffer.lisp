@@ -540,14 +540,7 @@
 ;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -kill :1' &" ))
 ;; (defun vnc-view ()
 ;;   (async-shell-command   "open vnc://mut.dlinkddns.com:5910 &"))
-
-;; (vnc-view)
-;; (vnc-editmode-2)
-;; (vnc-kill)
-;; (async-shell-command "ping 192.168.0.4")
-;; (vue)
-;; (async-shell-command   "open vnc://mut.dlinkddns.com:5910")
-;; (async-shell-command "open vnc://192.168.0.3")
+;; (defeun tunneling ()
 ;; (async-shell-command "ssh -fN -L 4004:localhost:4004 pi@mut.dlinkddns.com")
 
 ;; OSC HANDLER 
@@ -610,9 +603,9 @@
 (defun vor (n)
   (2startx (format nil "/~A" n) 0))
 (defun foo(x)
-  (progn
-    (vor 1)
-    (s 1 x)
-    (warte 1 "stp")
-    ))
-;;demo-git nochmal
+  (vor 1)
+  (sleep 0.1)
+  (s 1 x)
+  (warte 1 "stp")
+    )
+
