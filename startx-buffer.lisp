@@ -6,15 +6,27 @@
 ;;; WIRING >>STARTX<< Y COMMON LISP
 ;;; FEB. 2015
 
-(ql:quickload "usocket")
-(ql:quickload "osc")
+;;; swank
 
-(defparameter *startx-ip* "192.168.0.4")
-;(defparameter *startx-ip* "localhost")
+;; (eval-when (:compile-toplevel)
+;;   (ql:quickload :usocket)
+;;   (ql:quickload :osc))
+
+;; (asdf:oos 'asdf:load-op 'usocket)
+;; (asdf:oos 'asdf:load-op 'osc)
+
+(asdf:load-system "osc")
+(asdf:load-system "usocket")
+
+(defpackage :startx-buffer
+  (:use :cl :osc :usocket))
+
+(defparameter *startx-ip* "localhost")
 (defparameter *startx-osc-port* 9000)
-(defparameter *startx-osc-port-r* 9001)
-(defparameter *startx-socket* nil)
-(defparameter *startx-socket-r* nil)
+(defparameter *socket-s* nil)
+(defparameter *socket-r* nil)
+(defparameter *osc-port-r* 9001)
+
 
 ;;; satz helper
 (defun toggle-case  (string)
@@ -28,59 +40,63 @@
           (setf (aref string i) (char-downcase ele))
           (setf (aref string i) (char-upcase ele))))))
 
-(defun mach-socket ()
-  (defparameter  *startx-socket* (usocket:socket-connect
+(defun mach-socket-s ()
+  "FUER BEFEHL"
+  (defparameter  *socket-s* (usocket:socket-connect
                                   *startx-ip* *startx-osc-port*
                                   :protocol :datagram
                                   :element-type '(unsigned-byte 8))))
-(defun kill-socket ()
-  (usocket:socket-close *startx-socket*))
+(defun kill-socket-s ()
+  (usocket:socket-close *socket-s*))
+
+;; (defmacro mach-socket-r (n)
+;;   "*SOCKET-N* :port 9000 + N"
+;;   `(set (intern (format nil "*SOCKET-~A*" ,n))
+;;        (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1" :local-port (+ 9000 ,n))))
+
+;; (defun kill-socket-r (n)
+;;   (usocket:socket-close (eval (intern (format nil "*SOCKET-~A*" n)))))
 
 (defun mach-socket-r ()
-  (defparameter *startx-socket-r* (usocket:socket-connect nil nil
-                                                          :protocol :datagram
-                                                          :element-type '(unsigned-byte 8)
-                                                          :local-host "127.0.0.1"
+  (defparameter *socket-r*
+    (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1"
+                            :local-port *osc-port-r*)))
 
-                                                          :local-port *startx-osc-port-r*)))
 (defun kill-socket-r ()
-  (usocket:socket-close *startx-socket-r*))
+  (usocket:socket-close *socket-r*))
 
-(defun 4osc ()
-  (let ((sock (usocket:socket-connect nil nil
-					:protocol :datagram
-					:element-type '(unsigned-byte 8)
-					:local-host "127.0.0.1"
-					:local-port *startx-osc-port-r*)))
-    (unwind-protect
-      (let ((buf (make-array 20 :element-type '(unsigned-byte 8))))
-        (osc:decode-message (usocket:socket-receive sock buf 20)))
-      (usocket:socket-close sock))))
+(defun mach-socket ()
+  (progn (mach-socket-s)
+         (mach-socket-r)))
+(defun kill-socket ()
+  (progn (kill-socket-s)
+         (kill-socket-r)))
 
 (defmacro 2startx (path &rest value)
   `(let* ((buffer (osc:encode-message ,path ,@value))
-          (length (array-dimension buffer 0))
-;          (buffer-r (make-array 20 :element-type '(unsigned-byte 8)))
-          )
+          (length (array-dimension buffer 0)))
      (progn
-       (usocket:socket-send *startx-socket* buffer length)
-       (format t "-TX-")
-;       (osc:decode-message (usocket:socket-receive *startx-socket-r* buffer-r 20))
-       )))
+       (usocket:socket-send *SOCKET-S* buffer length)
+       (format t "-ZU-"))))
 
 (defmacro 4startx ()
-  `(let* ((buffer-r (make-array 20 :element-type '(unsigned-byte 8))))
+  `(let ((buffer-r (make-array 20 :element-type '(unsigned-byte 8))))
      (progn
-       (format t "-RX...-")
-       (osc:decode-message (usocket:socket-receive *startx-socket-r* buffer-r 20)))))
+       (format t "-KOM...")
+       (osc:decode-message (usocket:socket-receive *socket-r* buffer-r 20)))))
 
+(defun osc-listen (port) 
+  "a basic test function which attempts to decode an osc message a given port."
+  (let ((s (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1" :local-port port))
+        (buffer (make-sequence '(vector (unsigned-byte 8)) 1024)))
+   ; (socket-bind s #(0 0 0 0) port)
+    (format t "listening on localhost port ~A~%~%" port)
+    (unwind-protect 
+	(loop do
+	      (usocket:socket-receive s buffer 1024)
+	      (format t "receiveded -=> ~S~%" (osc:decode-bundle buffer)))
+      (when s (usocket:socket-close s)))))
 
-(defun check-rx ()
-  )
-
-;; (defmacro 2startx (path &rest value)
-;;   `(udp-client ,*startx-ip* ,*startx-osc-port*
-;;                (osc:encode-message ,path ,@value)))
 (defmacro each/ (pos path)
   "osc path helper"
   `(concatenate 'string "/each/" (write-to-string ,pos) "/" ,path))
@@ -142,19 +158,6 @@
          (forms (mapcar (lambda (x) `,x) asc)))
     `(2startx "/alle/satz" ,@forms)))
 
-;; (x- "111111        11")
-;; (sag+ "0 3") ;nil->no change machen
-;; (sag- "0 3")
-
-;;(satz-teil "1 3 5 7 9") => blanko dazu no signal senden
-
-
-(defun maxi-lst (lst)
-  "as list, one-shot maxi kontrol"
-  (do ((cur lst (cdr cur))
-       (i 1 (+ 1 i)))
-      ((null cur) t)
-    (maxi i (car cur))))
 (defun maxi (pos &optional max-spd)
   (cond ((null max-spd) nil)
         ((listp pos)
@@ -163,16 +166,16 @@
         ((zerop pos) (alle maxi max-spd))
         ((not (null pos))(2startx (each/ pos "max") max-spd))
         (t nil)))
-
+(defun maxi-lst (lst)
+  "as list, one-shot maxi kontrol"
+  (do ((cur lst (cdr cur))
+       (i 1 (+ 1 i)))
+      ((null cur) t)
+    (maxi i (car cur))))
 ;; (maxi '(11 12 nil 14 15 16 17 17 nil 19 0 1 2 3 4 ))
 ;; (maxi 0 100)
 ;; (maxi 1 99)
 
-(defun aksel-lst (lst)
-  (do ((cur lst (cdr cur))
-       (i 1 (+ 1 i)))
-      ((null cur) t)
-    (aksel i (car cur))))
 (defun aksel (pos &optional accel-var)
   (cond ((null accel-var) nil)
         ((listp pos)
@@ -181,6 +184,11 @@
         ((zerop pos) (alle aksel accel-var))
         ((not (null pos))(2startx (each/ pos "accel") accel-var))
         (t nil)))
+(defun aksel-lst (lst)
+  (do ((cur lst (cdr cur))
+       (i 1 (+ 1 i)))
+      ((null cur) t)
+    (aksel i (car cur))))
 
 (defun stm (pos tgl)
   (cond ((listp pos)
@@ -200,24 +208,6 @@
         (t nil)))
 (defun abal (pos)
   (s pos 128))
-
-;; ;;; Btcusdsl
-;; (ql:quickload :yason)
-;; (ql:quickload :flexi-streams)
-;; (ql:quickload :drakma)
-;; (info "last_price" (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))
-
-;; (defun btcusd (key)
-;;   "key as string,  z.B. mid, bid, ask, last_price, low, high, volume, timestamp  "
-;;   (let ((result (info key (yason:parse (FLEXI-STREAMS:octets-to-string (drakma:http-request url) :external-format :utf-8)))))
-;;     (format nil "~%~A" result)))
-
-;; (defun foo (time-interval wieviel-mals)
-;;   (loop for i from 1 to wieviel-mals do
-;;        (s+ (btcusd "last_price"))
-;;        (sleep time-interval))
-;;   (s+ "         fertig"))
-
 
 ;; CMD
 (defun startx ()
@@ -284,20 +274,6 @@
 ;; (aksel 0 1000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun bla ()
-  (loop for i from 1 to 5 do
-       (sleep 0.5)
-       (2startx "/gjeiotbla" i)))
-
-(defun blabla ()
-  (loop (sleep 1)
-     (2startx "/blabla-222" 1)))
-
-;; (defun bla ())
-;; (loop (bla))
-
-(defun demo ()
-  (2startx "/FF" 5))
 
 (defun spido (x-maxi x-aksel)
   (maxi 0 x-maxi)
@@ -443,15 +419,8 @@
               F13 F14 F15 F16)
 (mach-func-wo "j" '(4 5) BETT-IM-PARK)
 
-
-;;;;;;;;;; dynamik update
-(defparameter *sleep-mal* 1)
-(defun slp (mal)
-     (sleep (* *sleep-mal* mal)))
-
 (defun blk ()
   (a " "))
-
 (defun foo1 ()
   (baum2)
   (sleep 1)
@@ -510,57 +479,127 @@
 ;; UDP > (TCP) / sendOSC / client
 ;; socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001
 
-
 (defun vue ()
   (defparameter *vue*
     (run-program "/bin/sh" (list "-c" "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264")
                 :wait nil :output *standard-output*)))
-
 (defun vncserver-editmode ()
   (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'vncserver -geometry 650x800 -depth 8 -rfbport 5910'") :wait nil :output *standard-output*))
-
 (defun vncserver-ein ()
   (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com './vnc.sh'") :wait nil :output *standard-output*))
-
 (defun vncserver-kill ()
   (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'vncserver -kill :1'") :wait nil :output *standard-output*))
-
 (defun vnc-viewer ()
   (defparameter *vnc-viewer*
     (run-program "/bin/sh" (list "-c" "open vnc://mut.dlinkddns.com:5910") :wait nil :output *standard-output*)))
 
 (defun outgoing-tunneling ()
   (run-program "/bin/sh" (list "-c" "ssh -fN -L 10000:localhost:10000 pi@mut.dlinkddns.com") :wait nil :output *standard-output*))
-
 (defun reverse-tunneling ()
   (run-program "/bin/sh" (list "-c" "ssh -fN -R 10001:localhost:10001 pi@mut.dlinkddns.com") :wait nil :output *standard-output*))
-
 (defun da-socat-tcp2udp ()
   (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat tcp4-listen:10000,reuseaddr,fork udp:127.0.0.1:9000'") :wait nil :output *standard-output*))
-
 (defun udp2tcp () ;outgoing udp 9000 -> tcp 10000
   (run-program "/bin/sh" (list "-c" "socat -T15 udp4-recvfrom:9000,reuseaddr,fork tcp:127.0.0.1:10000") :wait nil :output *standard-output*))
-
-(defun tcp2udp () ;incomming tcp 10000 -> udp 9001
+(defun t4cp2udp () ;incomming tcp 10000 -> udp 9001
   (run-program "/bin/sh" (list "-c" "socat tcp4-listen:10001,reuseaddr,fork udp:127.0.0.1:9001") :wait nil :output *standard-output*))
-
 (defun da-socat-udp2tcp ()
   (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001'") :wait nil :output *standard-output*))
 
-(defun osc-select (addr-x value-x)
-  (do* ((kommt-osc (4osc) (4osc))
-       (addr (car kommt-osc) (car kommt-osc))
-       (value (cadr kommt-osc) (cadr kommt-osc)))
-      ((and (equal addr addr-x) (equal value value-x))
-       (progn
-         (format t "FER:~S ~S~%" addr value)
-         'T)
-       ) 
-   ; (format t "~S ~S~%" addr value)
-    ))
+;; (defun osc-select (addr-x value-x)
+;;   (do* ((addr (car kommt-osc) (car kommt-osc))
+;;         (value (cadr kommt-osc) (cadr kommt-osc)))
+;;       ((and (equal addr addr-x) (equal value value-x))
+;;        (progn
+;;          (format t "FER:~S ~S~%" addr value)
+;;          'T)
+;;        ) 
+;;    ; (format t "~S ~S~%" addr value)
+;;     ))
+;; (defun warte-bis (addr-x tgr)
+;;   (do ((i (nth (- addr-x 1) *status*)(nth (- addr-x 1) *status*)))
+;;       ((equal i tgr) "END")
+;;     (sleep 1)))
 
 ;; CL-USER> (progn
 ;;            (2startx "/delay" 5000)
 ;;            (osc-select "/delay/fbk" 1))
 ;; -TX-
 ;; T
+
+;; ;; emacs defun
+;; (defun vue ()
+;;   (async-shell-command   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 *"))
+;; (defun vnc-editmode ()
+;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -geometry 650x800 -depth 8 -rfbport 5910' &" ))
+;; (defun vnc-editmode-2 ()
+;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -geometry 720x1024 -depth 8 -rfbport 5910' &" ))
+;; (defun vnc-ein ()
+;;   (async-shell-command   "ssh pi@mut.dlinkddns.com './vnc.sh' &" ))
+;; (defun vnc-kill ()
+;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -kill :1' &" ))
+;; (defun vnc-view ()
+;;   (async-shell-command   "open vnc://mut.dlinkddns.com:5910 &"))
+
+;; (vnc-view)
+;; (vnc-editmode-2)
+;; (vnc-kill)
+;; (async-shell-command "ping 192.168.0.4")
+;; (vue)
+;; (async-shell-command   "open vnc://mut.dlinkddns.com:5910")
+;; (async-shell-command "open vnc://192.168.0.3")
+;; (async-shell-command "ssh -fN -L 4004:localhost:4004 pi@mut.dlinkddns.com")
+
+;; OSC HANDLER 
+;#run.0
+(defparameter *status* '((1 . 0)(2 . 0)(3 . 0)(4 . 0)(5 . 0)(6 . 0)(7 . 0)(8 . 0)
+                         (9 . 0)(10 . 0)(11 . 0)(12 . 0)(13 . 0)(14 . 0)(15. 0)(16 . 0)
+                         ("kali" . 0) ("stm" . 0) ("NULL" . 0) ("netz" . 0)))
+;(assoc "kali" *status* :test #'equalp)
+;(assoc 0 *status* :test #'equalp)
+
+(defun osc-router ()
+  "place value at the adress in alist *status*"
+  (let* ((buffer-r (make-array 20 :element-type '(unsigned-byte 8)))
+         (received-msg (osc:decode-message (usocket:socket-receive *socket-r* buffer-r 20)))
+         (value (cadr received-msg))
+         (address-0 (string-left-trim "/" (car received-msg)))
+         (address-zu-int (parse-integer address-0 :junk-allowed t))
+         (address (if (null address-zu-int)
+                      address-0
+                      address-zu-int))
+         (gefunden (assoc address *status* :test #'equalp))) 
+    (rplacd gefunden  value)
+    (format t "~%=> ~S" gefunden)
+    gefunden))
+(defun osc-router-loop ()
+  (loop (osc-router)))
+
+(defun status-reset ()
+  (defparameter *status* (make-list 16 :initial-element "xx")))
+
+;; clozure warte-bis
+(defun check-mal (address value)
+           (equal (cdr (assoc address *status* :test #'equalp)) value))
+;(check-mal "kali" 16)
+;(check-mal 1 "TOGO")
+(defun warte-bis (address value)
+  (process-wait "WARTE-BIS" #'check-mal address value)
+  't)
+
+;;(setf (nth (- 16 1) *status*) "VEN")
+
+(defparameter *osc-router-d* nil)
+(defun osc-router-d (&optional (x "status"))
+  (cond ((equal x "stop") (process-kill *osc-router-d*))
+        ((equal x "start")
+         (defparameter *osc-router-d* (process-run-function "OSC-ROUTER-D" #'osc-router-loop)))
+        (t (all-processes))))
+
+(defun feedback-on ()
+  (2startx "/alle/FBK" 1))
+(defun feedback-off ()
+  (2startx "/alle/FBK" 0))
+
+;; ** TODO SYNTAX-HIGHLIGHT
+;; ** (WARTE-BIS-<= n)
