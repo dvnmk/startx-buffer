@@ -1,5 +1,6 @@
 # (+ STARTX LISP) => STARTX-BUFFER
 ![foto](media/startx-buffer_probe.png)
+![foto](media/startx-theatre.png)
 
 ## STARTX is a homebrewed machine,
 * split display modul x 16
