@@ -20,18 +20,13 @@
 ## STARTX-THEATRE is,
 ![foto](media/startx-theatre.png)
 
-Syntax
-------
-`M-x startx-mode
-`
-
-`(defun tunnel ()
+### Syntax
+M-x startx-mode
+(defun tunnel ()
   (interactive)
   (call-process-shell-command "ssh -fNL 4004:localhost:4004 pi@mut.dlinkddns.com &"))
-`
-Demo
-----
 
-Todo
-----
+### Demo
+### Todo
+
 
