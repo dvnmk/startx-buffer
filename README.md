@@ -11,9 +11,10 @@
 * A EXPERIMENTALISCHE PHYSIKALISCHE BUFFER
 * \*SCRATCH\* BUFFER IN EMACS INSPIRED.
 * STARTX-BUFFER-MODE.EL ; REAL TIME KEYINPUT HIJACKER FROM EMACS TO STARTX
+`
     (add-to-list 'load-path "/users/dvnmk/dropbox/startx/startx-buffer-buffer/")
     (require 'startx-buffer-mode)
-
+`
 ## STARTX-THEATRE.LISP IS,
 ![foto](media/startx-theatre.png)
 
