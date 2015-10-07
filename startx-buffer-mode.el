@@ -286,7 +286,7 @@
             map)
   (message ">STARTX<-mode gestartet."))
 
-(provide 'startx-mode)
+(provide 'startx-buffer-mode)
 
 ;;;; aus .emacs
 
