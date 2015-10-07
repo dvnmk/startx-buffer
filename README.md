@@ -32,3 +32,6 @@ M-x startx-mode
 ### Todo
 
 
+Then add it to the load-path, ie. add the following line to `~/.emacs.d/init.el` (or `~/.emacs`):
+
+    (add-path (concat user-emacs-directory "/plugins/realtime-emacs-markdown-view/" ))
