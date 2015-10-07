@@ -17,7 +17,6 @@ STARTX-BUFFER is,
 
 Syntax
 ------
-* tunneling
 `(defun tunnel ()
   (interactive)
   (call-process-shell-command "ssh -fNL 4004:localhost:4004 pi@mut.dlinkddns.com &"))
