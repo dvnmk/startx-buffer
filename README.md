@@ -11,10 +11,9 @@ STARTX-BUFFER is,
 -----------------
 * a experimentalische physikal buffer
 * *scratch* buffer in emacs inspired.
-* startx-buffer-mode.el (ELISP - REAL TIME KEYINPUT HIJACKER TO STARTX IN EMACS)
-
-      (add-to-list 'load-path "/Users/dvnmk/Dropbox/STARTX/startx-buffer-buffer/")
-      (require 'startx-buffer-mode)
+### startx-buffer-mode.el (ELISP - REAL TIME KEYINPUT HIJACKER TO STARTX IN EMACS)
+(add-to-list 'load-path "/Users/dvnmk/Dropbox/STARTX/startx-buffer-buffer/")
+(require 'startx-buffer-mode)
 
 
 
