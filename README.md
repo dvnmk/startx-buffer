@@ -1,34 +1,32 @@
 # (+ STARTX LISP) => STARTX-BUFFER
-![FOTO](MEDIA/STARTX-BUFFER_PROBE.PNG)
+![foto](media/startx-buffer_probe.png)
 
-## STARTX IS A HOMEBREWED MACHINE,
-* SPLIT DISPLAY MODUL X 16
-* RASPBERRY PI, CHIPKIT, IP CAMERA
-* PUREDATA
-* COMMUNICATION VIA OSC
+## STARTX is a homebrewed machine,
+* split display modul x 16
+* raspberry pi, chipkit, ip camera
+* puredata
+* communication via OSC
 
-## STARTX-BUFFER IS,
+## STARTX-BUFFER is,
 
-- A EXPERIMENTALISCHE PHYSIKAL BUFFER
-- \*SCRATCH\* BUFFER IN EMACS INSPIRED.
-- STARTX-BUFFER-MODE.EL (ELISP - REAL TIME KEYINPUT HIJACKER TO STARTX IN EMACS)
+- a experimentalische physikal buffer
+- \*scratch\* buffer in emacs inspired.
+- startx-buffer-mode.el (ELISP - REAL TIME KEYINPUT HIJACKER TO STARTX IN EMACS)
 
-(ADD-TO-LIST 'LOAD-PATH "/USERS/DVNMK/DROPBOX/STARTX/STARTX-BUFFER-BUFFER/")
-(REQUIRE 'STARTX-BUFFER-MODE)
+(add-to-list 'load-path "/Users/dvnmk/Dropbox/STARTX/startx-buffer-buffer/")
+(require 'startx-buffer-mode)
 
-## STARTX-BUFFER.LISP IS,
-## STARTX-THEATRE IS,
-![FOTO](MEDIA/STARTX-THEATRE.PNG)
+## startx-buffer.lisp is,
+## STARTX-THEATRE is,
+![foto](media/startx-theatre.png)
 
-### CONNECT STARTX
-`
-(DEFUN TUNNEL ()
-(INTERACTIVE)
-(CALL-PROCESS-SHELL-COMMAND "SSH -FNL 4004:LOCALHOST:4004 PI@MUT.DLINKDDNS.COM &"))
-`
-`
-M-X TUNNEL
-`
+### Connect STARTX
+    (defun tunnel ()
+      (interactive)
+      (call-process-shell-command "ssh -fNL 4004:localhost:4004 pi@mut.dlinkddns.com &"))
+    
+    M-x tunnel
+
 	
-### DEMO
-### TODO
+### Demo
+### Todo
