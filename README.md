@@ -1,17 +1,16 @@
-(+ STARTX LISP) => STARTX-BUFFER
-=================================
+# (+ STARTX LISP) => STARTX-BUFFER
 ![foto](media/startx-buffer_probe.png)
 STARTX is a homebrewed machine,
-------------------------------------
-* split display modul x 16
-* raspberry pi, chipkit, ip camera, puredata
-* communication via OSC
+- split display modul x 16
+- raspberry pi, chipkit, ip camera, puredata
+- communication via OSC
 
-STARTX-BUFFER is,
------------------
-* a experimentalische physikal buffer
-* *scratch* buffer in emacs inspired.
-### startx-buffer-mode.el (ELISP - REAL TIME KEYINPUT HIJACKER TO STARTX IN EMACS)
+## STARTX-BUFFER is,
+
+- a experimentalische physikal buffer
+- *scratch* buffer in emacs inspired.
+- startx-buffer-mode.el (ELISP - REAL TIME KEYINPUT HIJACKER TO STARTX IN EMACS)
+
 (add-to-list 'load-path "/Users/dvnmk/Dropbox/STARTX/startx-buffer-buffer/")
 (require 'startx-buffer-mode)
 
