@@ -2,23 +2,27 @@
 ![foto](media/startx-buffer_probe.png)
 
 ## STARTX IS A HOMEBREWED MACHINE,
-* SPLIT DISPLAY MODUL * 16
+* SPLIT DISPLAY MODUL x 16
 * RASPBERRY PI, CHIPKIT, IP CAMERA
 * PUREDATA
 * VIA OSC
 
-## STARTX-BUFFER IS,
+## STARTX-BUFFER IS A EMACS MINOR MODE,
 * A EXPERIMENTALISCHE PHYSIKALISCHE BUFFER
 * \*SCRATCH\* BUFFER IN EMACS INSPIRED.
 * STARTX-BUFFER-MODE.EL ; REAL TIME KEYINPUT HIJACKER FROM EMACS TO STARTX
-
-    (add-to-list 'load-path "/users/dvnmk/dropbox/startx/startx-buffer-buffer/")
-    (require 'startx-buffer-mode)
-
-## STARTX-THEATRE.LISP IS,
+```
+(add-to-list 'load-path "/users/dvnmk/dropbox/startx/startx-buffer-buffer/")
+(require 'startx-buffer-mode)
+```
+## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRIONMENT,
 ![foto](media/startx-theatre.png)
 
-### CONNECT TO STARTX
+* LIVE CODING INSPIRED
+* SATELLITE REMOTE PROGRAMMING INSPIRED 
+* "THE LIBRARY OF BABEL BY JORGE LUIS BORGES" GELESEN.
+
+## CONNECT TO STARTX
     (defun tunnel ()
       (interactive)
       (call-process-shell-command "ssh -fnl 4004:localhost:4004 pi@mut.dlinkddns.com &"))
@@ -33,5 +37,5 @@
 
     M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)
 
-### DEMO
-### TODO
+## DEMO
+## TODO
