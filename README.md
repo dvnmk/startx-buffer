@@ -1,8 +1,9 @@
 # (+ STARTX EMACS) => STARTX-BUFFER
 ![foto](media/startx-buffer.png)
+<!-- ![foto](media/mit-kamera.png) -->
 
 ## STARTX IS A MACHINE,
-* SPLIT DISPLAY MODUL x 16
+* SPLIT-FLAP DISPLAY MODUL x 16
 * RASPBERRY PI, CHIPKIT, IP CAMERA
 * PUREDATA
 * VIA OSC
