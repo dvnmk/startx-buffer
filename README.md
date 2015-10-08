@@ -23,19 +23,18 @@
 * "THE LIBRARY OF BABEL BY JORGE LUIS BORGES" GELESEN.
 
 ## CONNECT TO STARTX
-    (defun tunnel ()
-      (interactive)
-      (call-process-shell-command "ssh -fnl 4004:localhost:4004 pi@mut.dlinkddns.com &"))
-    
-    M-x tunnel
-
-    (defun vue ()
-      (interactive)
-      (call-process-shell-command "open -n -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
-
-    M-x vue
-
-    M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)
-
+```
+(defun tunnel ()
+  (interactive)
+  (call-process-shell-command "ssh -fnl 4004:localhost:4004 pi@mut.dlinkddns.com &"))
+M-x tunnel
+```
+```
+(defun vue ()
+   (interactive)
+   (call-process-shell-command "open -n -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
+M-x vue
+M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)
+```
 ## DEMO
 ## TODO
