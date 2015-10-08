@@ -1,8 +1,8 @@
-;;; network-status.el -- Display network status in mode line.
+;;; startx-buffer.el -- connecting with the machschine >STARTX< in Emacs
 
 ;; Copyright (C) 2015 by dvnmk
 
-;; Author: divinomok <divinomko@gmail.com>
+;; Author: divinomok <divinomok@gmail.com>
 ;; URL: http://github.com/dvnmk/startx-buffer
 ;; Keywords: tools, network, convenience
 ;; Version: xx
