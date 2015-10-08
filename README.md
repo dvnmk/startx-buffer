@@ -54,9 +54,9 @@ CL-USER>
 CL-USER> (startx)      ; initialize the machine
 CL-USER> (agur)        ; turn off the maschine
 ```
-`C-a`         ; move-beginning-of-startx
-`C-k`         ; kill-rest in startx
-`<backspace>` ; backward-delete-char in startx
+* `C-a`         ; move-beginning-of-startx
+* `C-k`         ; kill-rest in startx
+* `<backspace>` ; backward-delete-char in startx
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
