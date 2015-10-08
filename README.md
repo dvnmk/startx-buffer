@@ -1,5 +1,5 @@
 # (+ STARTX LISP) => STARTX-BUFFER
-![foto](media/startx-buffer_probe.png)
+![foto](media/startx-buffer.png)
 
 ## STARTX IS A HOMEBREWED MACHINE,
 * SPLIT DISPLAY MODUL x 16
@@ -15,6 +15,7 @@
 (add-to-list 'load-path "/users/dvnmk/dropbox/startx/startx-buffer-buffer/")
 (require 'startx-buffer-mode)
 ```
+
 ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRIONMENT,
 ![foto](media/startx-theatre.png)
 
@@ -26,15 +27,25 @@
 ```
 (defun tunnel ()
   (interactive)
-  (call-process-shell-command "ssh -fnl 4004:localhost:4004 pi@mut.dlinkddns.com &"))
+  (call-process-shell-command
+  "ssh -fnl 4004:localhost:4004 pi@mut.dlinkddns.com &"))
 M-x tunnel
 ```
 ```
 (defun vue ()
    (interactive)
-   (call-process-shell-command "open -n -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
+   (call-process-shell-command
+   "open -n -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
 M-x vue
+```
+```
 M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)
+```
+```
+CL-USER> (startx)
+->->->alle null kalibriet, denke ich.
+NIL
+CL-USER>
 ```
 ## DEMO
 ## TODO
