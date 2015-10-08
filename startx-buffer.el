@@ -1,4 +1,4 @@
-;;; startx-buffer.el -- connecting with the machschine >STARTX< in Emacs
+;;; startx-buffer.el -- a physikal buffer, connecting with the machschine >STARTX< in Emacs
 
 ;; Copyright (C) 2015 by dvnmk
 
@@ -148,9 +148,9 @@
 
 ;;(this-command-keys)
 
-(define-minor-mode startx-mode
+(define-minor-mode startx-buffer
   "connecting with the machschine >STARTX< in Emacs"
-  :lighter " >STARTX<"
+  :lighter " STARTX-BUFFER"
   :keymap (let ((map (make-sparse-keymap)))
             (define-key map (kbd "1") 'hijack)
             (define-key map (kbd "2") 'hijack)
@@ -284,9 +284,9 @@
                 (message "DEBUG// C-k")))
 
             map)
-  (message ">STARTX<-mode gestartet."))
+  )
 
-(provide 'startx-buffer-mode)
+(provide 'startx-buffer)
 
 ;;;; aus .emacs
 
