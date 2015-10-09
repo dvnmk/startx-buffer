@@ -1,4 +1,4 @@
-# (+ STARTX EMACS) => STARTX-BUFFER
+# (+ STARTX EMACS) => \*STARTX-BUFFER\*
 ![foto](media/startx-buffer.png)
 <!-- ![foto](media/mit-kamera.png) -->
 
@@ -9,17 +9,18 @@
 * VIA OSC
 
 ## STARTX-BUFFER IS A EMACS MINOR MODE,
-* A EXPERIMENTALISCHE PHYSIKALISCHE BUFFER
+* A EXPERIMENTAL PHYSIKAL REMOTE  BUFFER
 * REAL TIME KEYINPUT HIJACKER FROM EMACS TO THE STARTX
 
-```
-(add-to-list 'load-path ".../startx-buffer/")
-(require 'startx-buffer)
-```
-
-## DEPENDANCY
+### DEPENDANCY
 * SLIME <https://github.com/slime/slime>
 * MPV <http://mpv.io>
+
+### INSTALLATION
+```
+(add-to-list 'load-path "path/to/startx-buffer/")
+(require 'startx-buffer)
+```
 
 ## CONNECT TO STARTX-BUFFER
 ```
@@ -27,7 +28,7 @@
 (defun tunnel ()
   (interactive)
   (call-process-shell-command
-  "ssh -fnl 4004:localhost:4004 pi@mut.dlinkddns.com &"))
+  "ssh -fnl 4004:localhost:4004 startx@mut.dlinkddns.com &"))
 ```
 `M-x tunnel`
 
@@ -44,7 +45,7 @@
 `M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)`
 ```
 CL-USER> (startx)
-->->->alle null kalibriet, denke ich.
+->->->alle null kalibriert, denke ich.
 NIL
 CL-USER>
 ```
@@ -52,7 +53,7 @@ CL-USER>
 
 ## COMMAND
 ```
-CL-USER> (startx)      ; initialize the machine
+CL-USER> (startx)      ; start the machine startx
 CL-USER> (agur)        ; turn off the maschine
 ```
 * `C-a`         ; move-beginning-of-startx
