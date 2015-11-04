@@ -5,11 +5,10 @@
 ## STARTX IS A MACHINE,
 * SPLIT-FLAP DISPLAY MODUL x 16
 * RASPBERRY PI, CHIPKIT, IP CAMERA
-* PUREDATA
-* VIA OSC
+* PUREDATA, VIA OSC
 
 ## STARTX-BUFFER IS A EMACS MINOR MODE,
-* A EXPERIMENTAL PHYSIKAL REMOTE  BUFFER
+* A EXPERIMENTAL PHYSIKAL REMOTE BUFFER
 * REAL TIME KEYINPUT HIJACKER FROM EMACS TO THE STARTX
 
 ### DEPENDANCY
@@ -56,9 +55,9 @@ CL-USER>
 CL-USER> (startx)      ; start the machine startx
 CL-USER> (agur)        ; turn off the maschine
 ```
-* `C-a`         ; move-beginning-of-startx
-* `C-k`         ; kill-rest in startx
-* `<backspace>` ; backward-delete-char in startx
+* `C-a`         ; move-beginning-of-\*startx-buffer\*
+* `C-k`         ; kill-rest in \*startx-buffer\*
+* `<backspace>` ; backward-delete-char in \*startx-buffer\*
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
@@ -68,3 +67,8 @@ CL-USER> (agur)        ; turn off the maschine
 <!-- * "THE LIBRARY OF BABEL BY JORGE LUIS BORGES" GELESEN. -->
 
 ## SCREENCAST
+
+## TODO
+* how to ssh w/o password
+* ssh or slime guest mode
+* startx account transition

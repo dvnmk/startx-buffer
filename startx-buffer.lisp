@@ -210,7 +210,12 @@
   (s pos 128))
 
 ;; CMD
-(defun startx ()
+(defun init ()
+  (mach-socket)
+  (feedback-on)
+  (osc-router-d "start"))
+
+(defun ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (netz 1)
   (sleep 1)
@@ -218,13 +223,13 @@
   (sleep 1)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "alle null kalibriet, denke ich."))
+  (format t "alle null kalibriert, denke ich."))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "alle null kalibriet, denke ich."))
+  (format t "alle null kalibriert, denke ich."))
 
 (defun agur ()
   (abal 0)
@@ -441,7 +446,7 @@
 ;  (sleep 1)
   'FER)
 
-;; (defun improved-venga ()
+;; (defun improved-venga ()~
 ;;   (loop
 ;;      (foo1)
 ;;      (sb-thread:?? 'fertig-p-of-foo1
@@ -622,109 +627,24 @@
   (progn (maxi n maxi-x)
          (aksel n aksel-x))) 
 
-(defun seq0 ( )
-  t
-  )
-
-(defun seq-1 ()
-  (let ((x *seq-1*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 1 ele)))))
-
-(defun seq-2 ()
-  (let ((x *seq-2*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 2 ele)))))
-
-(defun seq-3 ()
-  (let ((x *seq-3*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 3 ele)))))
-
-(defun seq-4 ()
-  (let ((x *seq-4*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 4 ele)))))
-
-(defun seq-5 ()
-  (let ((x *seq-5*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 5 ele)))))
-
-(defun seq-6 ()
-  (let ((x *seq-6*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 6 ele)))))
-
-(defun seq-7 ()
-  (let ((x *seq-7*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 7 ele)))))
-
-(defun seq-8 ()
-  (let ((x *seq-8*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 8 ele)))))
-
-(defun seq-9 ()
-  (let ((x *seq-9*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 9 ele)))))
-
-(defun seq-10 ()
-  (let ((x *seq-10*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 10 ele)))))
-
-(defun seq-11 ()
-  (let ((x *seq-11*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 11 ele)))))
-
-(defun seq-12 ()
-  (let ((x *seq-12*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 12 ele)))))
-
-(defun seq-13 ()
-  (let ((x *seq-13*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 13 ele)))))
-
-(defun seq-14 ()
-  (let ((x *seq-14*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 14 ele)))))
-
-(defun seq-15 ()
-  (let ((x *seq-15*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 15 ele)))))
-
-(defun seq-16 ()
-  (let ((x *seq-16*))
-    (dolist (ele x)
-      (if (numberp ele) (sleep ele)
-	  (go-warte 16 ele)))))
-
 (defparameter *baz* '("a" 1 "b" 1 "c" 1 "d" 1  "e" 1 "f" 1  "g" 1  "h" 1 "i" 1 "%" 3))
 (defparameter *bilder* '("A" 1 "B" 1 "C" 1 "D" 1  "E" 1 "F" 1  "G" 1  "H" 1 "@" 3 ))
 (defparameter *seq-1* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-2* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-3* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-4* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-5* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-6* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-7* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-8* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-9* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-10* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-11* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-12* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-13* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-14* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-15* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
+(defparameter *seq-16* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
 (defparameter *hello-world* '("H" 3 "E" 3 "L" 3 "L" 3 "O" 3 "W" 3 "R" 3 "L" 3 "D"))
 
 (progn
@@ -842,6 +762,107 @@
         ((equal x "start")
          (defparameter *seq-16-d* (process-run-function "seq-16-d" #'seq-16-loop)))
         (t (all-processes))))
+
+
+(defun seq0 ( )
+  t
+  )
+
+(defun seq-1 ()
+  (let ((x *seq-1*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 1 ele)))))
+
+(defun seq-2 ()
+  (let ((x *seq-2*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 2 ele)))))
+
+(defun seq-3 ()
+  (let ((x *seq-3*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 3 ele)))))
+
+(defun seq-4 ()
+  (let ((x *seq-4*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 4 ele)))))
+
+(defun seq-5 ()
+  (let ((x *seq-5*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 5 ele)))))
+
+(defun seq-6 ()
+  (let ((x *seq-6*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 6 ele)))))
+
+(defun seq-7 ()
+  (let ((x *seq-7*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 7 ele)))))
+
+(defun seq-8 ()
+  (let ((x *seq-8*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 8 ele)))))
+
+(defun seq-9 ()
+  (let ((x *seq-9*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 9 ele)))))
+
+(defun seq-10 ()
+  (let ((x *seq-10*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 10 ele)))))
+
+(defun seq-11 ()
+  (let ((x *seq-11*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 11 ele)))))
+
+(defun seq-12 ()
+  (let ((x *seq-12*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 12 ele)))))
+
+(defun seq-13 ()
+  (let ((x *seq-13*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 13 ele)))))
+
+(defun seq-14 ()
+  (let ((x *seq-14*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 14 ele)))))
+
+(defun seq-15 ()
+  (let ((x *seq-15*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 15 ele)))))
+
+(defun seq-16 ()
+  (let ((x *seq-16*))
+    (dolist (ele x)
+      (if (numberp ele) (sleep ele)
+	  (go-warte 16 ele)))))
 
 (defun venga ( )
   (seq-1-d "start")
