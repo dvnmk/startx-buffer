@@ -223,7 +223,8 @@
   (sleep 1)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "alle null kalibriert, denke ich."))
+  (format t "alle null kalibriert, denke ich.")
+  (x "startx:ready"))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
