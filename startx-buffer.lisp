@@ -215,7 +215,7 @@
   (feedback-on)
   (osc-router-d "start"))
 
-(defun ()
+(defun startx ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (netz 1)
   (sleep 1)
