@@ -69,11 +69,11 @@ CL-USER> (agur)        ; turn off the maschine
 ## SCREENCAST
 
 ## TODO
-* how to ssh w/o password
-* ssh or slime guest mode
+x* how to ssh w/o password
+x* ssh or slime guest mode
 * startx account transition
 
-* NUMERO OCHO KORRIGIEREN DIE KONNEKTOR
+x* NUMERO OCHO KORRIGIEREN DIE KONNEKTOR
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
 * (x ":startx:ready) ZU GLOBAL-VARI Z.B. *WILKOMMEN-MESG*
-
+* NOT A TRAMP FILE PROBLEM ZU LOSCHEN
