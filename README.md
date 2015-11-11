@@ -22,24 +22,16 @@
 ```
 
 ## CONNECT TO STARTX-BUFFER
-```
+``` bash
 ;;; ssh tunneling
-(defun tunnel ()
-  (interactive)
-  (call-process-shell-command
-  "ssh -fnl 4004:localhost:4004 startx@mut.dlinkddns.com &"))
+$ ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com
+...password : startx
 ```
-`M-x tunnel`
-
 ```
 ;;; ip camera
-(defun vue ()
-   (interactive)
-   (call-process-shell-command
-   "mpv --no-audio --framedrop=vo
-   rtsp://mut.dlinkddns.com:554/ch0_1.h264 &"))
+$ mpv --no-audio --framedrop=vo rtsp://mut.dlinkddns.com:554/ch0_1.h264
 ```   
-`M-x vue`
+
 
 `M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)`
 ```
@@ -72,7 +64,7 @@ CL-USER> (agur)        ; turn off the maschine
 ~~* HOW TO SSH W/O PASSWORD~~
 ~~* SSH OR SLIME GUEST MODE~~
 * STARTX ACCOUNT TRANSITION
-
+ 
 ~~* NUMERO OCHO KORRIGIEREN DIE KONNEKTOR~~
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
 * (x ":startx:ready) ZU GLOBAL-VARI Z.B. *WILKOMMEN-MESG*
