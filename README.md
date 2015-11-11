@@ -69,9 +69,9 @@ CL-USER> (agur)        ; turn off the maschine
 ## SCREENCAST
 
 ## TODO
-~~* how to ssh w/o password~~
-~~* ssh or slime guest mode~~
-* startx account transition
+~~* HOW TO SSH W/O PASSWORD~~
+~~* SSH OR SLIME GUEST MODE~~
+* STARTX ACCOUNT TRANSITION
 
 ~~* NUMERO OCHO KORRIGIEREN DIE KONNEKTOR~~
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
