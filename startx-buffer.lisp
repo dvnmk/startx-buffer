@@ -223,8 +223,8 @@
   (sleep 1)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "alle null kalibriert, denke ich.")
-  (x "startx:ready"))
+  (format t "the maschine startx initialized, vermute ich.")
+  (x ">startx:ready"))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -237,7 +237,8 @@
   (sleep 7)
   (stm 0 0)
   (sleep 1)
-  (netz 0))
+  (netz 0)
+  (format t "agur!"))
 
 (defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)

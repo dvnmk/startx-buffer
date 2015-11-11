@@ -22,24 +22,26 @@
 ```
 
 ## CONNECT TO STARTX-BUFFER
+### SSH TUNNELING
 ``` bash
-;;; ssh tunneling
 $ ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com
 ...password : startx
 ```
-```
-;;; ip camera
+### IP CAMERA
+``` bash
 $ mpv --no-audio --framedrop=vo rtsp://mut.dlinkddns.com:554/ch0_1.h264
-```   
-
-
+``` 
+### SLIME
 `M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)`
+### STARTX
 ```
 CL-USER> (startx)
 ->->->alle null kalibriert, denke ich.
 NIL
 CL-USER>
 ```
+### STARTX-BUFFER
+
 `M-x startx-buffer`
 
 ## COMMAND
