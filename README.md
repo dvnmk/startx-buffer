@@ -36,7 +36,8 @@
 (defun vue ()
   (interactive)
   (call-process-shell-command
-  "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
+  "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264
+  --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
 ``` 
 `M-x vue`
 
