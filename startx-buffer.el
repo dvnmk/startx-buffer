@@ -64,6 +64,7 @@
 (defun agur ()
   (interactive)
   (slime-eval `(swank::pprint-eval "(agur)"))))
+
 (defun startx ()
   (interactive)
   (slime-eval `(swank::pprint-eval "(startx)"))))

@@ -23,14 +23,23 @@
 
 ## CONNECT TO STARTX-BUFFER
 ### SSH TUNNELING
-``` bash
-$ ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com
-...password : startx
-```
-### IP CAMERA
-``` bash
-$ mpv --no-audio --framedrop=vo rtsp://mut.dlinkddns.com:554/ch0_1.h264
 ``` 
+(defun tunnel ()
+  (interactive)
+  (call-process-shell-command
+  "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com &"))
+```
+`M-x tunnel`
+  
+### IP CAMERA
+```
+(defun vue ()
+  (interactive)
+  (call-process-shell-command
+  "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
+``` 
+`M-x vue`
+
 ### SLIME
 `M-x slime-connect (RET) 127.0.0.1 (RET) 4004 (RET)`
 ### STARTX
@@ -43,17 +52,17 @@ CL-USER>
 ### STARTX-BUFFER
 
 `M-x startx-buffer`
+* FROM NOW YOU CAN USE THE PHYSIKAL BUFFER \*STARTX-BUFFER\*
 
 ## COMMAND
 ```
 CL-USER> (startx)      ; start the machine startx
 CL-USER> (agur)        ; turn off the maschine
 ```
-* `(x "foo")`   ; write "foo" to \*startx-buffer\*
 * `C-a`         ; move-beginning-of-\*startx-buffer\*
 * `C-k`         ; kill-rest in \*startx-buffer\*
 * `<backspace>` ; backward-delete-char in \*startx-buffer\*
-
+* `(x "foo")`   ; write "foo" to \*startx-buffer\*
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
@@ -65,8 +74,5 @@ CL-USER> (agur)        ; turn off the maschine
 ## SCREENCAST
 
 ## TODO
-* STARTX ACCOUNT TRANSITION
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
-* (x ":startx:ready) ZU GLOBAL-VARI Z.B. *WILKOMMEN-MESG*
-* NOT A TRAMP FILE PROBLEM ZU LOSCHEN
-* HIDDEN COMMAND TO DOCUMENTATION
+* HIDDEN COMMAND ZU DOCUMENTATION
