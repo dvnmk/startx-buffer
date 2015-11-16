@@ -49,9 +49,11 @@ CL-USER>
 CL-USER> (startx)      ; start the machine startx
 CL-USER> (agur)        ; turn off the maschine
 ```
+* `(x "foo")`   ; write "foo" to \*startx-buffer\*
 * `C-a`         ; move-beginning-of-\*startx-buffer\*
 * `C-k`         ; kill-rest in \*startx-buffer\*
 * `<backspace>` ; backward-delete-char in \*startx-buffer\*
+
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
@@ -63,11 +65,8 @@ CL-USER> (agur)        ; turn off the maschine
 ## SCREENCAST
 
 ## TODO
-~~* HOW TO SSH W/O PASSWORD~~
-~~* SSH OR SLIME GUEST MODE~~
 * STARTX ACCOUNT TRANSITION
- 
-~~* NUMERO OCHO KORRIGIEREN DIE KONNEKTOR~~
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
 * (x ":startx:ready) ZU GLOBAL-VARI Z.B. *WILKOMMEN-MESG*
 * NOT A TRAMP FILE PROBLEM ZU LOSCHEN
+* HIDDEN COMMAND TO DOCUMENTATION

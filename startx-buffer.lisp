@@ -27,7 +27,6 @@
 (defparameter *socket-r* nil)
 (defparameter *osc-port-r* 9001)
 
-
 ;;; satz helper
 (defun toggle-case  (string)
   "aBcDe -> AbCdE"
@@ -224,7 +223,7 @@
   (kali 0 1)
   (warte "kali" 16)
   (format t "the maschine startx initialized, vermute ich")
-  (x ">startx:ready"))
+  (x ">startx<ready!AA"))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -251,46 +250,7 @@
 (defvar *odd* '(1 3 5 7 9 11 13 15))
 (defvar *alle* '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16))
 
-;; (foo '(1 2 3) "c" 500 500)
-;; (foo '(1) "x" 1000 1000)
-;; (s '(1 2) "k")
-;; (s '(1 2) "0")
-;; (x " dddddddddddddddddddddddddd")
-;; (x "abbbbb")
-;; (s '(1 2 3) "c")
-;; (s *oben* "o")
-;; (foo *oben* "o" 100 100)
-;; (loop for i from 1 to 3 do
-;;      (foo *oben* "o" 100 100)
-;;      (sleep 5)
-;;      (foo *oben* "x" 500 500))
-
-
-;; (loop for i from 1 to 4 do
-;;      (x "hello-wrld_world" 300 300)
-;;      (sleep 12)
-;;      (x "null-is-null" 1000 1000)
-;;      (sleep 9)
-;; )
-
-;; (defun baz (x-mal)
-;;   (loop for i from 1 to x-mal do
-;;        (x "hello-wrld_world" 300 300)
-;;        (sleep 5)
-;;        (x " mosi " 1000 1000)
-;;        (sleep 4))
-;;   'FER)
-
-;; (loop for i from 1 to 5 do
-;;      (baz 5))
-
-;; (abal 0)
-;; (agur)
-;; (maxi 0 1000)
-;; (aksel 0 1000)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defun spido (x-maxi x-aksel)
   (maxi 0 x-maxi)
   (aksel 0 x-aksel))
@@ -340,12 +300,6 @@
   (let ((a1 (intern (format nil "~a" func-name))))
     `(defun ,a1 ()
        (s ,wo ,was))))
-
-;; (defun mach-func-at-was (was fn-list)
-;;   (do ((i 1 (+ 1 i))
-;;        (el (car fn-list) (cdr fn-list)))
-;;       ((null el) 'fertig)
-;;     (mach-func was el i)))
 
 (mach-func-16 "a"
               LEB DL SPIRAL START-X
@@ -448,53 +402,6 @@
 ;  (sleep 1)
   'FER)
 
-;; (defun improved-venga ()~
-;;   (loop
-;;      (foo1)
-;;      (sb-thread:?? 'fertig-p-of-foo1
-;;                    "waiting for something to happen")))
-
-;; (defun venga-ein()
-;;   (defparameter *thread* (sb-thread:make-thread #'venga)))
-
-;; (defun aus()
-;;   (sb-thread:terminate-thread *thread*))
-
-;(defun foo-go ())
-
-;=> '(1 3 5 7) ; 1, 3, 5, 6 bewegung gestartet
-;; (defun gestoppt-p (wo)
-;;   "check ob wo gestoppt od. nicht"
-;;   ;;irgendwie send check befehl zu puredata via osc
-;;   ;;y, warte aus osc-receive
-;;   )
-
-;; (defun venga-a ()
-;;   (loop
-;;        (x "a") ; => '(1) bewegung zur "a"
-;;        (print "-bewegung-")
-;;      (warte-for-gestopp (bewegung-p 1))))
-
-
-;; SWANK vs VPN
-;; ELISP PROBLEM
-
-;; open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264
-
-;; UDP over SSH
-;; STARTX      WAN        MB
-;;  9000 <----10000-     9000
-;;  9001     -10001----> 9001
-
-;; ssh -L 10000:localhost:10000 pi@mut.dlinkddns.com 'socat tcp4-listen:10000,reuseaddr,fork udp:127.0.0.1:9000'
-;; socat -T15 udp4-recvfrom:9000,reuseaddr,fork tcp:127.0.0.1:10000
-
-;; ssh -fN -R 10001:localhost:10001 pi@mut.dlinkddns.com
-;; TCP > (UDP) / oscdump / server
-;; socat tcp4-listen:10001,reuseaddr,fork udp:127.0.0.1:9001
-;; UDP > (TCP) / sendOSC / client
-;; socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001
-
 (defun vue ()
   (defparameter *vue*
     (run-program "/bin/sh" (list "-c" "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264")
@@ -521,27 +428,6 @@
   (run-program "/bin/sh" (list "-c" "socat tcp4-listen:10001,reuseaddr,fork udp:127.0.0.1:9001") :wait nil :output *standard-output*))
 (defun da-socat-udp2tcp ()
   (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001'") :wait nil :output *standard-output*))
-
-;; (defun osc-select (addr-x value-x)
-;;   (do* ((addr (car kommt-osc) (car kommt-osc))
-;;         (value (cadr kommt-osc) (cadr kommt-osc)))
-;;       ((and (equal addr addr-x) (equal value value-x))
-;;        (progn
-;;          (format t "FER:~S ~S~%" addr value)
-;;          'T)
-;;        ) 
-;;    ; (format t "~S ~S~%" addr value)
-;;     ))
-;; (defun warte-bis (addr-x tgr)
-;;   (do ((i (nth (- addr-x 1) *status*)(nth (- addr-x 1) *status*)))
-;;       ((equal i tgr) "END")
-;;     (sleep 1)))
-
-;; CL-USER> (progn
-;;            (2startx "/delay" 5000)
-;;            (osc-select "/delay/fbk" 1))
-;; -TX-
-;; T
 
 ;; ;; emacs defun
 ;; (defun vue ()
@@ -584,6 +470,7 @@
         (progn (rplacd gefunden  value)
                (format t "~%=> ~S" gefunden)))
     gefunden))
+
 (defun osc-router-loop ()
   (loop (osc-router)))
 
@@ -612,9 +499,6 @@
   (2startx "/alle/FBK" 1))
 (defun feedback-off ()
   (2startx "/alle/FBK" 0))
-
-;; ** TODO SYNTAX-HIGHLIGHT
-;; ** (WARTE-<= n)
 
 (defun vor (n)
   "reset n-th to 0"

@@ -60,6 +60,14 @@
   (interactive)
   (slime-eval `(swank::pprint-eval "(kill-socket)")))
 
+;;; global kontrol/ start y end
+(defun agur ()
+  (interactive)
+  (slime-eval `(swank::pprint-eval "(agur)"))))
+(defun startx ()
+  (interactive)
+  (slime-eval `(swank::pprint-eval "(startx)"))))
+
 ;;; schreibung
 (defun sag (pos x)
   "pos : number o. list / x : char o. ascii dec."
@@ -73,17 +81,17 @@
                                ")")))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun sag+ (string)
+(defun x (string)
   (interactive)
   (let ((cmd-gen (format "(x \"%s\")" string)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun sag> (string)
+(defun x+ (string)
   (interactive)
   (let ((cmd-gen (format "(x+ \"%s\")" string)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun sag- (string)
+(defun x- (string)
   (interactive)
   (let ((cmd-gen (format "(x- \"%s\")" string)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
