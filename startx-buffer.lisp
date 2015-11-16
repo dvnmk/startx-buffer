@@ -223,7 +223,7 @@
   (sleep 1)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "the maschine startx initialized, vermute ich.")
+  (format t "the maschine startx initialized, vermute ich")
   (x ">startx:ready"))
 
 (defun kali-warte ()
