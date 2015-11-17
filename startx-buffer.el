@@ -4,18 +4,10 @@
 
 ;; Author: divinomok <divinomok@gmail.com>
 ;; URL: http://github.com/dvnmk/startx-buffer
-;; Keywords: tools, network, convenience
-;; Version: xx
+;; Keywords: buffer, physical
+;; Version: moebius
 
 ;; This file is NOT a part of GNU Emacs.
-
-;; network-status is free software distributed under the terms of the
-;; GNU General Public License, version 3. For details, see the file
-;; COPYING.
-
-
-;;; Code:
-
 
 ;;; helper
 
@@ -63,11 +55,11 @@
 ;;; global kontrol/ start y end
 (defun agur ()
   (interactive)
-  (slime-eval `(swank::pprint-eval "(agur)"))))
+  (slime-eval `(swank::pprint-eval "(agur)")))
 
 (defun startx ()
   (interactive)
-  (slime-eval `(swank::pprint-eval "(startx)"))))
+  (slime-eval `(swank::pprint-eval "(startx)")))
 
 ;;; schreibung
 (defun sag (pos x)

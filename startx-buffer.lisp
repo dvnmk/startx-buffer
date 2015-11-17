@@ -1,4 +1,4 @@
-;;; startx-buffer.lisp
+ ;;; startx-buffer.lisp
 ;(in-package #:startx-buffer)
 ;;; "startx-buffer" goes here. Hacks and glory await!
 ;;; DVNMK 2015 (c)
@@ -118,6 +118,10 @@
           ((zerop pos) (2startx "/alle/dec" res ))
           ((numberp pos) (2startx (each/ pos "dec") res)))))
 
+(defun lang-x (lang-string &optional maxi-x aksel-x)
+  
+)
+  
 (defun x (string &optional maxi-x aksel-x)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element 32))
@@ -479,7 +483,7 @@
 
 ;; clozure warte
 (defun check-mal (address value)
-           (equal (cdr (assoc address *status* :test #'equalp)) value))
+           (equal (cdr (assoc address *status* :test #'equalp)) value)) 
 ;(check-mal "kali" 16)
 ;(check-mal 1 "TOGO")
 (defun warte (address value)

@@ -46,7 +46,7 @@
 ### STARTX
 ```
 CL-USER> (startx)
-->->->alle null kalibriert, denke ich.
+->->->the maschine startx initialized, vermute ich.
 NIL
 CL-USER>
 ```
@@ -64,6 +64,7 @@ CL-USER> (agur)        ; turn off the maschine
 * `C-k`         ; kill-rest in \*startx-buffer\*
 * `<backspace>` ; backward-delete-char in \*startx-buffer\*
 * `(x "foo")`   ; write "foo" to \*startx-buffer\*
+* `(abal 0)     ; kalibration again 
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
@@ -77,3 +78,6 @@ CL-USER> (agur)        ; turn off the maschine
 ## TODO
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
 * HIDDEN COMMAND ZU DOCUMENTATION
+* IN LISP KONTROLL DIE SATZ, DIE MEHR ALS 16 CHAR SIND.
+** WARTE BIS ALLE GESTOPPT?
+*** \*STATUS\*
