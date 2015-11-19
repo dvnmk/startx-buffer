@@ -451,10 +451,10 @@
 
 ;; OSC HANDLER 
 ;#run.0
-(defparameter *status* '((1 . 0)(2 . 0)(3 . 0)(4 . 0)(5 . 0)(6 . 0)(7 . 0)(8 . 0)
-                         (9 . 0)(10 . 0)(11 . 0)(12 . 0)(13 . 0)(14 . 0)(15. 0)(16 . 0)
+(defparameter *status* '((1 . "stp")(2 . "stp")(3 . "stp")(4 . "stp")(5 . "stp")(6 . "stp")(7 . "stp")(8 . "stp")
+                         (9 . "stp")(10 . "stp")(11 . "stp")(12 . "stp")(13 . "stp")(14 . "stp")(15 . "stp")(16 . "stp")
                          ("kali" . 0) ("stm" . 0) ("NULL" . 0) ("netz" . 0)
-                         ("each" . 0)))
+                         ("each" . 0) ("bewegend" . 0)))
 ;(assoc "kali" *status* :test #'equalp)
 ;(assoc 0 *status* :test #'equalp)
 
@@ -478,14 +478,22 @@
 (defun osc-router-loop ()
   (loop (osc-router)))
 
-(defun status-reset ()
-  (defparameter *status* (make-list 16 :initial-element "xx")))
-
-;; clozure warte
 (defun check-mal (address value)
            (equal (cdr (assoc address *status* :test #'equalp)) value)) 
-;(check-mal "kali" 16)
-;(check-mal 1 "TOGO")
+;; z.B.
+;; (check-mal "kali" 16)
+;; (check-mal 1 "go")
+;; (check-mal 1 "stp")
+
+(defun alle-stop-p ( )
+  "check ob alle 16 status stp ist, dann T, sonst NIL"
+  (if (and (check-mal 1 "stp") (check-mal 2 "stp") (check-mal 3 "stp") (check-mal 4 "stp")
+	   (check-mal 5 "stp") (check-mal 6 "stp") (check-mal 7 "stp") (check-mal 8 "stp")
+	   (check-mal 9 "stp") (check-mal 10 "stp") (check-mal 11 "stp") (check-mal 12 "stp")
+	   (check-mal 13 "stp") (check-mal 14 "stp") (check-mal 15 "stp") (check-mal 16 "stp"))
+      'T))
+
+;; clozure warte
 (defun warte (address value)
   (process-wait "WARTE" #'check-mal address value)
   't)
