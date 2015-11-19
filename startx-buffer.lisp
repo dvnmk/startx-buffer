@@ -118,10 +118,6 @@
           ((zerop pos) (2startx "/alle/dec" res ))
           ((numberp pos) (2startx (each/ pos "dec") res)))))
 
-(defun lang-x (lang-string &optional maxi-x aksel-x)
-  
-)
-  
 (defun x (string &optional maxi-x aksel-x)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element 32))
@@ -406,32 +402,7 @@
 ;  (sleep 1)
   'FER)
 
-(defun vue ()
-  (defparameter *vue*
-    (run-program "/bin/sh" (list "-c" "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264")
-                :wait nil :output *standard-output*)))
-(defun vncserver-editmode ()
-  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'vncserver -geometry 650x800 -depth 8 -rfbport 5910'") :wait nil :output *standard-output*))
-(defun vncserver-ein ()
-  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com './vnc.sh'") :wait nil :output *standard-output*))
-(defun vncserver-kill ()
-  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'vncserver -kill :1'") :wait nil :output *standard-output*))
-(defun vnc-viewer ()
-  (defparameter *vnc-viewer*
-    (run-program "/bin/sh" (list "-c" "open vnc://mut.dlinkddns.com:5910") :wait nil :output *standard-output*)))
 
-(defun outgoing-tunneling ()
-  (run-program "/bin/sh" (list "-c" "ssh -fN -L 10000:localhost:10000 pi@mut.dlinkddns.com") :wait nil :output *standard-output*))
-(defun reverse-tunneling ()
-  (run-program "/bin/sh" (list "-c" "ssh -fN -R 10001:localhost:10001 pi@mut.dlinkddns.com") :wait nil :output *standard-output*))
-(defun da-socat-tcp2udp ()
-  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat tcp4-listen:10000,reuseaddr,fork udp:127.0.0.1:9000'") :wait nil :output *standard-output*))
-(defun udp2tcp () ;outgoing udp 9000 -> tcp 10000
-  (run-program "/bin/sh" (list "-c" "socat -T15 udp4-recvfrom:9000,reuseaddr,fork tcp:127.0.0.1:10000") :wait nil :output *standard-output*))
-(defun t4cp2udp () ;incomming tcp 10000 -> udp 9001
-  (run-program "/bin/sh" (list "-c" "socat tcp4-listen:10001,reuseaddr,fork udp:127.0.0.1:9001") :wait nil :output *standard-output*))
-(defun da-socat-udp2tcp ()
-  (run-program "/bin/sh" (list "-c" "ssh pi@mut.dlinkddns.com 'socat -T15 udp4-recvfrom:9001,reuseaddr,fork tcp:localhost:10001'") :wait nil :output *standard-output*))
 
 ;; ;; emacs defun
 ;; (defun vue ()
@@ -501,6 +472,11 @@
 ;; (progn (x "wualamosimosi")
 ;; 		(sleep 0.1) ; braucht zwsn zeit
 ;; 		(warte-alle-stop))
+
+(defun lang-x (lang-string &optional maxi-x aksel-x)
+  (do (cur ))
+)
+  
 
 ;; clozure warte
 (defun warte (address value)
