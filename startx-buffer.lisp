@@ -493,6 +493,15 @@
 	   (check-mal 13 "stp") (check-mal 14 "stp") (check-mal 15 "stp") (check-mal 16 "stp"))
       'T))
 
+(defun warte-alle-stop ( )
+  "warte bis alle stop"
+  (process-wait "ALLE-WARTE" #'alle-stop-p)
+  't)
+;; z.B.
+;; (progn (x "wualamosimosi")
+;; 		(sleep 0.1) ; braucht zwsn zeit
+;; 		(warte-alle-stop))
+
 ;; clozure warte
 (defun warte (address value)
   (process-wait "WARTE" #'check-mal address value)
