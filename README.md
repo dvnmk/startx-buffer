@@ -12,6 +12,7 @@
 * REAL TIME KEYINPUT HIJACKER FROM EMACS TO THE STARTX
 
 ### DEPENDANCY
+* sshpass
 * SLIME <https://github.com/slime/slime>
 * MPV <http://mpv.io> or VLC <http://www.videolan.org>
 

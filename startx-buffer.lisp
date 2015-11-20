@@ -474,7 +474,7 @@
 ;; 		(warte-alle-stop))
 
 (defun lang-x (lang-string &optional maxi-x aksel-x)
-  (do (cur ))
+  (do (cur))
 )
   
 
