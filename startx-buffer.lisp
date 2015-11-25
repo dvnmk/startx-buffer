@@ -48,14 +48,6 @@
 (defun kill-socket-s ()
   (usocket:socket-close *socket-s*))
 
-;; (defmacro mach-socket-r (n)
-;;   "*SOCKET-N* :port 9000 + N"
-;;   `(set (intern (format nil "*SOCKET-~A*" ,n))
-;;        (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1" :local-port (+ 9000 ,n))))
-
-;; (defun kill-socket-r (n)
-;;   (usocket:socket-close (eval (intern (format nil "*SOCKET-~A*" n)))))
-
 (defun mach-socket-r ()
   (defparameter *socket-r*
     (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1"
@@ -67,6 +59,7 @@
 (defun mach-socket ()
   (progn (mach-socket-s)
          (mach-socket-r)))
+
 (defun kill-socket ()
   (progn (kill-socket-s)
          (kill-socket-r)))
@@ -77,24 +70,6 @@
      (progn
        (usocket:socket-send *SOCKET-S* buffer length)
        (format t "->"))))
-
-(defmacro 4startx ()
-  `(let ((buffer-r (make-array 20 :element-type '(unsigned-byte 8))))
-     (progn
-       (format t "-KOM...")
-       (osc:decode-message (usocket:socket-receive *socket-r* buffer-r 20)))))
-
-(defun osc-listen (port) 
-  "a basic test function which attempts to decode an osc message a given port."
-  (let ((s (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1" :local-port port))
-        (buffer (make-sequence '(vector (unsigned-byte 8)) 1024)))
-   ; (socket-bind s #(0 0 0 0) port)
-    (format t "listening on localhost port ~A~%~%" port)
-    (unwind-protect 
-	(loop do
-	      (usocket:socket-receive s buffer 1024)
-	      (format t "receiveded -=> ~S~%" (osc:decode-bundle buffer)))
-      (when s (usocket:socket-close s)))))
 
 (defmacro each/ (pos path)
   "osc path helper"
@@ -183,6 +158,7 @@
         ((zerop pos) (alle aksel accel-var))
         ((not (null pos))(2startx (each/ pos "accel") accel-var))
         (t nil)))
+
 (defun aksel-lst (lst)
   (do ((cur lst (cdr cur))
        (i 1 (+ 1 i)))
@@ -196,16 +172,19 @@
     ((zerop pos) (alle stm tgl))
         ((not (null pos))(2startx (each/ pos "stm") tgl))
         (t nil)))
+
 (defun netz (tgl)
   (alle netz tgl))
-(defun kali (pos tgl)
+
+(defun kali (&optional (pos 0) (tgl 1))
   (cond ((listp pos)
          (dolist (ele pos)
            (kali ele tgl)))
         ((zerop pos) (alle null tgl))
         ((not (null pos))(2startx (each/ pos "null") tgl))
         (t nil)))
-(defun abal (pos)
+
+(defun abal (&optional (pos 0))
   (s pos 128))
 
 ;; CMD
@@ -402,8 +381,6 @@
 ;  (sleep 1)
   'FER)
 
-
-
 ;; ;; emacs defun
 ;; (defun vue ()
 ;;   (async-shell-command   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 &"))
@@ -467,16 +444,42 @@
 (defun warte-alle-stop ( )
   "warte bis alle stop"
   (process-wait "ALLE-WARTE" #'alle-stop-p)
+  (format t "gestoppt alle")
   't)
 ;; z.B.
 ;; (progn (x "wualamosimosi")
-;; 		(sleep 0.1) ; braucht zwsn zeit
+;; 		(sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop 
 ;; 		(warte-alle-stop))
 
-(defun lang-x (lang-string &optional maxi-x aksel-x)
-  (do (cur))
-)
-  
+(defparameter *satz-dauer* 1.5)
+(defparameter *zwsn* 0.1)
+
+(defun x-warte (∂)
+  (progn (x ∂)
+	 (sleep *zwsn*)
+	 (warte-alle-stop)
+	 (sleep *satz-dauer*)
+	 't))
+
+(defun nimm-16 (∂)
+  (if (> (length ∂) 16)
+      (subseq ∂ 0 16)
+      ∂))
+
+(defun x-lang (∂ ;; &optional maxi-x aksel-x
+			     )
+  (do* ((was (nimm-16 ∂) (nimm-16 sonst))
+	(sonst (subseq ∂ 16) (subseq sonst 16)))
+       ((<= (length sonst) 16)
+	(x-warte was)
+	(x-warte sonst)
+	)
+    (x-warte was)))
+
+(defun x-final (∂)
+  (if (<= (length ∂) 16)
+      (x ∂)
+      (x-lang ∂)))
 
 ;; clozure warte
 (defun warte (address value)
