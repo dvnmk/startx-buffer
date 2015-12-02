@@ -63,7 +63,7 @@
 
 ;;; schreibung
 (defun sag (pos ∂)
-  "pos : number o. list / ∂ : char o. ascii dec."
+  "pos : number o. list / ∂ : char? o. ascii dec."
   (interactive)
   (let* ((pos-res (if (numberp pos)(number-to-string pos)
                     (format "'%s" pos)))
