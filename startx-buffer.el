@@ -62,31 +62,31 @@
   (slime-eval `(swank::pprint-eval "(startx)")))
 
 ;;; schreibung
-(defun sag (pos x)
-  "pos : number o. list / x : char o. ascii dec."
+(defun sag (pos ∂)
+  "pos : number o. list / ∂ : char o. ascii dec."
   (interactive)
   (let* ((pos-res (if (numberp pos)(number-to-string pos)
                     (format "'%s" pos)))
          (cmd-gen (concatenate 'string
                                "(s" " "
                                pos-res " "
-                               (number-to-string x)
+                               (number-to-string ∂)
                                ")")))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun x (string)
+(defun x (∂)
   (interactive)
-  (let ((cmd-gen (format "(x \"%s\")" string)))
+  (let ((cmd-gen (format "(x \"%s\")" ∂)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun x+ (string)
+(defun x+ (∂)
   (interactive)
-  (let ((cmd-gen (format "(x+ \"%s\")" string)))
+  (let ((cmd-gen (format "(x+ \"%s\")" ∂)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun x- (string)
+(defun x- (∂)
   (interactive)
-  (let ((cmd-gen (format "(x- \"%s\")" string)))
+  (let ((cmd-gen (format "(x- \"%s\")" ∂)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
 ;;; kontrol

@@ -89,7 +89,7 @@
   "pos kann nummer 0~16(0:alle), list sein, x:string or character"
   (let ((res (cond ((numberp ∂) ∂)
                    ((null ∂) nil)
-                   ((stringp ∂) (char-code (character ∂)))
+                   ((stringp ∂) (char-code (character (toggle-case ∂))))
                    (t (char-code ∂)))))
     (cond ((listp pos)
            (dolist (ele pos)
@@ -112,13 +112,10 @@
              (nth 8  res) (nth 9 res) (nth 10 res) (nth 11 res)
              (nth 12 res) (nth 13 res) (nth 14 res) (nth 15 res))))
 
-(defun a (x.str-or-char)
-  "x-kurz -> 16 alle shot, x : str or char egal"
-  (cond ((characterp x.str-or-char)
-         (s 0 (char-code x.str-or-char)))
-        ((stringp x.str-or-char)
-         (s 0 (character x.str-or-char)))
-        (t 'k.A)))
+(defun a (∂str-or-char)
+  "∂kurz -> 16 alle shot, ∂: str or char egal"
+  (s 0 ∂str-or-char))
+
 (defun x+ (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element nil))

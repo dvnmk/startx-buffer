@@ -83,3 +83,4 @@ CL-USER> (agur)        ; turn off the maschine
 <!-- ** WARTE BIS ALLE GESTOPPT?
 -->
 *** \*STATUS\*
+* (sag) zu korigieren
