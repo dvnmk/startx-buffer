@@ -127,6 +127,7 @@
       (s 9 (nth 8 res)) (s 10 (nth 9 res)) (s 11 (nth 10 res)) (s 12 (nth 11 res))
       (s 13 (nth 12 res)) (s 14 (nth 13 res)) (s 15 (nth 14 res)) (s 16 (nth 15 res))
       )))
+
 (defmacro x- (string)
   "nur input existing each to change"
   (let* ((lst (coerce (toggle-case string) 'list))

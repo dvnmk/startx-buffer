@@ -84,3 +84,4 @@ CL-USER> (agur)        ; turn off the maschine
 -->
 *** \*STATUS\*
 * (sag) zu korigieren
+* (x+ ∂) y (x- ∂) /m lange version
