@@ -452,12 +452,13 @@
   (process-wait "ALLE-WARTE" #'alle-stop-p)
   (format t "gestoppt alle")
   't)
+
 ;; z.B.
 ;; (progn (x-kurz "wualamosimosi")
 ;; 		(sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop 
 ;; 		(warte-alle-stop))
 
-(defparameter *satz-dauer* 1.5)
+(defparameter *satz-dauer* 2)
 (defparameter *zwsn* 0.1)
 
 (defun x-warte (∂)
@@ -480,11 +481,15 @@
 	(x-warte sonst))
     (x-warte was)))
 
-(defun x (∂)
+(defun x-wu (∂)
 "dies war x-final, finalisch wird zu x /o -final"
   (if (<= (length ∂) 16)
       (x-kurz ∂)
       (x-lang ∂)))
+
+(defun x (∂)
+  "thread version of x-wu"
+  (process-run-function "thread" #'x-wu ∂))
 
 ;; clozure warte
 (defun warte (address value)
