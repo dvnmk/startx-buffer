@@ -83,5 +83,7 @@ CL-USER> (agur)        ; turn off the maschine
 <!-- ** WARTE BIS ALLE GESTOPPT?
 -->
 *** \*STATUS\*
-* (sag) zu korigieren
-* (x+ ∂) y (x- ∂) /m lange version
+* (sag) ZU KORIGIEREN
+* (x+ ∂) Y (x- ∂) /M LANGE VERSION
+* ASYNC IN EMACS WIE?
+
