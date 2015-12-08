@@ -87,3 +87,8 @@ CL-USER> (agur)        ; turn off the maschine
 * ASYNC IN EMACS WIE?
 * (kali 0 1) .el /M &optional
 * (startx) IMMER WARTEN OD. ZU THREAD
+* UNICODE EXCEPTION
+* KONTAKT /M TELEGRAM?
+* (kali) WARTE LOCK ; (kali-warte)
+* STALL RESET λ
+
