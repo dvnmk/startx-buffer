@@ -1,5 +1,7 @@
- ;;; startx-buffer.lisp
-;(in-package #:startx-buffer)
+;;;; startx-buffer.lisp
+
+(in-package #:startx-buffer)
+
 ;;; "startx-buffer" goes here. Hacks and glory await!
 ;;; DVNMK 2015 (c)
 ;;;
