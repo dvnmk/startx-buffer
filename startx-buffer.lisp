@@ -10,8 +10,8 @@
 
 ;;; swank
 
-(defpackage #:startx-buffer
-  (:use :cl))
+;; (defpackage #:startx-buffer
+;;   (:use :cl))
 
 (defparameter *startx-ip* "localhost")
 (defparameter *startx-osc-port* 9000)

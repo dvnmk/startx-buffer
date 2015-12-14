@@ -1,5 +1,8 @@
 ;;;; package.lisp
 
 (defpackage #:startx-buffer
-  (:use #:cl))
+  (:use #:cl)
+  (:nicknames :sx)
+  (:export :startx-buffer))
+
 
