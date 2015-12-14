@@ -542,7 +542,7 @@
     `(defun ,f ()
        (loop (,f0)))))
 
-(mapcar #'mach-seq-x-loop '(range 1 16 ))
+;; (mapcar #'mach-seq-x-loop '(range 1 16 ))
 
 (progn
   (defun seq-1-loop () (loop (seq-1)))

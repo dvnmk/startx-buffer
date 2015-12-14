@@ -2,7 +2,7 @@
 
 (asdf:defsystem #:startx-buffer
   :description "Describe startx-buffer here"
-  :author "Your Name <your.name@example.com>"
+  :author "dvnmk <divinomok@gmail.com>"
   :license "Specify license here"
   :serial t
   :depends-on (#:osc #:usocket)
