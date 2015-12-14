@@ -18,8 +18,10 @@
 (asdf:load-system "osc")
 (asdf:load-system "usocket")
 
-(defpackage :startx-buffer
+(defpackage #:startx-buffer
   (:use :cl :osc :usocket))
+
+(in-package #:startx-buffer)
 
 (defparameter *startx-ip* "localhost")
 (defparameter *startx-osc-port* 9000)
