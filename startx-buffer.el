@@ -2,12 +2,24 @@
 
 ;; Copyright (C) 2015 by dvnmk
 
-;; Author: divinomok <divinomok@gmail.com>
+;; Author: dvnmk <divinomok@gmail.com>
 ;; URL: http://github.com/dvnmk/startx-buffer
 ;; Keywords: buffer, physical
 ;; Version: moebius
 
 ;; This file is NOT a part of GNU Emacs.
+
+;;; runnging external program OSX based
+(defun tunnel ()
+  (interactive)
+  (call-process-shell-command
+   "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com &"))
+
+(defun vue ()
+  (interactive)
+  (call-process-shell-command
+  "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264
+  --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
 
 ;;; helper
 
