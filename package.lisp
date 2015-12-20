@@ -3,6 +3,7 @@
 (defpackage #:startx-buffer
   (:use #:cl)
   (:nicknames :sx)
-  (:export :startx-buffer))
+  ;; (:import-from :startx-buffer)
+  )
 
 

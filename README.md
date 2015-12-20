@@ -91,4 +91,5 @@ CL-USER> (agur)        ; turn off the maschine
 * KONTAKT /M TELEGRAM?
 * (kali) WARTE LOCK ; (kali-warte)
 * STALL RESET λ
-
+* (IN-PACKAGE #:CL-USER)
+* ELISP HOTKEY /M DOUBLE QUOTE EXCEPTION
