@@ -93,3 +93,4 @@ CL-USER> (agur)        ; turn off the maschine
 * STALL RESET λ
 * (IN-PACKAGE #:CL-USER)
 * ELISP HOTKEY /M DOUBLE QUOTE EXCEPTION
+* (agur) AUCH ASYNC?
