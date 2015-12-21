@@ -84,13 +84,14 @@ CL-USER> (agur)        ; turn off the maschine
   * \*STATUS\*
 * (sag) ZU KORIGIEREN
 * (x+ ∂) Y (x- ∂) /M LANGE VERSION
-* ASYNC IN EMACS WIE?
-* (kali 0 1) .el /M &optional
+* ~~(kali 0 1) .el /M &optional~~
 * (startx) IMMER WARTEN OD. ZU THREAD
 * UNICODE EXCEPTION
 * KONTAKT /M TELEGRAM?
-* (kali) WARTE LOCK ; (kali-warte)
+* (kali) WARTE LOCK ; (kali-warte) 
 * STALL RESET λ
-* (IN-PACKAGE #:CL-USER)
+* ~~THREAD IN EMACS WIE?~~
+* ~~(IN-PACKAGE #:CL-USER)~~
 * ELISP HOTKEY /M DOUBLE QUOTE EXCEPTION
-* (agur) AUCH ASYNC?
+* (agur) AUCH THREAD?
+* (startx) AUCH THREAD?
