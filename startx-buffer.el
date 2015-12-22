@@ -21,6 +21,19 @@
   "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264
   --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
 
+
+(defun x-current-line-or-region (arg)
+  (interactive "p")
+  (let (beg end (origin (point)))
+    (if (and (region-active-p) (> (point) (mark)))
+        (exchange-point-and-mark))
+    (setq beg (line-beginning-position))
+    (if (region-active-p)
+        (exchange-point-and-mark))
+    (setq end (line-end-position))
+    (let ((region (buffer-substring-no-properties beg end)))
+      (x region))))
+
 ;;; helper
 
 (make-variable-buffer-local
@@ -315,3 +328,4 @@
 (defun 2cl (command)
   "convert a result from the slime lisp's repl into the emacs lisp toplevel. return :output as MESSAGE"
   (message (slime-eval `(swank::pprint-eval ,command))))
+
