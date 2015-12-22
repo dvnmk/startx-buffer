@@ -113,9 +113,11 @@
   (let ((cmd-gen (format "(netz %d)" tgl)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun kali (pos tgl)
+(defun kali (&optional posx tglx)
   (interactive)
-  (let ((cmd-gen (format "(kali %d %d)" pos tgl)))
+  (let* ((pos (or posx 0))
+	 (tgl (or tglx 1))
+	(cmd-gen (format "(kali %d %d)" pos tgl)))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
 (defun aksel (pos &optional accel-var)
@@ -130,9 +132,10 @@
                        (t (format "(maxi %d %d)" pos max-spd)))))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(defun abal (pos)
+(defun abal (&optional pos)
   (interactive)
-  (sag pos 128))
+  (let ((pos (or pos 0))) 
+    (sag pos 128)))
 ;;;
 
 (defun hijack ()
