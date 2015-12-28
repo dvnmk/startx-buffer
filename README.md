@@ -94,8 +94,9 @@ CL-USER> (agur)        ; turn off the maschine
 * ~~THREAD IN EMACS WIE?~~
 * ~~(IN-PACKAGE #:CL-USER)~~
 * ~~ELISP HOTKEY /M DOUBLE QUOTE EXCEPTION~~
-* DOWNCASED-STR ALS &OPTIONAL
+* ~~not DOWNCASED-STR ALS arg~~
 * (agur) AUCH THREAD?
 * (startx) AUCH THREAD?
 * FEEDBACK y (mach-socket) DEBUG, CCL VS VNC 
 * VLC y MPV : WHICH IST BETTER?
+* ESCAPE \ KORIGIEREN

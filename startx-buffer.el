@@ -16,13 +16,13 @@
    "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com &"))
 
 (defun vue ()
-  (interactive)
+  (interactive)	     
   (call-process-shell-command
   "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264
   --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
 
-(defun x-current-line-or-region (&optional arg)
-  (interactive)
+(defun x-current-line-or-region (arg)
+  (interactive "P")
   (save-excursion
     (let* ((beg (if (use-region-p)
 		    (region-beginning)
@@ -32,22 +32,10 @@
 		  (line-end-position)))
 	   (regioned-str (buffer-substring-no-properties beg end))
 	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
-	   (downcased-str (downcase replaced-str)))
+	   (downcased-str (if arg
+			      replaced-str
+			    (downcase replaced-str))))
       (x  downcased-str))))
-
-(defun x-current-line-or-region-raw (&optional arg)
-  (interactive)	     
-  (save-excursion
-    (let* ((beg (if (use-region-p)
-		    (region-beginning)
-		  (line-beginning-position)))
-	   (end (if (use-region-p)
-		    (region-end)
-		  (line-end-position)))
-	   (regioned-str (buffer-substring-no-properties beg end))
-	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
-)
-      (x  replaced-str))))
 
 ;;; helper
 
