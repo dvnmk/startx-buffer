@@ -63,7 +63,8 @@ CL-USER> (agur)        ; turn off the maschine
 * `C-a`         ; move-beginning-of-\*startx-buffer\*
 * `C-k`         ; kill-rest in \*startx-buffer\*
 * `<backspace>` ; backward-delete-char in \*startx-buffer\*
-* `(x "foo")`   ; write "foo" to \*startx-buffer\*
+* `(x "foo")`   ; send "foo" to \*startx-buffer\*
+* `(x-current-line-or-region "foo")`   ; send currnet line or region to \*startx-buffer\*
 * `(abal 0)     ; kalibration again 
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->

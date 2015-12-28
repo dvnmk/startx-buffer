@@ -35,6 +35,20 @@
 	   (downcased-str (downcase replaced-str)))
       (x  downcased-str))))
 
+(defun x-current-line-or-region-raw (&optional arg)
+  (interactive)	     
+  (save-excursion
+    (let* ((beg (if (use-region-p)
+		    (region-beginning)
+		  (line-beginning-position)))
+	   (end (if (use-region-p)
+		    (region-end)
+		  (line-end-position)))
+	   (regioned-str (buffer-substring-no-properties beg end))
+	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
+)
+      (x  replaced-str))))
+
 ;;; helper
 
 (make-variable-buffer-local
