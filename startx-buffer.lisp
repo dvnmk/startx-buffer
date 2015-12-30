@@ -1,7 +1,7 @@
 ;;;; startx-buffer.lisp
 
 (in-package #:cl-user)
-
+		     
 ;;; "startx-buffer" goes here. Hacks and glory await!
 ;;; DVNMK 2015 (c)
 ;;;
@@ -176,7 +176,7 @@
         (t nil)))
 
 (defun abal (&optional (pos 0))
-  (s pos 128))
+  (s pos 128))	     
 
 ;; CMD
 (defun init ()

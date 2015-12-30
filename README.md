@@ -1,4 +1,4 @@
-# (+ STARTX EMACS) => \*STARTX-BUFFER\*
+# (ƒ STARTX EMACS) => \*STARTX-BUFFER\*
 ![foto](media/startx-buffer.png)
 <!-- ![foto](media/mit-kamera.png) -->
 
@@ -23,7 +23,16 @@
 
 ## CONNECT TO STARTX-BUFFER
 ### SSH TUNNELING
+* FOR THE FIRST TIME, FROM SHELL (REGISTERING THE SERVER FINGERPRINT)
+``` bash
+$ ssh startx@mut.dlinkddns.com
+(...blah...blah...blah...)
+Are you sure you want to continue connecting (yes/no)? yes
+startx@mut.dlinkddns.com's password: startx
 ``` 
+
+* AFTER THAT,
+``` common-lisp
 (defun tunnel ()
   (interactive)
   (call-process-shell-command
@@ -32,7 +41,7 @@
 `M-x tunnel`
   
 ### IP CAMERA
-```
+``` common-lisp
 (defun vue ()
   (interactive)
   (call-process-shell-command
@@ -53,19 +62,22 @@ CL-USER>
 ### STARTX-BUFFER
 
 `M-x startx-buffer`
-* FROM NOW YOU CAN USE THE PHYSIKAL BUFFER \*STARTX-BUFFER\*
+* FROM NOW YOU CAN HACK THE PHYSIKAL BUFFER \*STARTX-BUFFER\*
 
 ## COMMAND
 ```
 CL-USER> (startx)      ; start the machine startx
-CL-USER> (agur)        ; turn off the maschine
 ```
 * `C-a`         ; move-beginning-of-\*startx-buffer\*
 * `C-k`         ; kill-rest in \*startx-buffer\*
 * `<backspace>` ; backward-delete-char in \*startx-buffer\*
-* `(x "foo")`   ; send "foo" to \*startx-buffer\*
+* `(x "foo")`   ; send "foo             " to \*startx-buffer\*
 * `M-x x-current-line-or-region`   ; send currnet line or region to \*startx-buffer\*
-* `(abal 0)     ; kalibration again 
+* `(kali)`     ; startx calibration again 
+
+``` common-lisp
+CL-USER> (agur)        ; turn off the maschine
+```
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
