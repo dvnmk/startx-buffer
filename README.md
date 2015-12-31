@@ -71,12 +71,12 @@ CL-USER> (startx)      ; start the machine startx
 * `C-a`         ; move-beginning-of-\*startx-buffer\*
 * `C-k`         ; kill-rest in \*startx-buffer\*
 * `<backspace>` ; backward-delete-char in \*startx-buffer\*
-* `(x "foo")`   ; send "foo             " to \*startx-buffer\*
 * `M-x x-current-line-or-region`   ; send currnet line or region to \*startx-buffer\*
-* `(kali)`     ; startx calibration again 
 
 ``` common-lisp
-CL-USER> (agur)        ; turn off the maschine
+(x "foo")   ; send "foo             " to *startx-buffer*
+(kali)      ; calibrate *startx-buffer* again 
+(agur)      ; turn off the maschine
 ```
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
