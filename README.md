@@ -112,3 +112,24 @@ CL-USER> (startx)      ; start the machine startx
 * FEEDBACK y (mach-socket) DEBUG, CCL VS VNC 
 * VLC y MPV : WHICH IST BETTER?
 * ESCAPE \ KORIGIEREN
+* (call-process-shell-command) DISCOURAGED?
+
+
+<!-- dvnmk@dvnmk-mb:~ » ssh startx@startx.local -->
+<!-- The authenticity of host 'startx.local (192.168.0.4)' can't be established. -->
+<!-- ECDSA key fingerprint is SHA256:dTvNU8FCrMmt2pMK8frpUarqxe+0Tzm9sZJdCXocLLo. -->
+<!-- Are you sure you want to continue connecting (yes/no)? yes -->
+<!-- Warning: Permanently added 'startx.local,192.168.0.4' (ECDSA) to the list of known hosts. -->
+<!-- startx@startx.local's password:  -->
+<!-- Permission denied, please try again. -->
+<!-- startx@startx.local's password:  -->
+<!-- Linux startx 4.1.13-v7+ #826 SMP PREEMPT Fri Nov 13 20:19:03 GMT 2015 armv7l -->
+
+<!-- The programs included with the Debian GNU/Linux system are free software; -->
+<!-- the exact distribution terms for each program are described in the -->
+<!-- individual files in /usr/share/doc/*/copyright. -->
+
+<!-- Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent -->
+<!-- permitted by applicable law. -->
+<!-- Last login: Thu Dec 31 11:13:20 2015 from dvnmk-mb.local -->
+<!-- startx@startx ~ $  -->
