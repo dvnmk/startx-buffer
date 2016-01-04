@@ -10,36 +10,48 @@
 ;; This file is NOT a part of GNU Emacs.
 
 ;;; runnging external program OSX based
+
 (defun tunnel ()
   (interactive)
-  (call-process-shell-command
-   "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com &"))
-
-
-(defun vue-mpv ()
-  (interactive)
-  (call-process-shell-command
-   "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
-
-(defun vue-mpv-hd ()
-  (interactive)
-  (call-process-shell-command
-   "open -n -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
+  (start-process "tunnel" "tunnel-msg"
+		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com"))
 
 (defun vue ()
   (interactive)
-  (call-process-shell-command
-   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio &"))
+  (call-process "open"
+		nil 0 nil
+		"-n" "-a" "vlc" "--args"
+		"rtsp://mut.dlinkddns.com:554/ch0_1.h264" "--no-audio"))
 
 (defun vue-hd ()
   (interactive)
-  (call-process-shell-command
-   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio &"))
+  (call-process "open"
+		nil 0 nil
+		"-n" "-a" "vlc" "--args"
+		"rtsp://mut.dlinkddns.com:554/ch0_0.h264" "--no-audio"))
 
 (defun vue-audio ()
   (interactive)
-  (call-process-shell-command
-   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_3.h264 &"))
+  (call-process "open"
+		nil 0 nil
+		"-a" "vlc" "--args"
+		"rtsp://mut.dlinkddns.com:554/ch0_3.h264" "--no-audio"))
+
+(defun vue-mpv ()
+  (interactive)
+  (call-process "open"
+		nil 0 nil
+		"-a" "vlc" "--args"
+		"rtsp://mut.dlinkddns.com:554/ch0_1.h264"
+		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
+
+(defun vue-mpv-hd ()
+  (interactive)
+  (call-process "open"
+		nil 0 nil
+		"-a" "vlc" "--args"
+		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
+		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
 
 (defun x-current-line-or-region (arg)
   (interactive "P")
