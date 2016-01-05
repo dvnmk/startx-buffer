@@ -113,7 +113,7 @@ CL-USER> (startx)      ; start the machine startx
 * VLC y MPV : WHICH IST BETTER?
 * ESCAPE \ KORIGIEREN
 * (call-process-shell-command) DISCOURAGED?
-
+* F3 KEYMAP M/ X-CURRENT-LINE-OR-REGION
 
 <!-- dvnmk@dvnmk-mb:~ » ssh startx@startx.local -->
 <!-- The authenticity of host 'startx.local (192.168.0.4)' can't be established. -->

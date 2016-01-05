@@ -14,7 +14,8 @@
 (defun tunnel ()
   (interactive)
   (start-process "tunnel" "tunnel-msg"
-		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com"))
+		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com")
+  (switch-to-buffer "tunnel-msg"))
 
 (defun vue ()
   (interactive)
