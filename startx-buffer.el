@@ -1,10 +1,11 @@
 ;;; startx-buffer.el -- a physikal buffer, connecting with the machschine >STARTX< in Emacs
 
-;; Copyright (C) 2015 by dvnmk
+;; Copyright (C) 2015-2016 by dvnmk
 
 ;; Author: dvnmk <divinomok@gmail.com>
 ;; URL: http://github.com/dvnmk/startx-buffer
 ;; Keywords: buffer, physical
+;; Linzen: WDW (Wie Du Willst)
 ;; Version: moebius
 
 ;; This file is NOT a part of GNU Emacs.
@@ -54,22 +55,6 @@
 		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
 		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
 
-(defun x-current-line-or-region (arg)
-  (interactive "P")
-  (save-excursion
-    (let* ((beg (if (use-region-p)
-		    (region-beginning)
-		  (line-beginning-position)))
-	   (end (if (use-region-p)
-		    (region-end)
-		  (line-end-position)))
-	   (regioned-str (buffer-substring-no-properties beg end))
-	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
-	   (downcased-str (if arg
-			      replaced-str
-			    (downcase replaced-str))))
-      (x  downcased-str))))
-
 ;;; helper
 
 (make-variable-buffer-local
@@ -87,7 +72,7 @@
       (setq wo (+ wo n 1)))))
 
 (defun toggle-case  (string)
-  ""aBcDe" -> "AbCdE""
+"aBcDe -> AbCdE"
   (do* ((i 0 (+ i 1))
         (len (length string))
         (res string))
@@ -185,7 +170,6 @@
   (interactive)
   (let ((pos (or pos 0))) 
     (sag pos 128)))
-;;;
 
 (defun hijack ()
   (interactive)
@@ -209,14 +193,34 @@
   (message " loc:%d hijack-spc" wo)
   (sag wo 32))
 
+(defun x-current-line-or-region (arg)
+  (interactive "P")
+  (save-excursion
+    (let* ((beg (if (use-region-p)
+		    (region-beginning)
+		  (line-beginning-position)))
+	   (end (if (use-region-p)
+		    (region-end)
+		  (line-end-position)))
+	   (regioned-str (buffer-substring-no-properties beg end))
+	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
+	   (downcased-str (if arg
+			      replaced-str
+			    (downcase replaced-str))))
+      (x  downcased-str))))
+
+(defun x-current-line-or-region-raw ()
+  (interactive)
+  (x-current-line-or-region 't))
+
 ;;;###autoload
-
-;;(this-command-keys)
-
 (define-minor-mode startx-buffer
   "connecting with the machschine >STARTX< in Emacs"
-  :lighter " STARTX-BUFFER"
+  :lighter " sx-b"
   :keymap (let ((map (make-sparse-keymap)))
+	    (define-key map (kbd "<f3>") 'x-current-line-or-region)
+	    (define-key map (kbd "<M-f3>") 'x-current-line-or-region-raw)
+
             (define-key map (kbd "1") 'hijack)
             (define-key map (kbd "2") 'hijack)
             (define-key map (kbd "3") 'hijack)
@@ -365,3 +369,18 @@
   "convert a result from the slime lisp's repl into the emacs lisp toplevel. return :output as MESSAGE"
   (message (slime-eval `(swank::pprint-eval ,command))))
 
+
+* frame setting 2x2
+** f11 ; (toggle-frame-maximized)
+
+** |tmux sticky|repl|
+   | ? | x |
+
+* M-x tunnel
+* M-x vue
+** bewegung-p (cmd-. y cmd-p)
+** del - q
+** f11
+** CMD-w
+** f1 ; wieder Emacs
+*

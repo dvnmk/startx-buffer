@@ -13,7 +13,7 @@
 
 ### DEPENDANCY
 * SLIME <https://github.com/slime/slime>
-* MPV <http://mpv.io> or VLC <http://www.videolan.org>
+* VLC <http://www.videolan.org>
 
 ### INSTALLATION
 ```
@@ -25,7 +25,7 @@
 ### SSH TUNNELING
 * FOR THE FIRST TIME, FROM SHELL (REGISTERING THE SERVER FINGERPRINT)
 ``` bash
-$ ssh startx@mut.dlinkddns.com
+$ ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com
 (...blah...blah...blah...)
 Are you sure you want to continue connecting (yes/no)? yes
 startx@mut.dlinkddns.com's password: startx
@@ -35,18 +35,25 @@ startx@mut.dlinkddns.com's password: startx
 ``` common-lisp
 (defun tunnel ()
   (interactive)
-  (call-process-shell-command
-  "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com &"))
+  (start-process "tunnel" "tunnel-msg"
+		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com")
+  (switch-to-buffer "tunnel-msg"))
 ```
 `M-x tunnel`
   
 ### IP CAMERA
+* FROM SHELL
+``` bash
+$ vlc rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio
+```
+* OR, IN Emacs
 ``` common-lisp
 (defun vue ()
   (interactive)
-  (call-process-shell-command
-  "mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264
-  --no-audio --framedrop=vo --osd-align-x=right --osd-align-y=top &"))
+  (call-process "open"
+		nil 0 nil
+		"-n" "-a" "vlc" "--args"
+		"rtsp://mut.dlinkddns.com:554/ch0_1.h264" "--no-audio"))
 ``` 
 `M-x vue`
 
@@ -99,7 +106,8 @@ CL-USER> (startx)      ; start the machine startx
 * (x+ ∂) Y (x- ∂) /M LANGE VERSION
 * ~~(kali 0 1) .el /M &optional~~
 * (startx) IMMER WARTEN OD. ZU THREAD
-* UNICODE EXCEPTION
+* TODO UNICODE EXCEPTION
+** ASCIIFY?
 * KONTAKT /M TELEGRAM?
 * (kali) WARTE LOCK ; (kali-warte) 
 * STALL RESET λ
@@ -107,14 +115,16 @@ CL-USER> (startx)      ; start the machine startx
 * ~~(IN-PACKAGE #:CL-USER)~~
 * ~~ELISP HOTKEY /M DOUBLE QUOTE EXCEPTION~~
 * ~~not DOWNCASED-STR ALS arg~~
-* (agur) AUCH THREAD?
-* (startx) AUCH THREAD?
+* ~~(agur) AUCH THREAD? => NO~~
+* ~~(startx) AUCH THREAD? => NO~~
 * FEEDBACK y (mach-socket) DEBUG, CCL VS VNC 
-* VLC y MPV : WHICH IST BETTER?
+* ~~VLC y MPV : WHICH IST BETTER?~~
 * ESCAPE \ KORIGIEREN
 * (call-process-shell-command) DISCOURAGED?
-* F3 KEYMAP M/ X-CURRENT-LINE-OR-REGION
-
+* ~~F3 KEYMAP M/ X-CURRENT-LINE-OR-REGION~~
+* ALLE BEENDET-P
+* PASS THROUGH! HORSEMAN.
+* SHORT-STORY
 <!-- dvnmk@dvnmk-mb:~ » ssh startx@startx.local -->
 <!-- The authenticity of host 'startx.local (192.168.0.4)' can't be established. -->
 <!-- ECDSA key fingerprint is SHA256:dTvNU8FCrMmt2pMK8frpUarqxe+0Tzm9sZJdCXocLLo. -->
