@@ -22,7 +22,7 @@
 ;;; satz helper
 (defun toggle-case  (string)
   "aBcDe -> AbCdE"
-  (do* ((i 0 (+ i 1))
+  (do ((i 0 (+ i 1))
         (len (length string))
         (res string))
       ((equal i len) res)
@@ -78,6 +78,7 @@
                    ((null ∂) nil)
                    ((stringp ∂) (char-code (character (toggle-case ∂))))
                    (t (char-code ∂)))))
+    ;; (princ res)
     (cond ((listp pos)
            (dolist (ele pos)
             ; (2startx (each/ ele "dec") res)

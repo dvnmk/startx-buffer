@@ -41,17 +41,15 @@
 
 (defun vue-mpv ()
   (interactive)
-  (call-process "open"
+  (call-process "mpv"
 		nil 0 nil
-		"-a" "vlc" "--args"
 		"rtsp://mut.dlinkddns.com:554/ch0_1.h264"
 		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
 
 (defun vue-mpv-hd ()
   (interactive)
-  (call-process "open"
+  (call-process "mpv"
 		nil 0 nil
-		"-a" "vlc" "--args"
 		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
 		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
 
@@ -370,17 +368,17 @@
   (message (slime-eval `(swank::pprint-eval ,command))))
 
 
-* frame setting 2x2
-** f11 ; (toggle-frame-maximized)
+;; * frame setting 2x2
+;; ** f11 ; (toggle-frame-maximized)
 
-** |tmux sticky|repl|
-   | ? | x |
+;; ** |tmux sticky|repl|
+;;    | ? | x |
 
-* M-x tunnel
-* M-x vue
-** bewegung-p (cmd-. y cmd-p)
-** del - q
-** f11
-** CMD-w
-** f1 ; wieder Emacs
-*
+;; * M-x tunnel
+;; * M-x vue
+;; ** bewegung-p (cmd-. y cmd-p)
+;; ** del - q
+;; ** f11
+;; ** CMD-w
+;; ** f1 ; wieder Emacs
+;; *

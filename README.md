@@ -82,6 +82,7 @@ CL-USER> (startx)      ; start the machine startx
 
 ``` common-lisp
 (x "foo")   ; send "foo             " to *startx-buffer*
+(a "f")   ; send "ffffffffffffffff" to *startx-buffer*
 (kali)      ; calibrate *startx-buffer* again 
 (agur)      ; turn off the maschine
 ```
@@ -123,7 +124,6 @@ CL-USER> (startx)      ; start the machine startx
 * (call-process-shell-command) DISCOURAGED?
 * ~~F3 KEYMAP M/ X-CURRENT-LINE-OR-REGION~~
 * ALLE BEENDET-P
-* PASS THROUGH! HORSEMAN.
 * SHORT-STORY
 
 <!-- dvnmk@dvnmk-mb:~ » ssh startx@startx.local -->
