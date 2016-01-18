@@ -93,7 +93,7 @@ CL-USER> (startx)      ; start the machine startx
 <!-- * SATELLITE REMOTE PROGRAMMING INSPIRED  -->
 <!-- * "THE LIBRARY OF BABEL BY JORGE LUIS BORGES" GELESEN. -->
 
-## SCREENCAST
+## DEMO
 
 ## TODO
 * RES/ SPONTANEOUS SLIME-CONNECT ERFOLGREICH, PERO MAS CHECKEN
@@ -125,6 +125,7 @@ CL-USER> (startx)      ; start the machine startx
 * ALLE BEENDET-P
 * PASS THROUGH! HORSEMAN.
 * SHORT-STORY
+
 <!-- dvnmk@dvnmk-mb:~ » ssh startx@startx.local -->
 <!-- The authenticity of host 'startx.local (192.168.0.4)' can't be established. -->
 <!-- ECDSA key fingerprint is SHA256:dTvNU8FCrMmt2pMK8frpUarqxe+0Tzm9sZJdCXocLLo. -->
