@@ -20,16 +20,30 @@
     (cons min (range (+ min step) max step))))
 
 ;;; satz helper
+
+;; (defun toggle-case-old  (string)
+;;   "aBcDe -> AbCdE"
+;;   (do ((i 0 (+ i 1))
+;;         (len (length string))
+;;         (res string))
+;;       ((equal i len) res)
+;;     (let ((ele (aref string i)))
+;;       (if (< (char-code ele) 91)               ; ascii A 65 ~ Z 90, a 97 ~ z 122
+;;           (setf (aref string i) (char-downcase ele))
+;;           (setf (aref string i) (char-upcase ele))))))
+
 (defun toggle-case  (string)
-  "aBcDe -> AbCdE"
-  (do ((i 0 (+ i 1))
-        (len (length string))
-        (res string))
-      ((equal i len) res)
-    (let ((ele (aref string i)))
-      (if (< (char-code ele) 91)               ; ascii A 65 ~ Z 90, a 97 ~ z 122
-          (setf (aref string i) (char-downcase ele))
-          (setf (aref string i) (char-upcase ele))))))
+  "aBcDe -> (97 ...) -> (65 ...)"
+  (let* ((res-list (coerce string 'list))
+	 (res-ascii (mapcar #'char-code res-list))
+	 (res (make-list 0)))
+    (dolist (ele res-ascii)
+      (cond ((< 64 ele 91)
+	     (push (+ ele 32) res))
+	    ((< 96 ele 123)
+	     (push (- ele 32) res))
+	    (t (push ele res))))
+    (reverse res)))
 
 (defun mach-socket-s ()
   "FUER BEFEHL"
@@ -76,7 +90,7 @@
   "pos kann nummer 0~16(0:alle), list sein, x:string or character"
   (let ((res (cond ((numberp ∂) ∂)
                    ((null ∂) nil)
-                   ((stringp ∂) (char-code (character (toggle-case ∂))))
+                   ((stringp ∂) (toggle-case ∂))
                    (t (char-code ∂)))))
     ;; (princ res)
     (cond ((listp pos)
@@ -89,8 +103,7 @@
 (defun x-kurz (string &optional maxi-x aksel-x)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element 32))
-        (lst (coerce (toggle-case string) 'list))
-        (asc (mapcar #'char-code lst)))
+	 (asc (toggle-case string)))
     (replace res asc)
     (maxi 0 maxi-x)
     (aksel 0 aksel-x)
@@ -107,8 +120,8 @@
 (defun x+ (string)
   "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
   (let* ((res (make-list 16 :initial-element nil))
-         (lst (coerce (toggle-case string) 'list))
-         (res (sublis '((#\  . NIL)) (replace res lst))))
+         (lst (toggle-case string))
+         (res (sublis '((32 . NIL)) (replace res lst))))
     (progn
       (s 1 (nth 0 res)) (s 2 (nth 1 res)) (s 3 (nth 2 res)) (s 4 (nth 3 res))
       (s 5 (nth 4 res)) (s 6 (nth 5 res)) (s 7 (nth 6 res)) (s 8 (nth 7 res))
@@ -118,9 +131,8 @@
 
 (defmacro x- (string)
   "nur input existing each to change"
-  (let* ((lst (coerce (toggle-case string) 'list))
-         (asc (mapcar #'char-code lst))
-         (forms (mapcar (lambda (x) `,x) asc)))
+  (let* ((res (toggle-case string))
+         (forms (mapcar (lambda (x) `,x) res)))
     `(2startx "/alle/satz" ,@forms)))
 
 (defun maxi (pos &optional max-spd)
@@ -185,6 +197,18 @@
   (feedback-on)
   (osc-router-d "start"))
 
+(defun kredit ()
+  (x "   A    by dvnmk")
+  (sleep 0.1)
+  (warte-alle-stop)
+  (sleep 2)
+  (x+ "     G")
+  (sleep 0.1)
+  (warte-alle-stop)
+  (sleep 2)
+  (x-kurz ">startx<ready!AA")
+  )
+
 (defun startx ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (netz 1)
@@ -193,8 +217,10 @@
   (sleep 1)
   (kali 0 1)
   (warte "kali" 16)
+  (kredit)
   (format t "the maschine startx initialized, vermute ich")
-  (x-kurz ">startx<ready!AA"))
+  )
+
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)

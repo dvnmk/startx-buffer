@@ -123,6 +123,7 @@ CL-USER> (startx)      ; start the machine startx
 * ESCAPE \ KORIGIEREN
 * (call-process-shell-command) DISCOURAGED?
 * ~~F3 KEYMAP M/ X-CURRENT-LINE-OR-REGION~~
+* (TOGGLE-CASE)ooj DEBUG
 * ALLE BEENDET-P
 * SHORT-STORY
 
