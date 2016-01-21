@@ -44,14 +44,14 @@
   (call-process "mpv"
 		nil 0 nil
 		"rtsp://mut.dlinkddns.com:554/ch0_1.h264"
-		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
+		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top" "--osd-level=0"))
 
 (defun vue-mpv-hd ()
   (interactive)
   (call-process "mpv"
 		nil 0 nil
 		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
-		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top"))
+		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top" "--osd-level=0"))
 
 ;;; helper
 
@@ -117,6 +117,29 @@
                                (number-to-string ∂)
                                ")")))
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
+
+
+(defun send-to-slime (str)
+  (cadr (slime-eval `(swank:eval-and-grab-output ,str))))
+
+(defmacro mach-funz (funz-name)
+  "mach elisp funz /m gleich name from common lisp"
+  `(defun ,funz-name (∂)
+     (send-to-slime (format "(%s %s)" ',funz-name ∂))))
+
+;; ;; http://stackoverflow.com/questions/22456086/how-to-run-common-lisp-code-with-slime-in-emacs-lisp
+;; (require 'slime)
+;; (defun lispy--eval-lisp (str)
+;;   "Eval STR as Common Lisp code."
+;;   (unless (slime-current-connection)
+;;     (let ((wnd (current-window-configuration)))
+;;       (slime)
+;;       (while (not (and (slime-current-connection)
+;;                        (get-buffer-window (slime-output-buffer))))
+;;         (sit-for 0.2))
+;;       (set-window-configuration wnd)))
+;;   (let (deactivate-mark)
+;;     (cadr (slime-eval `(swank:eval-and-grab-output ,str)))))
 
 (defun x (∂)
   (interactive)
