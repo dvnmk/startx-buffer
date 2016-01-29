@@ -18,26 +18,26 @@
 		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com")
   (switch-to-buffer "tunnel-msg"))
 
-(defun vue ()
+(defun vue-vlc ()
   (interactive)
   (call-process "open"
 		nil 0 nil
 		"-n" "-a" "vlc" "--args"
 		"rtsp://mut.dlinkddns.com:554/ch0_1.h264" "--no-audio"))
 
-(defun vue-hd ()
+(defun vue-vlc-hd ()
   (interactive)
   (call-process "open"
 		nil 0 nil
 		"-n" "-a" "vlc" "--args"
 		"rtsp://mut.dlinkddns.com:554/ch0_0.h264" "--no-audio"))
 
-(defun vue-audio ()
+(defun vue-vlc-audio ()
   (interactive)
   (call-process "open"
 		nil 0 nil
 		"-a" "vlc" "--args"
-		"rtsp://mut.dlinkddns.com:554/ch0_3.h264" "--no-audio"))
+		"rtsp://mut.dlinkddns.com:554/ch0_3.h264"))
 
 (defun vue-mpv ()
   (interactive)
@@ -53,6 +53,13 @@
 		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
 		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top" "--osd-level=0"))
 
+(defun vue ()
+  (interactive)
+  (vue-mpv))
+
+(defun vue-hd ()
+  (interactive)
+  (vue-mpv-hd))
 ;;; helper
 
 (make-variable-buffer-local
@@ -122,10 +129,16 @@
 (defun send-to-slime (str)
   (cadr (slime-eval `(swank:eval-and-grab-output ,str))))
 
-(defmacro mach-funz (funz-name)
-  "mach elisp funz /m gleich name from common lisp"
-  `(defun ,funz-name (∂)
-     (send-to-slime (format "(%s %s)" ',funz-name ∂))))
+(defmacro mach-el-fun (fun-name)
+  "make elisp fun from common lisp"
+  `(defun ,fun-name (&optional arg &rest lst)
+     (if arg
+	 (send-to-slime (format "(%s %s)" ',fun-name arg))
+	 (send-to-slime (format "(%s)" ',fun-name))
+	 )))
+
+ ;; (mach-funz-lst (lst)
+ ;; 	       )
 
 ;; ;; http://stackoverflow.com/questions/22456086/how-to-run-common-lisp-code-with-slime-in-emacs-lisp
 ;; (require 'slime)

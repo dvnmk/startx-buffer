@@ -52,7 +52,7 @@
                                   :protocol :datagram
                                   :element-type '(unsigned-byte 8))))
 (defun kill-socket-s ()
-  (usocket:socket-close *socket-s*))
+  (usocket:socket-close *socket-s*))o
 
 (defun mach-socket-r ()
   (defparameter *socket-r*
