@@ -220,15 +220,14 @@
   (kali 0 1)
   (warte "kali" 16)
   (kredit)
-  (format t "the maschine startx initialized, vermute ich")
+  (format t "THE MASCHINE STARTX INITIALIZED, VERMUTE ICH")
   )
-
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "alle null kalibriert, denke ich."))
+  (format t "ALLE NULL KALIBRIERT, DENKE ICH."))
 
 (defun agur ()
   (abal 0)
@@ -236,7 +235,7 @@
   (stm 0 0)
   (sleep 1)
   (netz 0)
-  (format t "agur!"))
+  (format t "AGUR!"))
 
 (defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)
@@ -420,11 +419,14 @@
 ;; (async-shell-command "ssh -fN -L 4004:localhost:4004 pi@mut.dlinkddns.com")
 
 ;; OSC HANDLER 
-;#run.0
-(defparameter *status* '((1 . "stp")(2 . "stp")(3 . "stp")(4 . "stp")(5 . "stp")(6 . "stp")(7 . "stp")(8 . "stp")
-                         (9 . "stp")(10 . "stp")(11 . "stp")(12 . "stp")(13 . "stp")(14 . "stp")(15 . "stp")(16 . "stp")
-                         ("kali" . 0) ("stm" . 0) ("NULL" . 0) ("netz" . 0)
-                         ("each" . 0) ("bewegend" . 0)))
+
+(defparameter *status*
+  '((1 . "stp")(2 . "stp")(3 . "stp")(4 . "stp")(5 . "stp")(6 . "stp")
+    (7 . "stp")(8 . "stp")(9 . "stp")(10 . "stp")(11 . "stp")(12 . "stp")
+    (13 . "stp")(14 . "stp")(15 . "stp")(16 . "stp")
+    ("kali" . 0) ("stm" . 0) ("NULL" . 0) ("netz" . 0)
+    ("each" . 0) ("bewegend" . 0)))
+
 ;(assoc "kali" *status* :test #'equalp)
 ;(assoc 0 *status* :test #'equalp)
 
@@ -440,7 +442,7 @@
                       address-zu-int))
          (gefunden (assoc address *status* :test #'equalp))) 
     (if (null gefunden)
-        (format t "~%OSC routing not gefunden")
+        (format t "~%OSC ROUTING NOT GEFUNDEN")
         (progn (rplacd gefunden  value)
                (format t "~%=> ~S" gefunden)
 	       ))
@@ -467,7 +469,7 @@
 (defun warte-alle-stop ( )
   "warte bis alle stop"
   (process-wait "ALLE-WARTE" #'alle-stop-p)
-  (format t "gestoppt alle")
+  (format t "GESTOPPT ALLE")
   't)
 
 ;; z.B.
