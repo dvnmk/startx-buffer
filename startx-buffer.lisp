@@ -28,7 +28,7 @@
 ;;         (res string))
 ;;       ((equal i len) res)
 ;;     (let ((ele (aref string i)))
-;;       (if (< (char-code ele) 91)               ; ascii A 65 ~ Z 90, a 97 ~ z 122
+;;       (if (< (char-code ele) 91)    ; ascii A 65 ~ Z 90, a 97 ~ z 122
 ;;           (setf (aref string i) (char-downcase ele))
 ;;           (setf (aref string i) (char-upcase ele))))))
 
@@ -56,7 +56,9 @@
 
 (defun mach-socket-r ()
   (defparameter *socket-r*
-    (usocket:socket-connect nil nil :protocol :datagram :element-type '(unsigned-byte 8) :local-host "127.0.0.1"
+    (usocket:socket-connect nil nil :protocol :datagram
+			    :element-type '(unsigned-byte 8)
+			    :local-host "127.0.0.1"
                             :local-port *osc-port-r*)))
 
 (defun kill-socket-r ()
@@ -440,7 +442,8 @@
     (if (null gefunden)
         (format t "~%OSC routing not gefunden")
         (progn (rplacd gefunden  value)
-               (format t "~%=> ~S" gefunden)))
+               (format t "~%=> ~S" gefunden)
+	       ))
     gefunden))
 
 (defun osc-router-loop ()

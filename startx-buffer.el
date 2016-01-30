@@ -137,8 +137,9 @@
 	 (send-to-slime (format "(%s)" ',fun-name))
 	 )))
 
- ;; (mach-funz-lst (lst)
- ;; 	       )
+;; * TODO
+;; (mach-funz-lst (lst)
+;; 	       )
 
 ;; ;; http://stackoverflow.com/questions/22456086/how-to-run-common-lisp-code-with-slime-in-emacs-lisp
 ;; (require 'slime)
@@ -157,7 +158,7 @@
 (defun x (∂)
   (interactive)
   (let ((cmd-gen (format "(x \"%s\")" ∂)))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
+    (slime-eval `(swank:eval-and-grab-output ,cmd-gen))))
 
 (defun x+ (∂)
   (interactive)
