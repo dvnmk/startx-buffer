@@ -249,7 +249,7 @@
   (x-current-line-or-region 't))
 
 ;;;###autoload
-(define-minor-mode startx-buffer
+(define-minor-mode startx-buffer-mode
   "connecting with the machschine >STARTX< in Emacs"
   :lighter " sx-b"
   :keymap (let ((map (make-sparse-keymap)))
@@ -390,7 +390,7 @@
             map)
   )
 
-(provide 'startx-buffer)
+(provide 'startx-buffer-mode)
 
 ;;;; aus .emacs
 
