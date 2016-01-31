@@ -18,7 +18,7 @@
 ### INSTALLATION
 ```
 (add-to-list 'load-path "path/to/startx-buffer/")
-(require 'startx-buffer)
+(require 'startx-buffer-mode)
 ```
 
 ## CONNECT TO STARTX-BUFFER
@@ -68,7 +68,7 @@ CL-USER>
 ```
 ### STARTX-BUFFER
 
-`M-x startx-buffer`
+`M-x startx-buffer-mode`
 * FROM NOW YOU CAN HACK THE PHYSIKAL BUFFER \*STARTX-BUFFER\*
 
 ## COMMAND
