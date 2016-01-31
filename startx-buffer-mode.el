@@ -392,30 +392,4 @@
 
 (provide 'startx-buffer-mode)
 
-;;;; aus .emacs
-
-;; (2cl "(g 043860-000)")
-;; send command 2cl y get the output
-(defun 2cl-s (command)
-  "convert a result from the slime lisp's repl into the emacs lisp toplevel. return :output as STREAM"
-  (read (slime-eval `(swank::pprint-eval ,command))))
-
-(defun 2cl (command)
-  "convert a result from the slime lisp's repl into the emacs lisp toplevel. return :output as MESSAGE"
-  (message (slime-eval `(swank::pprint-eval ,command))))
-
-
-;; * frame setting 2x2
-;; ** f11 ; (toggle-frame-maximized)
-
-;; ** |tmux sticky|repl|
-;;    | ? | x |
-
-;; * M-x tunnel
-;; * M-x vue
-;; ** bewegung-p (cmd-. y cmd-p)
-;; ** del - q
-;; ** f11
-;; ** CMD-w
-;; ** f1 ; wieder Emacs
-;; *
+;;; startx-buffer-mode.el ends here
