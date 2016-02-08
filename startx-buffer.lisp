@@ -94,7 +94,6 @@
                    ((null ∂) nil)
                    ((stringp ∂) (toggle-case ∂))
                    (t (char-code ∂)))))
-    ;; (princ res)
     (cond ((listp pos)
            (dolist (ele pos)
             ; (2startx (each/ ele "dec") res)
@@ -182,6 +181,7 @@
 (defun netz (tgl)
   (alle netz tgl))
 
+;; TODO inklusive (abal)?
 (defun kali (&optional (pos 0) (tgl 1))
   (cond ((listp pos)
          (dolist (ele pos)
@@ -199,6 +199,7 @@
   (feedback-on)
   (osc-router-d "start"))
 
+;; TODO defunize
 (defun kredit ()
   (x "   A    by dvnmk")
   (sleep 0.1)
@@ -208,8 +209,7 @@
   (sleep 0.1)
   (warte-alle-stop)
   (sleep 2)
-  (x-kurz ">startx<ready!AA")
-  )
+  (x-kurz ">startx<ready!AA"))
 
 (defun startx ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -299,94 +299,94 @@
     `(defun ,a1 ()
        (s ,wo ,was))))
 
-(mach-func-16 "a"
+(mach-func-16 "A"
               LEB DL SPIRAL START-X
               CAT-1 CAT-2 FUNC-1 FUNC-2
               HAMMOCK1-1 HAMMOCK1-2 NEST TISCH
               HASEN CAT-3 LISP-1 LISP-2)
-(mach-func-wo "a"
+(mach-func-wo "A"
               '(5 6 14) CAT)
-(mach-func-wo "a"
+(mach-func-wo "A"
               '(7 8) FUNC)
-(mach-func-wo "a"
+(mach-func-wo "A"
               '(9 10) HAMMOCK1)
-(mach-func-wo "a"
+(mach-func-wo "A"
               '(15 16) LISP)
 
-(mach-func-16 "b"
+(mach-func-16 "B "
               BAUM1-1 BAUM1-2 BAUM1-3 BAUM1-4
               BAUM1-5 BAUM1-6 BAUM1-7 BAUM1-8
               BAUM1-9 BAUM1-10 BAUM1-11 BAUM1-12
               BAUM1-13 BAUM1-14 BAUM1-15 BAUM1-16 )
-(mach-func-wo "b"
+(mach-func-wo "B"
               '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) BAUM1)
 
-(mach-func-16 "c"
+(mach-func-16 "C"
               BAUM2-1 BAUM2-2 BAUM2-3 BAUM2-4
               BAUM2-5 BAUM2-6 BAUM2-7 BAUM2-8
               BAUM2-9 BAUM2-10 BAUM2-11 BAUM2-12
               BAUM2-13 BAUM2-14 BAUM2-15 BAUM2-16 )
-(mach-func-wo "c"
+(mach-func-wo "C"
               '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) BAUM2)
 
-(mach-func-16 "d"
+(mach-func-16 "D"
               BAUM3-1 BAUM3-2 BAUM3-3 BAUM3-4
               BAUM3-5 BAUM3-6 BAUM3-7 BAUM3-8
               BAUM3-9 BAUM3-10 BAUM3-11 BAUM3-12
               BAUM3-13 BAUM3-14 BAUM3-15 BAUM3-16 )
 
-(mach-func-wo "d"
+(mach-func-wo "D"
               '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) BAUM3)
 
-(mach-func-16 "e"
+(mach-func-16 "E"
               GEBAU-JEJU-1 GEBAU-JEJU-2 BAUM-JEJU-1 BAUM-JEJU-2
               BUSH FENSTER WOLKE STADT-AUS
               AUTO-FRAME BOGWANG-FLAG BETT-SIGN RACICE-STETI
               HAMMOCK-VIEW1 PRZYTARNIA-KAMP-SIGN FUCK-REALITY SOFA-LEMIAN)
-(mach-func-wo "e" '(1 2) GEBAU-JEJU)
-(mach-func-wo "e" '(3 4) BAUM-JEJU)
+(mach-func-wo "E" '(1 2) GEBAU-JEJU)
+(mach-func-wo "E" '(3 4) BAUM-JEJU)
 
-(mach-func-16 "f"
+(mach-func-16 "F"
               SCHREIBMASCHINE LEER-JEJU GEBAU-HANGANG-1 GEBAU-HANGANG-2
               WASSERTURM1 WASSERTURM2 GEBAU-JECHON-1 GABAU-JECHON-2
               GEBAU-KOLN-1 GEBAU-KOLN-2 LAUNDARY-KOCHER WASSERHANN
               BOILER DRYER CONVER WASSER-PILE1)
-(mach-func-wo "f" '(3 4) gebau-hangang)
-(mach-func-wo "f" '(7 8) gebau-jechon)
-(mach-func-wo "f" '(9 10) gebau-koln)
+(mach-func-wo "F" '(3 4) gebau-hangang)
+(mach-func-wo "F" '(7 8) gebau-jechon)
+(mach-func-wo "F" '(9 10) gebau-koln)
 
-(mach-func-16 "g"
+(mach-func-16 "G"
               VINO WASSER-PILE2 BIER-MAGOLI KAFE-CIGARET
               SANDORA KOE VIOLIN BALLET
               GOPDUNGI1-1 GOPDUNGI1-2 GOPDUNGI2 DONKIXOTE
               XCROSS  WINTER-IST-ES-KALT-ZU-RAUCHEN MUEDIGKEITS-GESELSCHAFT BONK )
-(mach-func-wo "g" '(9 10) GOPDUNGI1)
+(mach-func-wo "G" '(9 10) GOPDUNGI1)
 
-(mach-func-16 "h"
+(mach-func-16 "H"
               GASI KEEP-CALM-AND GLENDA1 GLENDA2
               UNFALL1 UNFALL2 HAMMOCK2 HAMMCOK3
               HAMMOCK-VIEW2 HAMMOCK-VIEW3 HAMMOCK4-1 HAMMOCK4-2
               DE-DAMAS KLO-1 KLO-2 ESSEN)
-(mach-func-wo "h" '(3 4) GLENDA)
-(mach-func-wo "h" '(5 6) UNFALL)
-(mach-func-wo "h" '(11 12) HAMMCOK4)
-(mach-func-wo "h" '(14 15) KLO)
+(mach-func-wo "H" '(3 4) GLENDA)
+(mach-func-wo "H" '(5 6) UNFALL)
+(mach-func-wo "H" '(11 12) HAMMCOK4)
+(mach-func-wo "H" '(14 15) KLO)
 
-(mach-func-16 "i"
+(mach-func-16 "I"
               BOARD-HOTEL COCINA BOARD-ALBATROS BOARD-ESSEN
               BECHEROVKA BIONADE KOCH-WURST SONNENBRILLE
               EN-JOYSTICK-1 EN-JOYSTICK-2 LIEBE-ZU-DRRIT-1 LIEBE-ZU-DRRIT-2
               ICHAT-IM-BTHEK2-1 ICHAT-IM-BTHEK2-2 ICHAT-IM-BTHEK1 AUFM-KLO)
-(mach-func-wo "i" '(9 10) EN-JOYSTICK)
-(mach-func-wo "i" '(11 12) LIEBE-ZU-DRRIT)
-(mach-func-wo "i" '(13 14) ICHAT-IM-BTHEK2)
+(mach-func-wo "I" '(9 10) EN-JOYSTICK)
+(mach-func-wo "I" '(11 12) LIEBE-ZU-DRRIT)
+(mach-func-wo "I" '(13 14) ICHAT-IM-BTHEK2)
 
-(mach-func-16 "j"
+(mach-func-16 "J"
               PPALDDUGI KATE MX-FAHRRAD BETT-IM-PARK-1
               BETT-IM-PARK-2 FAHRRAD-TENT STUFFE F8
               F9 F10 F11 F12
               F13 F14 F15 F16)
-(mach-func-wo "j" '(4 5) BETT-IM-PARK)
+(mach-func-wo "J" '(4 5) BETT-IM-PARK)
 
 (defun blk ()
   (a " "))
@@ -402,24 +402,7 @@
 ;  (sleep 1)
   'FER)
 
-;; ;; emacs defun
-;; (defun vue ()
-;;   (async-shell-command   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 &"))
-;; (defun vnc-editmode ()
-;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -geometry 650x800 -depth 8 -rfbport 5910' &" ))
-;; (defun vnc-editmode-2 ()
-;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -geometry 720x1024 -depth 8 -rfbport 5910' &" ))
-;; (defun vnc-ein ()
-;;   (async-shell-command   "ssh pi@mut.dlinkddns.com './vnc.sh' &" ))
-;; (defun vnc-kill ()
-;;   (async-shell-command   "ssh pi@mut.dlinkddns.com 'vncserver -kill :1' &" ))
-;; (defun vnc-view ()
-;;   (async-shell-command   "open vnc://mut.dlinkddns.com:5910 &"))
-;; (defeun tunneling ()
-;; (async-shell-command "ssh -fN -L 4004:localhost:4004 pi@mut.dlinkddns.com")
-
 ;; OSC HANDLER 
-
 (defparameter *status*
   '((1 . "stp")(2 . "stp")(3 . "stp")(4 . "stp")(5 . "stp")(6 . "stp")
     (7 . "stp")(8 . "stp")(9 . "stp")(10 . "stp")(11 . "stp")(12 . "stp")
@@ -433,7 +416,8 @@
 (defun osc-router ()
   "place value at the adress in alist *status*"
   (let* ((buffer-r (make-array 20 :element-type '(unsigned-byte 8)))
-         (received-msg (osc:decode-message (usocket:socket-receive *socket-r* buffer-r 20)))
+         (received-msg (osc:decode-message (usocket:socket-receive *socket-r*
+								   buffer-r 20)))
          (value (cadr received-msg))
          (address-0 (string-left-trim "/" (car received-msg)))
          (address-zu-int (parse-integer address-0 :junk-allowed t))
@@ -444,26 +428,27 @@
     (if (null gefunden)
         (format t "~%OSC ROUTING NOT GEFUNDEN")
         (progn (rplacd gefunden  value)
-               (format t "~%=> ~S" gefunden)
-	       ))
+               (format t "~%=> ~S" gefunden)))
     gefunden))
 
 (defun osc-router-loop ()
   (loop (osc-router)))
 
-(defun check-mal (address value)
+(defun osc-check (address value)
+  "Check nth stepper go or stp, how many kali done"
            (equal (cdr (assoc address *status* :test #'equalp)) value)) 
-;; z.B.
-;; (check-mal "kali" 16)
-;; (check-mal 1 "go")
-;; (check-mal 1 "stp")
+;; (osc-check "kali" 16)
+;; (osc-check 1 "go")
+;; (osc-check 1 "stp")
 
 (defun alle-stop-p ( )
-  "check ob alle 16 status stp ist, dann T, sonst NIL"
-  (if (and (check-mal 1 "stp") (check-mal 2 "stp") (check-mal 3 "stp") (check-mal 4 "stp")
-	   (check-mal 5 "stp") (check-mal 6 "stp") (check-mal 7 "stp") (check-mal 8 "stp")
-	   (check-mal 9 "stp") (check-mal 10 "stp") (check-mal 11 "stp") (check-mal 12 "stp")
-	   (check-mal 13 "stp") (check-mal 14 "stp") (check-mal 15 "stp") (check-mal 16 "stp"))
+  "Check ob alle 16 status stp ist, dann T, sonst NIL"
+  (if (and (osc-check 1 "stp") (osc-check 2 "stp") (osc-check 3 "stp")
+	   (osc-check 4 "stp") (osc-check 5 "stp") (osc-check 6 "stp")
+	   (osc-check 7 "stp") (osc-check 8 "stp") (osc-check 9 "stp")
+	   (osc-check 10 "stp") (osc-check 11 "stp") (osc-check 12 "stp")
+	   (osc-check 13 "stp") (osc-check 14 "stp") (osc-check 15 "stp")
+	   (osc-check 16 "stp"))
       'T))
 
 (defun warte-alle-stop ( )
@@ -471,7 +456,6 @@
   (process-wait "ALLE-WARTE" #'alle-stop-p)
   (format t "GESTOPPT ALLE")
   't)
-
 ;; z.B.
 ;; (progn (x-kurz "wualamosimosi")
 ;; 		(sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop 
@@ -488,11 +472,13 @@
 	 't))
 
 (defun nimm-16 (∂)
+  "trim 16 y nimm es"
   (if (> (length ∂) 16)
       (subseq ∂ 0 16)
       ∂))
 
 (defun x-lang (∂)
+  "x mit lang satz"
   (do* ((was (nimm-16 ∂) (nimm-16 sonst))
 	(sonst (subseq ∂ 16) (subseq sonst 16)))
        ((<= (length sonst) 16)
@@ -501,7 +487,7 @@
     (x-warte was)))
 
 (defun x-wu (∂)
-"dies war x-final, finalisch wird zu x /o -final"
+  "dies war x-final, finalisch wird zu x /o -final"
   (if (<= (length ∂) 16)
       (x-kurz ∂)
       (x-lang ∂)))
@@ -512,7 +498,7 @@
 
 ;; clozure warte
 (defun warte (address value)
-  (process-wait "WARTE" #'check-mal address value)
+  (process-wait "WARTE" #'osc-check address value)
   't)
 
 ;;(setf (nth (- 16 1) *status*) "VEN")
@@ -521,7 +507,8 @@
 (defun osc-router-d (&optional (x "status"))
   (cond ((equal x "stop") (process-kill *osc-router-d*))
         ((equal x "start")
-         (defparameter *osc-router-d* (process-run-function "OSC-ROUTER-D" #'osc-router-loop)))
+         (defparameter *osc-router-d*
+	   (process-run-function "OSC-ROUTER-D" #'osc-router-loop)))
         (t (all-processes))))
 
 (defun feedback-on ()
@@ -543,8 +530,10 @@
   (progn (maxi n maxi-x)
          (aksel n aksel-x))) 
 
-(defparameter *baz* '("a" 1 "b" 1 "c" 1 "d" 1  "e" 1 "f" 1  "g" 1  "h" 1 "i" 1 "%" 3))
-(defparameter *bilder* '("A" 1 "B" 1 "C" 1 "D" 1  "E" 1 "F" 1  "G" 1  "H" 1 "@" 3 ))
+(defparameter *baz*
+  '("a" 1 "b" 1 "c" 1 "d" 1  "e" 1 "f" 1  "g" 1  "h" 1 "i" 1 "%" 3))
+(defparameter *bilder*
+  '("A" 1 "B" 1 "C" 1 "D" 1  "E" 1 "F" 1  "G" 1  "H" 1 "@" 3 ))
 (defparameter *seq-1* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
 (defparameter *seq-2* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
 (defparameter *seq-3* '("S" 0.5 "T" 0.5 "A" 0.5 "R" 0.5 "T" 0.5 "X" 4))
@@ -594,102 +583,132 @@
 (defun seq-1-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-1-d*))
         ((equal ∂ "start")
-         (defparameter *seq-1-d* (process-run-function "seq-1-d" #'seq-1-loop)))
+         (defparameter *seq-1-d*
+	   (process-run-function "seq-1-d" #'seq-1-loop)))
         (t (all-processes))))
+
 (defparameter *seq-2-d* nil)
 (defun seq-2-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-2-d*))
         ((equal ∂ "start")
-         (defparameter *seq-2-d* (process-run-function "seq-2-d" #'seq-2-loop)))
+         (defparameter *seq-2-d* 
+	   (process-run-function "seq-2-d" #'seq-2-loop)))
         (t (all-processes))))
+
 (defparameter *seq-3-d* nil)
 (defun seq-3-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-3-d*))
         ((equal ∂ "start")
-         (defparameter *seq-3-d* (process-run-function "seq-3-d" #'seq-3-loop)))
+         (defparameter *seq-3-d* 
+	   (process-run-function "seq-3-d" #'seq-3-loop)))
         (t (all-processes))))
+
 (defparameter *seq-4-d* nil)
 (defun seq-4-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-4-d*))
         ((equal ∂ "start")
-         (defparameter *seq-4-d* (process-run-function "seq-4-d" #'seq-4-loop)))
+         (defparameter *seq-4-d* 
+	   (process-run-function "seq-4-d" #'seq-4-loop)))
         (t (all-processes))))
+
 (defparameter *seq-5-d* nil)
 (defun seq-5-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-5-d*))
         ((equal ∂ "start")
-         (defparameter *seq-5-d* (process-run-function "seq-5-d" #'seq-5-loop)))
+         (defparameter *seq-5-d* 
+	   (process-run-function "seq-5-d" #'seq-5-loop)))
         (t (all-processes))))
+
 (defparameter *seq-6-d* nil)
 (defun seq-6-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-6-d*))
         ((equal ∂ "start")
-         (defparameter *seq-6-d* (process-run-function "seq-6-d" #'seq-6-loop)))
+         (defparameter *seq-6-d* 
+	   (process-run-function "seq-6-d" #'seq-6-loop)))
         (t (all-processes))))
+
 (defparameter *seq-7-d* nil)
 (defun seq-7-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-7-d*))
         ((equal ∂ "start")
-         (defparameter *seq-7-d* (process-run-function "seq-7-d" #'seq-7-loop)))
+         (defparameter *seq-7-d* 
+	   (process-run-function "seq-7-d" #'seq-7-loop)))
         (t (all-processes))))
+
 (defparameter *seq-8-d* nil)
 (defun seq-8-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-8-d*))
         ((equal ∂ "start")
-         (defparameter *seq-8-d* (process-run-function "seq-8-d" #'seq-8-loop)))
+         (defparameter *seq-8-d* 
+	   (process-run-function "seq-8-d" #'seq-8-loop)))
         (t (all-processes))))
+
 (defparameter *seq-9-d* nil)
 (defun seq-9-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-9-d*))
         ((equal ∂ "start")
-         (defparameter *seq-9-d* (process-run-function "seq-9-d" #'seq-9-loop)))
+         (defparameter *seq-9-d* 
+	   (process-run-function "seq-9-d" #'seq-9-loop)))
         (t (all-processes))))
+
 (defparameter *seq-10-d* nil)
 (defun seq-10-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-10-d*))
         ((equal ∂ "start")
-         (defparameter *seq-10-d* (process-run-function "seq-10-d" #'seq-10-loop)))
+         (defparameter *seq-10-d* 
+	   (process-run-function "seq-10-d" #'seq-10-loop)))
         (t (all-processes))))
+
 (defparameter *seq-11-d* nil)
 (defun seq-11-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-11-d*))
         ((equal ∂ "start")
-         (defparameter *seq-11-d* (process-run-function "seq-11-d" #'seq-11-loop)))
+         (defparameter *seq-11-d* 
+	   (process-run-function "seq-11-d" #'seq-11-loop)))
         (t (all-processes))))
+
 (defparameter *seq-12-d* nil)
 (defun seq-12-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-12-d*))
         ((equal ∂ "start")
-         (defparameter *seq-12-d* (process-run-function "seq-12-d" #'seq-12-loop)))
+         (defparameter *seq-12-d* 
+	   (process-run-function "seq-12-d" #'seq-12-loop)))
         (t (all-processes))))
+
 (defparameter *seq-13-d* nil)
 (defun seq-13-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-13-d*))
         ((equal ∂ "start")
-         (defparameter *seq-13-d* (process-run-function "seq-13-d" #'seq-13-loop)))
+         (defparameter *seq-13-d* 
+	   (process-run-function "seq-13-d" #'seq-13-loop)))
         (t (all-processes))))
+
 (defparameter *seq-14-d* nil)
 (defun seq-14-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-14-d*))
         ((equal ∂ "start")
-         (defparameter *seq-14-d* (process-run-function "seq-14-d" #'seq-14-loop)))
+         (defparameter *seq-14-d* 
+	   (process-run-function "seq-14-d" #'seq-14-loop)))
         (t (all-processes))))
+
 (defparameter *seq-15-d* nil)
 (defun seq-15-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-15-d*))
         ((equal ∂ "start")
-         (defparameter *seq-15-d* (process-run-function "seq-15-d" #'seq-15-loop)))
+         (defparameter *seq-15-d* 
+	   (process-run-function "seq-15-d" #'seq-15-loop)))
         (t (all-processes))))
+
 (defparameter *seq-16-d* nil)
 (defun seq-16-d (&optional (∂ "status"))
   (cond ((equal ∂ "stop") (process-kill *seq-16-d*))
         ((equal ∂ "start")
-         (defparameter *seq-16-d* (process-run-function "seq-16-d" #'seq-16-loop)))
+         (defparameter *seq-16-d* 
+	   (process-run-function "seq-16-d" #'seq-16-loop)))
         (t (all-processes))))
 
-(defun seq0 ( )
-  t
-  )
+;; TODO defun od defmacro
+(defun seq0 ()  t)
 
 (defun seq-1 ()
   (let ((x *seq-1*))

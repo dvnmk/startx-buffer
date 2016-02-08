@@ -13,7 +13,7 @@
 
 ### DEPENDANCY
 * SLIME <https://github.com/slime/slime>
-* VLC <http://www.videolan.org>
+* mpv <https://mpv.io> (or VLC <https://www.videolan.org>)
 
 ### INSTALLATION
 ```

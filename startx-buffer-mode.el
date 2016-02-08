@@ -1,21 +1,27 @@
-;;; startx-buffer.el -- a physikal buffer, connecting with the machschine >STARTX< in Emacs
+
+
+;;; startx-buffer-buffer.el --- a physikal buffer, connecting with the machschine >STARTX< in Emacs -*- lexical-binding: t; -*
 
 ;; Copyright (C) 2015-2016 by dvnmk
-
+;;
 ;; Author: dvnmk <divinomok@gmail.com>
 ;; URL: http://github.com/dvnmk/startx-buffer
 ;; Keywords: buffer, physical
 ;; Linzen: WDW (Wie Du Willst)
-;; Version: moebius
+;; Version: minus-moebius
 
 ;; This file is NOT a part of GNU Emacs.
 
-;;; runnging external program OSX based
+;;; License:
 
+;;; Commentary:
+
+;;; Code:
 (defun tunnel ()
   (interactive)
   (start-process "tunnel" "tunnel-msg"
-		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com")
+		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004"
+		 "startx@mut.dlinkddns.com")
   (switch-to-buffer "tunnel-msg"))
 
 (defun vue-vlc ()
@@ -44,14 +50,16 @@
   (call-process "mpv"
 		nil 0 nil
 		"rtsp://mut.dlinkddns.com:554/ch0_1.h264"
-		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top" "--osd-level=0"))
+		"--no-audio" "--framedrop=vo" "--osd-align-x=right"
+		"--osd-align-y=top" "--osd-level=0" "--fs"))
 
 (defun vue-mpv-hd ()
   (interactive)
   (call-process "mpv"
 		nil 0 nil
 		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
-		"--no-audio" "--framedrop=vo" "--osd-align-x=right" "--osd-align-y=top" "--osd-level=0"))
+		"--no-audio" "--framedrop=vo" "--osd-align-x=right"
+		"--osd-align-y=top" "--osd-level=0" "--fs"))
 
 (defun vue ()
   (interactive)
@@ -60,6 +68,7 @@
 (defun vue-hd ()
   (interactive)
   (vue-mpv-hd))
+
 ;;; helper
 
 (make-variable-buffer-local
@@ -67,7 +76,7 @@
    "Wo fuege ich die char zu?"))
 
 (defun wo-looper (n)
-  "wo +n od. -n margin ist 1-16"
+  "Wo +n od. -n margin ist 1-16"
   (if (plusp n)
       (if (equal wo 16)
           (setq wo 1)
@@ -88,7 +97,7 @@
         (aset string i (upcase ele))))))
 
 (defun toggle-case-ascii (n)
-  "input is ascii code, a->A, A->a, sonst gleich"
+  "N is ascii code, a->A, A->a, sonst gleich."
   (cond ((< 96 n 123) (- n 32))
         ((< 64 n 91) (+ n 32))
         (t n)))
@@ -203,7 +212,7 @@
 
 (defun abal (&optional pos)
   (interactive)
-  (let ((pos (or pos 0))) 
+  (let ((pos (or pos 0)))
     (sag pos 128)))
 
 (defun hijack ()
@@ -324,19 +333,19 @@
             (define-key map (kbd "`") 'hijack)
             (define-key map (kbd "~") 'hijack)
             (define-key map (kbd "!") 'hijack)
-            (define-key map (kbd "@") 'hijack)            
+            (define-key map (kbd "@") 'hijack)
             (define-key map (kbd "#") 'hijack)
             (define-key map (kbd "$") 'hijack)
             (define-key map (kbd "%") 'hijack)
-            (define-key map (kbd "^") 'hijack)            
+            (define-key map (kbd "^") 'hijack)
             (define-key map (kbd "&") 'hijack)
             (define-key map (kbd "*") 'hijack)
             (define-key map (kbd "(") 'hijack)
-            (define-key map (kbd ")") 'hijack)            
+            (define-key map (kbd ")") 'hijack)
             (define-key map (kbd "-") 'hijack)
             (define-key map (kbd "_") 'hijack)
             (define-key map (kbd "=") 'hijack)
-            (define-key map (kbd "+") 'hijack)            
+            (define-key map (kbd "+") 'hijack)
             (define-key map (kbd "[") 'hijack)
             (define-key map (kbd "\{") 'hijack) ;
             (define-key map (kbd "]") 'hijack)
@@ -354,7 +363,7 @@
             (define-key map (kbd "/") 'hijack)
             (define-key map (kbd "?") 'hijack)
             
-            (define-key map (kbd "SPC") 'hijack-spc)  
+            (define-key map (kbd "SPC") 'hijack-spc)
             (define-key map (kbd "DEL") 'hijack-del)
             
             (define-key map (kbd "C-a")
@@ -366,7 +375,7 @@
             (define-key map (kbd "C-k")
               (lambda()(interactive)
                 (kill-line)
-                (setq wo 0) 
+                (setq wo 0)
                 (message "DEBUG// C-k, kill-line")))
             
             (define-key map (kbd "<left>")
