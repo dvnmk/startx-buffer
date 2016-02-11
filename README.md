@@ -44,16 +44,16 @@ startx@mut.dlinkddns.com's password: startx
 ### IP CAMERA
 * FROM SHELL
 ``` bash
-$ vlc rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio
+$ mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio
 ```
 * OR, IN Emacs
 ``` common-lisp
 (defun vue ()
   (interactive)
-  (call-process "open"
-		nil 0 nil
-		"-n" "-a" "vlc" "--args"
-		"rtsp://mut.dlinkddns.com:554/ch0_1.h264" "--no-audio"))
+  (call-process-shell-command
+   "open -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio
+   --framedrop=vo"
+   nil 0))
 ``` 
 `M-x vue`
 
