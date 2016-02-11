@@ -3,10 +3,10 @@
 (in-package #:cl-user)
 		     
 ;;; "startx-buffer" goes here. Hacks and glory await!
-;;; DVNMK 2015 (c)
+;;; DVNMK 2015 - 2016 (c)
 ;;;
 ;;; WIRING >>STARTX<< Y COMMON LISP
-;;; FEB. 2015
+;;; SINCE FEB. 2015
 
 (defparameter *startx-ip* "localhost")
 (defparameter *startx-osc-port* 9000)
@@ -14,24 +14,12 @@
 (defparameter *socket-r* nil)
 (defparameter *osc-port-r* 9001)
 
-;;; helper (range)
+;; helper (range)
 (defun range (min max &optional (step 1))
   (when (<= min max)
     (cons min (range (+ min step) max step))))
 
-;;; satz helper
-
-;; (defun toggle-case-old  (string)
-;;   "aBcDe -> AbCdE"
-;;   (do ((i 0 (+ i 1))
-;;         (len (length string))
-;;         (res string))
-;;       ((equal i len) res)
-;;     (let ((ele (aref string i)))
-;;       (if (< (char-code ele) 91)    ; ascii A 65 ~ Z 90, a 97 ~ z 122
-;;           (setf (aref string i) (char-downcase ele))
-;;           (setf (aref string i) (char-upcase ele))))))
-
+;; satz helper
 (defun toggle-case  (string)
   "aBcDe -> (97 ...) -> (65 ...)"
   (let* ((res-list (coerce string 'list))
@@ -42,16 +30,17 @@
 	     (push (+ ele 32) res))
 	    ((< 96 ele 123)
 	     (push (- ele 32) res))
-	    (t (push ele res))))
+ 	    (t (push ele res))))
     (reverse res)))
 
 (defun mach-socket-s ()
-  "FUER BEFEHL"
+  "FUER BEFEHL, SEND"
   (defparameter  *socket-s* (usocket:socket-connect
                                   *startx-ip* *startx-osc-port*
                                   :protocol :datagram
                                   :element-type '(unsigned-byte 8))))
-(defun kill-socket-s ()
+(
+defun kill-socket-s ()
   (usocket:socket-close *socket-s*))
 
 (defun mach-socket-r ()
@@ -182,16 +171,36 @@
   (alle netz tgl))
 
 ;; TODO inklusive (abal)?
-(defun kali (&optional (pos 0) (tgl 1))
+(defun kali-raw (&optional (pos 0) (tgl 1))
   (cond ((listp pos)
          (dolist (ele pos)
            (kali ele tgl)))
         ((zerop pos) (alle null tgl))
-        ((not (null pos))(2startx (each/ pos "null") tgl))
+	(t nil)))
+
+;; TODO THREAD?
+(defun kali (&optional (pos 0) (tgl 1))
+  "kali abal inklusive ver."
+  (cond ((listp pos) (progn (abal pos)
+			    (warte-alle-stop)
+			    (dolist (ele pos)
+			      (kali ele tgl))))
+        ((zerop pos) (progn (abal 0)
+			    (warte-alle-stop)
+			    (alle null tgl)))
+        ((not (null pos)) (progn (abal pos)
+				 (warte pos "stp")
+				 (2startx (each/ pos "null") tgl)))
         (t nil)))
 
+(defun kali-thread ()
+  (process-run-function "kali-t" #'kali))
+
 (defun abal (&optional (pos 0))
-  (s pos 128))	     
+  "pos: 1-16 or. list"
+  (if (listp pos) (dolist (ele pos)
+		    (abal ele))
+      (s pos 128)))	     
 
 ;; CMD
 (defun init ()
@@ -199,14 +208,12 @@
   (feedback-on)
   (osc-router-d "start"))
 
-;; TODO defunize
+;; TODO defunize?
 (defun kredit ()
   (x "   A    by dvnmk")
-  (sleep 0.1)
   (warte-alle-stop)
   (sleep 2)
   (x+ "     G")
-  (sleep 0.1)
   (warte-alle-stop)
   (sleep 2)
   (x-kurz ">startx<ready!AA"))
@@ -217,11 +224,14 @@
   (sleep 1)
   (stm 0 1)
   (sleep 1)
-  (kali 0 1)
+  (kali-raw 0 1)
   (warte "kali" 16)
   (kredit)
   (format t "THE MASCHINE STARTX INITIALIZED, VERMUTE ICH")
   )
+
+(defun startx-thread ()
+  (process-run-function "startx-t" #'startx))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -236,6 +246,9 @@
   (sleep 1)
   (netz 0)
   (format t "AGUR!"))
+
+(defun agur-thread ()
+  (process-run-function "agur-t" #'agur))
 
 (defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)
@@ -453,20 +466,15 @@
 
 (defun warte-alle-stop ( )
   "warte bis alle stop"
+  (sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop, inklusive
   (process-wait "ALLE-WARTE" #'alle-stop-p)
   (format t "GESTOPPT ALLE")
   't)
-;; z.B.
-;; (progn (x-kurz "wualamosimosi")
-;; 		(sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop 
-;; 		(warte-alle-stop))
 
 (defparameter *satz-dauer* 2)
-(defparameter *zwsn* 0.1)
 
 (defun x-warte (∂)
   (progn (x-kurz ∂)
-	 (sleep *zwsn*)
 	 (warte-alle-stop)
 	 (sleep *satz-dauer*)
 	 't))
@@ -498,6 +506,7 @@
 
 ;; clozure warte
 (defun warte (address value)
+  (sleep 0.1)
   (process-wait "WARTE" #'osc-check address value)
   't)
 

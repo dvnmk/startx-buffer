@@ -35,8 +35,8 @@ startx@mut.dlinkddns.com's password: startx
 ``` common-lisp
 (defun tunnel ()
   (interactive)
-  (start-process "tunnel" "tunnel-msg"
-		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com")
+  (start-process "tunnel" "tunnel-msg" 
+  "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004" "startx@mut.dlinkddns.com")
   (switch-to-buffer "tunnel-msg"))
 ```
 `M-x tunnel`
@@ -107,10 +107,9 @@ CL-USER> (startx)      ; start the machine startx
 * (x+ ∂) Y (x- ∂) /M LANGE VERSION
 * ~~(kali 0 1) .el /M &optional~~
 * (startx) IMMER WARTEN OD. ZU THREAD
-* TODO UNICODE EXCEPTION
+* UNICODE EXCEPTION
 ** ASCIIFY?
-* KONTAKT /M TELEGRAM?
-* (kali) WARTE LOCK ; (kali-warte) 
+ * (kali) WARTE LOCK ; (kali-warte) 
 * STALL RESET λ
 * ~~THREAD IN EMACS WIE?~~
 * ~~(IN-PACKAGE #:CL-USER)~~
@@ -121,7 +120,8 @@ CL-USER> (startx)      ; start the machine startx
 * FEEDBACK y (mach-socket) DEBUG, CCL VS VNC 
 * ~~VLC y MPV : WHICH IST BETTER?~~
 * ESCAPE \ KORIGIEREN
-* (call-process-shell-command) DISCOURAGED?
+* ~~(call-process-shell-command) DISCOURAGED?~~
+* (kali) (startx) SOLCHE INTERACTIVE VERSION FUNCTION ALS THREAD OD. N?
 * ~~F3 KEYMAP M/ X-CURRENT-LINE-OR-REGION~~
 * (TOGGLE-CASE)ooj DEBUG
 * ALLE BEENDET-P

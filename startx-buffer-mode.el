@@ -1,5 +1,3 @@
-
-
 ;;; startx-buffer-buffer.el --- a physikal buffer, connecting with the machschine >STARTX< in Emacs -*- lexical-binding: t; -*
 
 ;; Copyright (C) 2015-2016 by dvnmk
@@ -17,49 +15,42 @@
 ;;; Commentary:
 
 ;;; Code:
+
 (defun tunnel ()
   (interactive)
-  (start-process "tunnel" "tunnel-msg"
-		 "sshpass" "-p" "startx" "ssh" "-fNL" "4004:localhost:4004"
-		 "startx@mut.dlinkddns.com")
-  (switch-to-buffer "tunnel-msg"))
+  (start-process-shell-command "tunnel" "*tunnel-msg*"
+   "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com")
+  (switch-to-buffer "*tunnel-msg*"))
 
 (defun vue-vlc ()
   (interactive)
-  (call-process "open"
-		nil 0 nil
-		"-n" "-a" "vlc" "--args"
-		"rtsp://mut.dlinkddns.com:554/ch0_1.h264" "--no-audio"))
+  (call-process-shell-command
+   "open -n -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio"
+   nil 0))
 
 (defun vue-vlc-hd ()
   (interactive)
-  (call-process "open"
-		nil 0 nil
-		"-n" "-a" "vlc" "--args"
-		"rtsp://mut.dlinkddns.com:554/ch0_0.h264" "--no-audio"))
+  (call-process-shell-command
+   "open -n -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio")
+  nil 0)
 
 (defun vue-vlc-audio ()
   (interactive)
-  (call-process "open"
-		nil 0 nil
-		"-a" "vlc" "--args"
-		"rtsp://mut.dlinkddns.com:554/ch0_3.h264"))
+  (call-process-shell-command
+   "open -a vlc --args rtsp://mut.dlinkddns.com:554/ch0_3.h264"
+   nil 0))
 
 (defun vue-mpv ()
   (interactive)
-  (call-process "mpv"
-		nil 0 nil
-		"rtsp://mut.dlinkddns.com:554/ch0_1.h264"
-		"--no-audio" "--framedrop=vo" "--osd-align-x=right"
-		"--osd-align-y=top" "--osd-level=0" "--fs"))
+  (call-process-shell-command
+   "open -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
+   nil 0))
 
 (defun vue-mpv-hd ()
   (interactive)
-  (call-process "mpv"
-		nil 0 nil
-		"rtsp://mut.dlinkddns.com:554/ch0_0.h264"
-		"--no-audio" "--framedrop=vo" "--osd-align-x=right"
-		"--osd-align-y=top" "--osd-level=0" "--fs"))
+  (call-process-shell-command
+   "open -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
+   nil 0))
 
 (defun vue ()
   (interactive)
@@ -112,16 +103,8 @@
   (interactive)
   (slime-eval `(swank::pprint-eval "(kill-socket)")))
 
-;;; global kontrol/ start y end
-(defun agur ()
-  (interactive)
-  (slime-eval `(swank::pprint-eval "(agur)")))
 
-(defun startx ()
-  (interactive)
-  (slime-eval `(swank::pprint-eval "(startx)")))
-
-;;; schreibung
+;; schreibung
 (defun sag (pos ∂)
   "pos : number o. list / ∂ : char? o. ascii dec."
   (interactive)
@@ -135,85 +118,84 @@
     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
 
-(defun send-to-slime (str)
+(defun 2slime (str)
   (cadr (slime-eval `(swank:eval-and-grab-output ,str))))
 
-(defmacro mach-el-fun (fun-name)
-  "make elisp fun from common lisp"
-  `(defun ,fun-name (&optional arg &rest lst)
-     (if arg
-	 (send-to-slime (format "(%s %s)" ',fun-name arg))
-	 (send-to-slime (format "(%s)" ',fun-name))
-	 )))
+;; 
+(defmacro use-defun (fun-name)
+  "Use the same name fun from CL"
+  `(defun ,fun-name (&optional arg1 arg2)
+     (if arg1
+	 (if arg2
+	     (2slime (format "(%s %s %s)" ',fun-name arg1 arg2))
+	   (2slime (format "(%s %s)" ',fun-name arg1)))
+       (2slime (format "(%s)" ',fun-name)))))
 
-;; * TODO
-;; (mach-funz-lst (lst)
-;; 	       )
+(defmacro use-defun-interactive (fun-name)
+  "Use the same name fun from CL"
+  `(defun ,fun-name (&optional arg1 arg2)
+     (interactive)
+     (if arg1
+	   (if arg2
+	       (2slime (format "(%s %s %s)" ',fun-name arg1 arg2))
+	     (2slime (format "(%s %s)" ',fun-name arg1)))
+	 (2slime (format "(%s)" ',fun-name)))))
 
-;; ;; http://stackoverflow.com/questions/22456086/how-to-run-common-lisp-code-with-slime-in-emacs-lisp
-;; (require 'slime)
-;; (defun lispy--eval-lisp (str)
-;;   "Eval STR as Common Lisp code."
-;;   (unless (slime-current-connection)
-;;     (let ((wnd (current-window-configuration)))
-;;       (slime)
-;;       (while (not (and (slime-current-connection)
-;;                        (get-buffer-window (slime-output-buffer))))
-;;         (sit-for 0.2))
-;;       (set-window-configuration wnd)))
-;;   (let (deactivate-mark)
-;;     (cadr (slime-eval `(swank:eval-and-grab-output ,str)))))
+(use-defun x+)
+(use-defun x-)
+(use-defun x)
 
-(defun x (∂)
-  (interactive)
-  (let ((cmd-gen (format "(x \"%s\")" ∂)))
-    (slime-eval `(swank:eval-and-grab-output ,cmd-gen))))
-
-(defun x+ (∂)
-  (interactive)
-  (let ((cmd-gen (format "(x+ \"%s\")" ∂)))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
-
-(defun x- (∂)
-  (interactive)
-  (let ((cmd-gen (format "(x- \"%s\")" ∂)))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
+;;; global kontrol/ start y end
+(use-defun-interactive startx)
+(use-defun-interactive agur)
 
 ;;; kontrol
+(use-defun stm)
+(use-defun netz)
 
-(defun stm (pos tgl)
-  (interactive)
-  (let ((cmd-gen (format "(stm %d %d)" pos tgl)))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
-
-(defun netz (tgl)
-  (interactive)
-  (let ((cmd-gen (format "(netz %d)" tgl)))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
-
-(defun kali (&optional posx tglx)
-  (interactive)
-  (let* ((pos (or posx 0))
-	 (tgl (or tglx 1))
-	(cmd-gen (format "(kali %d %d)" pos tgl)))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
+;; (defun kali (&optional posx tglx)
+;;   (interactive)
+;;   (let* ((pos (or posx 0))
+;; 	 (tgl (or tglx 1))
+;; 	(cmd-gen (format "(kali %d %d)" pos tgl)))
+;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
+(use-defun-interactive kali)
 
 (defun aksel (pos &optional accel-var)
   (interactive)
   (let ((cmd-gen (cond ((listp pos)(format "(aksel '%s)" pos))
                        (t (format "(aksel %d %d)" pos accel-var)))))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
+    (2slime cmd-gen)))
 
 (defun maxi (pos &optional max-spd)
   (interactive)
   (let ((cmd-gen (cond ((listp pos)(format "(maxi '%s)" pos))
                        (t (format "(maxi %d %d)" pos max-spd)))))
-    (slime-eval `(swank::pprint-eval ,cmd-gen))))
+    (2slime cmd-gen)))
 
-(defun abal (&optional pos)
+(use-defun-interactive abal)
+
+(use-defun kredit)
+
+(defun x-line-or-region (arg)
+  (interactive "P")
+  (save-excursion
+    (let* ((beg (if (use-region-p)
+		    (region-beginning)
+		  (line-beginning-position)))
+	   (end (if (use-region-p)
+		    (region-end)
+		  (line-end-position)))
+	   (regioned-str (buffer-substring-no-properties beg end))
+	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
+	   (downcased-str (if arg
+			      replaced-str
+			    (downcase replaced-str))))
+      (x  downcased-str))))
+
+(defun x-line-or-region-raw ()
   (interactive)
-  (let ((pos (or pos 0)))
-    (sag pos 128)))
+  (x-current-line-or-region 't))
 
 (defun hijack ()
   (interactive)
@@ -236,26 +218,6 @@
   (wo-looper 1)
   (message " loc:%d hijack-spc" wo)
   (sag wo 32))
-
-(defun x-current-line-or-region (arg)
-  (interactive "P")
-  (save-excursion
-    (let* ((beg (if (use-region-p)
-		    (region-beginning)
-		  (line-beginning-position)))
-	   (end (if (use-region-p)
-		    (region-end)
-		  (line-end-position)))
-	   (regioned-str (buffer-substring-no-properties beg end))
-	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
-	   (downcased-str (if arg
-			      replaced-str
-			    (downcase replaced-str))))
-      (x  downcased-str))))
-
-(defun x-current-line-or-region-raw ()
-  (interactive)
-  (x-current-line-or-region 't))
 
 ;;;###autoload
 (define-minor-mode startx-buffer-mode
