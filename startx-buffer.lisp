@@ -491,7 +491,9 @@
 	(sonst (subseq ∂ 16) (subseq sonst 16)))
        ((<= (length sonst) 16)
 	(x-warte was)
-	(x-warte sonst))
+	(x-warte sonst)
+	(format t "FER")
+	't)
     (x-warte was)))
 
 (defun x-wu (∂)
