@@ -128,7 +128,7 @@
      (if arg1
 	 (if arg2
 	     (2slime (format "(%s %s %s)" ',fun-name arg1 arg2))
-	   (2slime (format "(%s %s)" ',fun-name arg1)))
+	   (2slime (format "(%s \"%s\")" ',fun-name arg1)))
        (2slime (format "(%s)" ',fun-name)))))
 
 (defmacro use-defun-interactive (fun-name)
@@ -138,12 +138,27 @@
      (if arg1
 	   (if arg2
 	       (2slime (format "(%s %s %s)" ',fun-name arg1 arg2))
-	     (2slime (format "(%s %s)" ',fun-name arg1)))
+	     (2slime (format "(%s \"%s\")" ',fun-name arg1)))
 	 (2slime (format "(%s)" ',fun-name)))))
 
-(use-defun x+)
-(use-defun x-)
-(use-defun x)
+;; (defun x (∂)
+;;   (interactive)
+;;   (let ((cmd-gen (format "(x \"%s\")" ∂)))
+;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
+
+;; (defun x+ (∂)
+;;   (interactive)
+;;   (let ((cmd-gen (format "(x+ \"%s\")" ∂)))
+;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
+
+;; (defun x- (∂)
+;;   (interactive)
+;;   (let ((cmd-gen (format "(x- \"%s\")" ∂)))
+;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
+
+;; (use-defun x+)
+;; (use-defun x-)
+;; (use-defun x)
 
 ;;; global kontrol/ start y end
 (use-defun-interactive startx)
@@ -195,7 +210,7 @@
 
 (defun x-line-or-region-raw ()
   (interactive)
-  (x-current-line-or-region 't))
+  (x-line-or-region 't))
 
 (defun hijack ()
   (interactive)
