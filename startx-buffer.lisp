@@ -39,8 +39,8 @@
                                   *startx-ip* *startx-osc-port*
                                   :protocol :datagram
                                   :element-type '(unsigned-byte 8))))
-(
-defun kill-socket-s ()
+
+(defun kill-socket-s ()
   (usocket:socket-close *socket-s*))
 
 (defun mach-socket-r ()
@@ -66,7 +66,7 @@ defun kill-socket-s ()
           (length (array-dimension buffer 0)))
      (progn
        (usocket:socket-send *SOCKET-S* buffer length)
-       (format t "->"))))
+       (format t "~&<-~%"))))
 
 (defmacro each/ (pos path)
   "osc path helper"
@@ -218,7 +218,7 @@ defun kill-socket-s ()
   (sleep 2)
   (x-kurz ">startx<ready!AA"))
 
-(defun startx ()
+(defun startx-0 ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (netz 1)
   (sleep 1)
@@ -227,28 +227,28 @@ defun kill-socket-s ()
   (kali-raw 0 1)
   (warte "kali" 16)
   (kredit)
-  (format t "THE MASCHINE STARTX INITIALIZED, VERMUTE ICH")
+  (format t "~&THE MASCHINE STARTX INITIALIZED, VERMUTE ICH~%")
   )
 
-(defun startx-thread ()
-  (process-run-function "startx-t" #'startx))
+(defun startx ()
+  (process-run-function "startx-t" #'startx-0))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
   (kali 0 1)
   (warte "kali" 16)
-  (format t "ALLE NULL KALIBRIERT, DENKE ICH."))
+  (format t "~&ALLE NULL KALIBRIERT, DENKE ICH.~%"))
 
-(defun agur ()
+(defun agur-0 ()
   (abal 0)
   (sleep 7)
   (stm 0 0)
   (sleep 1)
   (netz 0)
-  (format t "AGUR!"))
+  (format t "~&AGUR!~%"))
 
-(defun agur-thread ()
-  (process-run-function "agur-t" #'agur))
+(defun agur ()
+  (process-run-function "agur-t" #'agur-0))
 
 (defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)
@@ -439,9 +439,9 @@ defun kill-socket-s ()
                       address-zu-int))
          (gefunden (assoc address *status* :test #'equalp))) 
     (if (null gefunden)
-        (format t "~%OSC ROUTING NOT GEFUNDEN")
+        (format t "~%OSC ROUTING NOT GEFUNDEN~%")
         (progn (rplacd gefunden  value)
-               (format t "~%=> ~S" gefunden)))
+               (format t "~&=> ~S~%" gefunden)))
     gefunden))
 
 (defun osc-router-loop ()
@@ -468,7 +468,7 @@ defun kill-socket-s ()
   "warte bis alle stop"
   (sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop, inklusive
   (process-wait "ALLE-WARTE" #'alle-stop-p)
-  (format t "GESTOPPT ALLE")
+  (format t "~&GESTOPPT ALLE~%")
   't)
 
 (defparameter *satz-dauer* 2)
