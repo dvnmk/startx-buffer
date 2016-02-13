@@ -8,11 +8,12 @@
 ;;; WIRING >>STARTX<< Y COMMON LISP
 ;;; SINCE FEB. 2015
 
-(defparameter *startx-ip* "localhost")
-(defparameter *startx-osc-port* 9000)
-(defparameter *socket-s* nil)
-(defparameter *socket-r* nil)
-(defparameter *osc-port-r* 9001)
+(defvar *startx-ip* "localhost")
+(defvar *osc-port* 9000)
+(defvar *osc-port-r* 9001)
+(defvar *socket-s* nil)
+(defvar *socket-r* nil)
+
 
 ;; helper (range)
 (defun range (min max &optional (step 1))
@@ -36,7 +37,7 @@
 (defun mach-socket-s ()
   "FUER BEFEHL, SEND"
   (defparameter  *socket-s* (usocket:socket-connect
-                                  *startx-ip* *startx-osc-port*
+                                  *startx-ip* *osc-port*
                                   :protocol :datagram
                                   :element-type '(unsigned-byte 8))))
 
@@ -441,7 +442,7 @@
     (if (null gefunden)
         (format t "~%OSC ROUTING NOT GEFUNDEN~%")
         (progn (rplacd gefunden  value)
-               (format t "~&=> ~S~%" gefunden)))
+               (format t "~&-> ~S~%" gefunden)))
     gefunden))
 
 (defun osc-router-loop ()
@@ -468,7 +469,7 @@
   "warte bis alle stop"
   (sleep 0.1) ; braucht zwsn zeit,weil zu schnell die 'warte-alle-stop, inklusive
   (process-wait "ALLE-WARTE" #'alle-stop-p)
-  (format t "~&GESTOPPT ALLE~%")
+  (format t "~&>> GESTOPPT ALLE~%")
   't)
 
 (defparameter *satz-dauer* 2)
@@ -492,7 +493,7 @@
        ((<= (length sonst) 16)
 	(x-warte was)
 	(x-warte sonst)
-	(format t "FER")
+	(format t "~&>> FER~%")
 	't)
     (x-warte was)))
 
@@ -853,4 +854,5 @@
   (seq-15-d "stop")
   (seq-16-d "stop")
   (abal 0))
+
 
