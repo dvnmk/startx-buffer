@@ -1,26 +1,24 @@
-;;;; startx-buffer.lisp
+;;; startx-buffer.lisp
 
-(in-package #:cl-user)
-		     
 ;;; "startx-buffer" goes here. Hacks and glory await!
 ;;; DVNMK 2015 - 2016 (c)
 ;;;
 ;;; WIRING >>STARTX<< Y COMMON LISP
-;;; SINCE FEB. 2015
+;;; AB FEB. 2015
 
+(in-package #:cl-user)
+		     
 (defvar *startx-ip* "localhost")
 (defvar *osc-port* 9000)
 (defvar *osc-port-r* 9001)
 (defvar *socket-s* nil)
 (defvar *socket-r* nil)
 
-
-;; helper (range)
+;; satz 
 (defun range (min max &optional (step 1))
   (when (<= min max)
     (cons min (range (+ min step) max step))))
 
-;; satz helper
 (defun toggle-case  (string)
   "aBcDe -> (97 ...) -> (65 ...)"
   (let* ((res-list (coerce string 'list))
@@ -109,7 +107,7 @@
   (s 0 ∂str-or-char))
 
 (defun x+ (string)
-  "No sigma (each-char) ver. einfach alle overwrite, no input each -> blanko"
+  "x relative overwrite ver. blanko las das so"
   (let* ((res (make-list 16 :initial-element nil))
          (lst (toggle-case string))
          (res (sublis '((32 . NIL)) (replace res lst))))
@@ -117,10 +115,10 @@
       (s 1 (nth 0 res)) (s 2 (nth 1 res)) (s 3 (nth 2 res)) (s 4 (nth 3 res))
       (s 5 (nth 4 res)) (s 6 (nth 5 res)) (s 7 (nth 6 res)) (s 8 (nth 7 res))
       (s 9 (nth 8 res)) (s 10 (nth 9 res)) (s 11 (nth 10 res)) (s 12 (nth 11 res))
-      (s 13 (nth 12 res)) (s 14 (nth 13 res)) (s 15 (nth 14 res)) (s 16 (nth 15 res))
-      )))
+      (s 13 (nth 12 res)) (s 14 (nth 13 res)) (s 15 (nth 14 res)) (s 16 (nth 15 res)))))
 
 (defmacro x- (string)
+  "x absoute overwrite ver. blanko zu blanko"
   "nur input existing each to change"
   (let* ((res (toggle-case string))
          (forms (mapcar (lambda (x) `,x) res)))

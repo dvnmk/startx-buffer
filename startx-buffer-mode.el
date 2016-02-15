@@ -156,9 +156,9 @@
 ;;   (let ((cmd-gen (format "(x- \"%s\")" ∂)))
 ;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-;; (use-defun x+)
-;; (use-defun x-)
-;; (use-defun x)
+(use-defun x+)
+(use-defun x-)
+(use-defun x)
 
 ;;; global kontrol/ start y end
 (use-defun-interactive startx)
@@ -174,7 +174,12 @@
 ;; 	 (tgl (or tglx 1))
 ;; 	(cmd-gen (format "(kali %d %d)" pos tgl)))
 ;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
+
 (use-defun-interactive kali)
+
+(use-defun-interactive abal)
+
+(use-defun kredit)
 
 (defun aksel (pos &optional accel-var)
   (interactive)
@@ -188,11 +193,10 @@
                        (t (format "(maxi %d %d)" pos max-spd)))))
     (2slime cmd-gen)))
 
-(use-defun-interactive abal)
 
-(use-defun kredit)
-
-(defun x-line-or-region (arg)
+(defun xm (arg)
+"xmark, x-current-line-or-region
+if ARG not null, case sensitive"
   (interactive "P")
   (save-excursion
     (let* ((beg (if (use-region-p)
@@ -208,9 +212,10 @@
 			    (downcase replaced-str))))
       (x  downcased-str))))
 
-(defun x-line-or-region-raw ()
+(defun xr ()
+  "xraw, x-current-line-or-region,  but case sensitive, w/o case-toggle"
   (interactive)
-  (x-line-or-region 't))
+  (xm 't))
 
 (defun hijack ()
   (interactive)
@@ -237,10 +242,10 @@
 ;;;###autoload
 (define-minor-mode startx-buffer-mode
   "connecting with the machschine >STARTX< in Emacs"
-  :lighter " sx-b"
+  :lighter " (X)"
   :keymap (let ((map (make-sparse-keymap)))
-	    (define-key map (kbd "<f3>") 'x-current-line-or-region)
-	    (define-key map (kbd "<M-f3>") 'x-current-line-or-region-raw)
+	    (define-key map (kbd "<f3>") #'xm)
+	    (define-key map (kbd "<M-f3>") #'xr)
 
             (define-key map (kbd "1") 'hijack)
             (define-key map (kbd "2") 'hijack)
