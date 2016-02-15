@@ -141,22 +141,6 @@
 	     (2slime (format "(%s \"%s\")" ',fun-name arg1)))
 	 (2slime (format "(%s)" ',fun-name)))))
 
-;; (defun x (∂)
-;;   (interactive)
-;;   (let ((cmd-gen (format "(x \"%s\")" ∂)))
-;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
-
-;; (defun x+ (∂)
-;;   (interactive)
-;;   (let ((cmd-gen (format "(x+ \"%s\")" ∂)))
-;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
-
-;; (defun x- (∂)
-;;   (interactive)
-;;   (let ((cmd-gen (format "(x- \"%s\")" ∂)))
-;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
-
-
 ;; TODO *output* od. mini-buffer weiterleiten
 ;; echo area sync, (message) hack 
 
@@ -165,6 +149,10 @@
 (use x-)
 (use x)
 (use a)
+
+(defun use-lst (lst)
+  "use function arg as list"
+  )
 
 ;;; global kontrol/ start y end
 (use-i startx)
