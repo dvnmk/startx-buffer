@@ -65,7 +65,8 @@
           (length (array-dimension buffer 0)))
      (progn
        (usocket:socket-send *SOCKET-S* buffer length)
-       (format t "~&<-~%"))))
+      (format t "~&<-~%")
+       )))  
 
 (defmacro each/ (pos path)
   "osc path helper"
@@ -193,7 +194,7 @@
         (t nil)))
 
 (defun kali-thread ()
-  (process-run-function "kali-t" #'kali))
+  (process-run-function "kali-thread" #'kali))
 
 (defun abal (&optional (pos 0))
   "pos: 1-16 or. list"
@@ -230,7 +231,7 @@
   )
 
 (defun startx ()
-  (process-run-function "startx-t" #'startx-0))
+  (process-run-function "startx-thread" #'startx-0))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -247,7 +248,7 @@
   (format t "~&AGUR!~%"))
 
 (defun agur ()
-  (process-run-function "agur-t" #'agur-0))
+  (process-run-function "agur-thread" #'agur-0))
 
 (defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)
@@ -440,7 +441,8 @@
     (if (null gefunden)
         (format t "~%OSC ROUTING NOT GEFUNDEN~%")
         (progn (rplacd gefunden  value)
-               (format t "~&-> ~S~%" gefunden)))
+               (format t "~&-> ~S~%" gefunden)
+	       ))
     gefunden))
 
 (defun osc-router-loop ()
