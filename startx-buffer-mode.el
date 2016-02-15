@@ -121,8 +121,8 @@
 (defun 2slime (str)
   (cadr (slime-eval `(swank:eval-and-grab-output ,str))))
 
-;; 
-(defmacro use-defun (fun-name)
+;; TODO name abkuerzung
+(defmacro use (fun-name)
   "Use the same name fun from CL"
   `(defun ,fun-name (&optional arg1 arg2)
      (if arg1
@@ -131,8 +131,8 @@
 	   (2slime (format "(%s \"%s\")" ',fun-name arg1)))
        (2slime (format "(%s)" ',fun-name)))))
 
-(defmacro use-defun-interactive (fun-name)
-  "Use the same name fun from CL"
+(defmacro use-i (fun-name)
+  "Use the same name fun with interactive from CL"
   `(defun ,fun-name (&optional arg1 arg2)
      (interactive)
      (if arg1
@@ -156,17 +156,23 @@
 ;;   (let ((cmd-gen (format "(x- \"%s\")" ∂)))
 ;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(use-defun x+)
-(use-defun x-)
-(use-defun x)
+
+;; TODO *output* od. mini-buffer weiterleiten
+;; echo area sync, (message) hack 
+
+;; TODO arg als list
+(use x+)
+(use x-)
+(use x)
+(use a)
 
 ;;; global kontrol/ start y end
-(use-defun-interactive startx)
-(use-defun-interactive agur)
+(use-i startx)
+(use-i agur)
 
 ;;; kontrol
-(use-defun stm)
-(use-defun netz)
+(use stm)
+(use netz)
 
 ;; (defun kali (&optional posx tglx)
 ;;   (interactive)
@@ -175,11 +181,11 @@
 ;; 	(cmd-gen (format "(kali %d %d)" pos tgl)))
 ;;     (slime-eval `(swank::pprint-eval ,cmd-gen))))
 
-(use-defun-interactive kali)
+(use-i kali)
 
-(use-defun-interactive abal)
+(use-i abal)
 
-(use-defun kredit)
+(use kredit)
 
 (defun aksel (pos &optional accel-var)
   (interactive)
@@ -195,7 +201,7 @@
 
 
 (defun xm (arg)
-"xmark, x-current-line-or-region
+"xMark, send current-line-or-region to startx-buffer
 if ARG not null, case sensitive"
   (interactive "P")
   (save-excursion
@@ -213,7 +219,8 @@ if ARG not null, case sensitive"
       (x  downcased-str))))
 
 (defun xr ()
-  "xraw, x-current-line-or-region,  but case sensitive, w/o case-toggle"
+  "xRaw, send current-line-or-region to startx-buffer,
+  but case sensitive, w/o case-toggle"
   (interactive)
   (xm 't))
 
