@@ -78,7 +78,7 @@ CL-USER> (startx)      ; start the machine startx
 * `C-a`				; move-beginning-of-\*startx-buffer\*
 * `C-k`				; kill-rest in \*startx-buffer\*
 * `<backspace>`		; backward-delete-char in \*startx-buffer\*
-* `M-x xm` `<f3>`   ; send currnet line or region to \*startx-buffer\*
+* `M-x xm` `C-c m`   ; send currnet line or region to \*startx-buffer\*
 
 ``` common-lisp
 (x "foo")   ; send "foo             " to *startx-buffer*
@@ -108,6 +108,15 @@ CL-USER> (startx)      ; start the machine startx
 * STALL RESET λ
 * FEEDBACK y (mach-socket) DEBUG, CCL VS VNC 
 * ESCAPE \ KORIGIEREN
-* (kali) (startx) SOLCHE INTERACTIVE VERSION FUNCTION ALS THREAD OD. N?
+* (kali) (startx) SOLCHE INTERACTIVE VER. FUNCTION ALS THREAD OD. N?
 * ALLE BEENDET-P
 * SHORT-STORY
+* ESCAPE-CHARACTER \
+
+* LOAD SYNOPSYS
+* REMOTE ANIMOTE POETERY M
+* REMOTE GEHIRN ZEI
+* BABELFISH
+* BEWEG SICH
+* SAG
+* XM DANACH, WO KONTROL

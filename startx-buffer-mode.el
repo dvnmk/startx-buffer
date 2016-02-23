@@ -18,7 +18,7 @@
 
 (defun tunnel ()
   (interactive)
-  (start-process-shell-command "tunnel" "*tunnel-msg*"
+  (start-process-shell-command "TUNNEL" "*tunnel-msg*"
    "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com")
   (switch-to-buffer "*tunnel-msg*"))
 
@@ -43,22 +43,22 @@
 (defun vue-mpv ()
   (interactive)
   (call-process-shell-command
-   "open -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
+   "/Applications/mpv.app/Contents/MacOS/mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio  --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
    nil 0))
 
 (defun vue-mpv-hd ()
   (interactive)
   (call-process-shell-command
-   "open -a mpv --args rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
+   "/Applications/mpv.app/Contents/MacOS/mpv rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
    nil 0))
 
 (defun vue ()
   (interactive)
-  (vue-mpv))
+  (vue-mpv-hd))
 
 (defun vue-hd ()
   (interactive)
-  (vue-mpv-hd))
+  (vue-mpv))
 
 ;;; helper
 
@@ -121,7 +121,6 @@
 (defun 2slime (str)
   (cadr (slime-eval `(swank:eval-and-grab-output ,str))))
 
-;; TODO name abkuerzung
 (defmacro use (fun-name)
   "Use the same name fun from CL"
   `(defun ,fun-name (&optional arg1 arg2)
@@ -143,6 +142,7 @@
 
 ;; TODO *output* od. mini-buffer weiterleiten
 ;; echo area sync, (message) hack 
+;; TODO escape-character
 
 ;; TODO arg als list
 (use x+)
@@ -152,7 +152,8 @@
 
 (defun use-lst (lst)
   "use function arg as list"
-  )
+  (dolist (el lst) ; el ist zu eval, so not work
+    (use el)))
 
 ;;; global kontrol/ start y end
 (use-i startx)
@@ -187,7 +188,7 @@
                        (t (format "(maxi %d %d)" pos max-spd)))))
     (2slime cmd-gen)))
 
-
+;; WORK
 (defun xm (arg)
 "xMark, send current-line-or-region to startx-buffer
 if ARG not null, case sensitive"
@@ -203,7 +204,10 @@ if ARG not null, case sensitive"
 	   (replaced-str (replace-regexp-in-string "\"" "\\\\\"" regioned-str))
 	   (downcased-str (if arg
 			      replaced-str
-			    (downcase replaced-str))))
+			      ;; regioned-str
+			    ;; (downcase regioned-str)
+			    (downcase replaced-str)
+			    )))
       (x  downcased-str))))
 
 (defun xr ()
@@ -239,8 +243,8 @@ if ARG not null, case sensitive"
   "connecting with the machschine >STARTX< in Emacs"
   :lighter " (X)"
   :keymap (let ((map (make-sparse-keymap)))
-	    (define-key map (kbd "<f3>") #'xm)
-	    (define-key map (kbd "<M-f3>") #'xr)
+	    (define-key map (kbd "C-c m") #'xm)
+	    (define-key map (kbd "C-c r") #'xr)
 
             (define-key map (kbd "1") 'hijack)
             (define-key map (kbd "2") 'hijack)

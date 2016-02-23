@@ -65,8 +65,8 @@
           (length (array-dimension buffer 0)))
      (progn
        (usocket:socket-send *SOCKET-S* buffer length)
-      (format t "~&<-~%")
-       )))  
+      (format t " <- ")
+       )))
 
 (defmacro each/ (pos path)
   "osc path helper"
@@ -216,7 +216,7 @@
   (x+ "     G")
   (warte-alle-stop)
   (sleep 2)
-  (x-kurz ">startx<ready!AA"))
+  (x-kurz ">startx<ready:AA"))
 
 (defun startx-0 ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -441,7 +441,7 @@
     (if (null gefunden)
         (format t "~%OSC ROUTING NOT GEFUNDEN~%")
         (progn (rplacd gefunden  value)
-               (format t "~&-> ~S~%" gefunden)
+               (format t " ->~S" gefunden)
 	       ))
     gefunden))
 
