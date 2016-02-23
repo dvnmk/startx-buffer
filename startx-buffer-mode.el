@@ -43,13 +43,13 @@
 (defun vue-mpv ()
   (interactive)
   (call-process-shell-command
-   "/Applications/mpv.app/Contents/MacOS/mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio  --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
+   "/Applications/mpv.app/Contents/MacOS/mpv rtsp://mut.dlinkddns.com:554/ch0_1.h264 --no-audio  --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0 --title '»STARTX«'"
    nil 0))
 
 (defun vue-mpv-hd ()
   (interactive)
   (call-process-shell-command
-   "/Applications/mpv.app/Contents/MacOS/mpv rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0"
+   "/Applications/mpv.app/Contents/MacOS/mpv rtsp://mut.dlinkddns.com:554/ch0_0.h264 --no-audio --framedrop=vo --fs --osd-align-x=right --osd-align-y=top --osd-level=0 --title '»STARTX«'"
    nil 0))
 
 (defun vue ()
