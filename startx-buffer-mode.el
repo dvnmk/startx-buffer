@@ -1,4 +1,4 @@
-;;; startx-buffer-buffer.el --- a physikal buffer, connecting with the machschine >STARTX< in Emacs -*- lexical-binding: t; -*
+;;; startx-buffer-buffer.el --- a physikal buffer, connecting with the machschine >>STARTX<< in Emacs -*- lexical-binding: t; -*
 
 ;; Copyright (C) 2015-2016 by dvnmk
 ;;
@@ -54,11 +54,11 @@
 
 (defun vue ()
   (interactive)
-  (vue-mpv-hd))
+  (vue-mpv))
 
 (defun vue-hd ()
   (interactive)
-  (vue-mpv))
+  (vue-mpv-hd))
 
 ;;; helper
 
