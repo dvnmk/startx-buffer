@@ -95,7 +95,7 @@ CL-USER> (startx)      ; start the machine startx
 <!-- * "THE LIBRARY OF BABEL BY JORGE LUIS BORGES" GELESEN. -->
 
 ## DEMO
-[![Alt text for your video](http://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://vimeo.com/156511089)
+[![foto](media/startx-buffer-vimeo-shot.png)](https://vimeo.com/bacq/startx-buffer)
 
 ## TODO
 * HIDDEN COMMAND ZU DOCUMENTATION
