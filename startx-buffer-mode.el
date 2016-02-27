@@ -3,14 +3,15 @@
 ;; Copyright (C) 2015-2016 by dvnmk
 ;;
 ;; Author: dvnmk <divinomok@gmail.com>
-;; URL: http://github.com/dvnmk/startx-buffer
+;; URL: https://github.com/dvnmk/startx-buffer
+;; DEMO: https://vimeo.com/bacq/startx-buffer
 ;; Keywords: buffer, physical
-;; Linzen: WDW (Wie Du Willst)
 ;; Version: minus-moebius
 
 ;; This file is NOT a part of GNU Emacs.
 
 ;;; License:
+;; You can redistribute this program and/or modify it under the terms of the GNU General Public License version 2.
 
 ;;; Commentary:
 

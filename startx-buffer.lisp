@@ -1,10 +1,13 @@
 ;;; startx-buffer.lisp
 
-;;; "startx-buffer" goes here. Hacks and glory await!
-;;; DVNMK 2015 - 2016 (c)
-;;;
-;;; WIRING >>STARTX<< Y COMMON LISP
-;;; AB FEB. 2015
+;; "startx-buffer" goes here. Hacks and glory await!
+;; DVNMK 2015 - 2016 (c)
+;;
+;; WIRING >>STARTX<< Y COMMON LISP
+;; AB FEB. 2015
+;; URL: https://github.com/dvnmk/startx-buffer
+;; DEMO: https://vimeo.com/bacq/startx-buffer
+;; License: The Artistic License 2.0
 
 (in-package #:cl-user)
 		     
