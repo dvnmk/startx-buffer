@@ -77,7 +77,7 @@ CL-USER> (startx)      ; start the machine startx
 ```
 * <kbd> C-a </kbd>				; move-beginning-of-\*startx-buffer\*
 * <kbd> C-k </kbd>				; kill-rest in \*startx-buffer\*
-* <kbd> <backspace> </kbd>		; backward-delete-char in \*startx-buffer\*
+* <kbd> DEL </kbd>		; backward-delete-char in \*startx-buffer\*
 * <kbd> M-x xm </kbd>, <kbd> C-c m </kbd>   ; send currnet line or region to \*startx-buffer\*
 
 ``` common-lisp
