@@ -78,7 +78,7 @@ CL-USER> (startx)      ; start the machine startx
 * `C-a`				; move-beginning-of-\*startx-buffer\*
 * `C-k`				; kill-rest in \*startx-buffer\*
 * `<backspace>`		; backward-delete-char in \*startx-buffer\*
-* `M-x xm` `C-c m`   ; send currnet line or region to \*startx-buffer\*
+* `M-x xm`, `C-c m`   ; send currnet line or region to \*startx-buffer\*
 
 ``` common-lisp
 (x "foo")   ; send "foo             " to *startx-buffer*
@@ -96,6 +96,7 @@ CL-USER> (startx)      ; start the machine startx
 
 ## DEMO
 [![foto](media/startx-buffer-vimeo-shot.png)](https://vimeo.com/bacq/startx-buffer)
+https://vimeo.com/bacq/startx-buffer
 
 ## TODO
 * HIDDEN COMMAND ZU DOCUMENTATION
