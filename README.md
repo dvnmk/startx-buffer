@@ -70,7 +70,6 @@ CL-USER>
 
 <kbd> M-x startx-buffer-mode </kbd>
 * FROM NOW YOU CAN HACK THE PHYSIKAL BUFFER \*STARTX-BUFFER\*
-* AFTER LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur).
 
 ## COMMAND
 ```
@@ -80,6 +79,8 @@ CL-USER> (startx)      ; start the machine startx
 * <kbd> C-k </kbd>				; kill-rest in \*startx-buffer\*
 * <kbd> DEL </kbd>		; backward-delete-char in \*startx-buffer\*
 * <kbd> M-x xm </kbd>, <kbd> C-c m </kbd>   ; send currnet line or region to \*startx-buffer\*
+
+### ! BEFORE LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur) !
 
 ``` common-lisp
 (x "foo")   ; send "foo             " to *startx-buffer*
