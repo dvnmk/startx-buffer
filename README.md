@@ -87,7 +87,7 @@ CL-USER> (startx)      ; start the machine startx
 (agur)      ; turn off the maschine
 ```
 
-### ! BEFORE LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur) !
+## !!! BEFORE LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur) !!!
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
