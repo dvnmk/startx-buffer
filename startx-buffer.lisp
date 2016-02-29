@@ -233,8 +233,11 @@
   (format t "~&THE MASCHINE STARTX INITIALIZED, VERMUTE ICH~%")
   )
 
-(defun startx ()
+(defun startx-async ()
   (process-run-function "startx-thread" #'startx-0))
+
+(defun startx ()
+  (startx-0))
 
 (defun kali-warte ()
   (setf (cdr (assoc "kali" *status* :test #'equalp)) 10)
@@ -250,8 +253,11 @@
   (netz 0)
   (format t "~&AGUR!~%"))
 
-(defun agur ()
+(defun agur-async ()
   (process-run-function "agur-thread" #'agur-0))
+
+(defun agur ()
+  (agur-0))
 
 (defun foo (stepper-lst abs &optional maxi-x aksel-x)
   (progn (maxi stepper-lst maxi-x)

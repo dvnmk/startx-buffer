@@ -157,8 +157,10 @@
     (use el)))
 
 ;;; global kontrol/ start y end
-(use-i startx)
-(use-i agur)
+;; (use-i startx)
+;; (use-i agur)
+(use-i startx-async)
+(use-i agur-async)
 
 ;;; kontrol
 (use stm)
