@@ -98,6 +98,7 @@ CL-USER> (startx)      ; start the machine startx
 
 ## DEMO
 [![foto](media/startx-buffer-vimeo-shot.png)](https://vimeo.com/bacq/startx-buffer)
+
 https://vimeo.com/bacq/startx-buffer
 
 ## TODO
