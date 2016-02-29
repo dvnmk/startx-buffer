@@ -450,7 +450,7 @@
     (if (null gefunden)
         (format t "~%OSC ROUTING NOT GEFUNDEN~%")
         (progn (rplacd gefunden  value)
-               (format t " ->~S" gefunden)
+               (format t "~& -> ~S~%" gefunden)
 	       ))
     gefunden))
 
