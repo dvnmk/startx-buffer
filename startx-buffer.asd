@@ -6,7 +6,7 @@
 * REAL TIME KEYINPUT HIJACKER FROM EMACS TO THE STARTX
 "
   :author "dvnmk <divinomok@gmail.com>"
-  :license "W-D-W (Wie du willst) license"
+  :license  "The Artistic License 2.0"
   :serial t
   :depends-on (#:osc #:usocket)
   :components ((:file "package")
