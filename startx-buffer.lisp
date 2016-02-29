@@ -233,7 +233,7 @@
   (format t "~&THE MASCHINE STARTX INITIALIZED, VERMUTE ICH~%")
   )
 
-(defun startx-async ()
+(defun startx-a ()
   (process-run-function "startx-thread" #'startx-0))
 
 (defun startx ()
@@ -253,7 +253,7 @@
   (netz 0)
   (format t "~&AGUR!~%"))
 
-(defun agur-async ()
+(defun agur-a ()
   (process-run-function "agur-thread" #'agur-0))
 
 (defun agur ()
