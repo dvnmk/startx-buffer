@@ -80,14 +80,14 @@ CL-USER> (startx)      ; start the machine startx
 * <kbd> DEL </kbd>		; backward-delete-char in \*startx-buffer\*
 * <kbd> M-x xm </kbd>, <kbd> C-c m </kbd>   ; send currnet line or region to \*startx-buffer\*
 
-### ! BEFORE LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur) !
-
 ``` common-lisp
 (x "foo")   ; send "foo             " to *startx-buffer*
 (a "f")     ; send "ffffffffffffffff" to *startx-buffer*
 (kali)      ; calibrate *startx-buffer* again 
 (agur)      ; turn off the maschine
 ```
+
+### ! BEFORE LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur) !
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
 <!-- ![foto](media/startx-theatre.png) -->
