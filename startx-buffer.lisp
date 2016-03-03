@@ -483,16 +483,16 @@
 
 ;; idle timer
 ;; 2startx ; -> ; sending cmd ; etwas bewegung ; postpone the timer weiter
-(defparameter *agur-time* 5)
+(defparameter *agur-time* (* 1 60))
 
 (defun agur-tmp ()
   ;; (x "triggert")
-  (format t "~&>>agur-tmp triggert"))
+  (format t "~&>> agur-tmp triggert~%"))
 
-(defparameter *agur-timer* (trivial-timers:make-timer #'agur-tmp))
+(defparameter *agur-timer* (trivial-timers:make-timer #'agur))
 
 (defun agur-timer-ein ()
-  (progn (format t "agur-timer-eint")
+  (progn (format t "~&>> agur-timer-eint~%")
 	 (trivial-timers:schedule-timer *agur-timer* *agur-time*)))
 
 (defun tl ()
