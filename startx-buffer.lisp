@@ -68,8 +68,8 @@
           (length (array-dimension buffer 0)))
      (progn
        (usocket:socket-send *SOCKET-S* buffer length)
-      (format t " <- ")
-       )))
+       (format t " <- ")
+       (agur-timer-ein)       )))
 
 (defmacro each/ (pos path)
   "osc path helper"
@@ -480,6 +480,23 @@
   (process-wait "ALLE-WARTE" #'alle-stop-p)
   (format t "~&>> GESTOPPT ALLE~%")
   't)
+
+;; idle timer
+;; 2startx ; -> ; sending cmd ; etwas bewegung ; postpone the timer weiter
+(defparameter *agur-time* 5)
+
+(defun agur-tmp ()
+  (x "triggert")
+  (format t "~&>>agur-tmp triggert"))
+
+(defparameter *agur-timer* (trivial-timers:make-timer #'agur-tmp))
+
+(defun agur-timer-ein ()
+  (progn (format t "agur-timer-eint")
+	 (trivial-timers:schedule-timer *agur-timer* *agur-time*)))
+
+(defun tl ()
+  (trivial-timers:list-all-timers))
 
 (defparameter *satz-dauer* 2)
 

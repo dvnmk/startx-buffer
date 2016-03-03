@@ -211,7 +211,8 @@ if ARG not null, case sensitive"
 			    ;; (downcase regioned-str)
 			    (downcase replaced-str)
 			    )))
-      (x  downcased-str))))
+      (x  downcased-str)
+      (message "(xm) ; send current-line-or-region to startx-buffer"))))
 
 (defun xr ()
   "xRaw, send current-line-or-region to startx-buffer,

@@ -8,7 +8,7 @@
   :author "dvnmk <divinomok@gmail.com>"
   :license  "The Artistic License 2.0"
   :serial t
-  :depends-on (#:osc #:usocket)
+  :depends-on (#:osc #:usocket #:trivial-timers)
   :components ((:file "package")
                (:file "startx-buffer")))
 
