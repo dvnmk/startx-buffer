@@ -486,7 +486,7 @@
 (defparameter *agur-time* 5)
 
 (defun agur-tmp ()
-  (x "triggert")
+  ;; (x "triggert")
   (format t "~&>>agur-tmp triggert"))
 
 (defparameter *agur-timer* (trivial-timers:make-timer #'agur-tmp))
