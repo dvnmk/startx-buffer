@@ -69,7 +69,8 @@
      (progn
        (usocket:socket-send *SOCKET-S* buffer length)
        (format t " <- ")
-       (agur-timer-ein)       )))
+       ;; (agur-timer-ein)
+       )))
 
 (defmacro each/ (pos path)
   "osc path helper"
