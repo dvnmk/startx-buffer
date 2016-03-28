@@ -17,6 +17,8 @@
 (defvar *socket-s* nil)
 (defvar *socket-r* nil)
 
+(setq *print-pretty* t)
+
 ;; satz 
 (defun range (min max &optional (step 1))
   (when (<= min max)
