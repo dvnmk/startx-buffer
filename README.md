@@ -88,7 +88,7 @@ CL-USER> (startx)      ; start the machine startx
 ```
 
 ## !!! BEFORE LEAVE THE MACHINE, PLEASE TURN OFF IT VIA (agur) !!!
-* DON'T STOP THE REMOTE SWANK SERVER PROCESS VIA (SAYONARA).
+* DON'T STOP THE REMOTE SWANK SERVER PROCESS VIA (quit) or (sayonara).
 * JUST 1. (AGUR) 2. <kbd>M-x slime-disconnect</kbd>.
 
 <!-- ## STARTX-THEATRE IS A REMOTE LIVE THEATRE ENVIRONMENT, -->
