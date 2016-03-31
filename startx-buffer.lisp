@@ -233,8 +233,7 @@
   (kali-raw 0 1)
   (warte "kali" 16)
   (kredit)
-  (format t "~&THE MASCHINE STARTX INITIALIZED, VERMUTE ICH~%")
-  )
+  (format t "~& \"HALLOSCHEN,~%   THE MASCHINE STARTX INITIALIZED, VERMUTE ICH.\"~%"))
 
 (defun startx-a ()
   (process-run-function "startx-thread" #'startx-0))
