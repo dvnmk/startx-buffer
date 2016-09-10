@@ -41,6 +41,7 @@ startx@mut.dlinkddns.com's password: startx
 <kbd> M-x tunnel </kbd>
 
 ```
+(in mini-buffer)
 ssh Password: startx
 ```
 
