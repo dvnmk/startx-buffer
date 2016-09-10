@@ -19,8 +19,7 @@
 
 (defun tunnel ()
   (interactive)
-  (eshell-command "TUNNEL" "*tunnel-msg*"
-   "ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com"))
+  (eshell-command "ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com"))
 
 (defun vue-vlc ()
   (interactive)
