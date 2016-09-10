@@ -19,9 +19,8 @@
 
 (defun tunnel ()
   (interactive)
-  (start-process-shell-command "TUNNEL" "*tunnel-msg*"
-   "sshpass -p startx ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com")
-  (switch-to-buffer "*tunnel-msg*"))
+  (eshell-command "TUNNEL" "*tunnel-msg*"
+   "ssh -fNL 4004:localhost:4004 startx@mut.dlinkddns.com"))
 
 (defun vue-vlc ()
   (interactive)
