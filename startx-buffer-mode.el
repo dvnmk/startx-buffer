@@ -67,7 +67,7 @@
 
 (defun wo-looper (n)
   "Wo +n od. -n margin ist 1-16"
-  (if (plusp n)
+  (if (cl-plusp n)
       (if (equal wo 16)
           (setq wo 1)
         (setq wo (+ wo n)))
@@ -109,7 +109,7 @@
   (interactive)
   (let* ((pos-res (if (numberp pos)(number-to-string pos)
                     (format "'%s" pos)))
-         (cmd-gen (concatenate 'string
+         (cmd-gen (cl-concatenate 'string
                                "(s" " "
                                pos-res " "
                                (number-to-string ∂)
@@ -348,6 +348,7 @@ if ARG not null, case sensitive"
             
             (define-key map (kbd "SPC") 'hijack-spc)
             (define-key map (kbd "DEL") 'hijack-del)
+            (define-key map (kbd "<backspace>") 'hijack-del)
             
             (define-key map (kbd "C-a")
               (lambda()(interactive)
