@@ -17,7 +17,7 @@
 
 ### INSTALLATION
 ```
-(setq slime-contribs '(slime-fancy)) ; minimum setup 
+(setq slime-contribs '(slime-fancy)) ; minimum setup for slime
 
 (add-to-list 'load-path "path/to/startx-buffer/")
 (require 'startx-buffer-mode)
